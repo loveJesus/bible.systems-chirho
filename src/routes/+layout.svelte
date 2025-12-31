@@ -1,12 +1,13 @@
 <!-- For God so loved the world, that He gave His only begotten Son,
      that all who believe in Him should not perish but have everlasting life. — John 3:16 -->
 
-<script lang="ts">
+<script>
 	import '../app.css';
+	import FeedbackBubbleChirho from '$lib/components/FeedbackBubbleChirho.svelte';
 	let { children } = $props();
 </script>
 
-<div class="min-h-screen bg-slate-950 text-white">
+<div class="min-h-screen bg-slate-950 text-white flex flex-col">
 	<header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
 		<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="flex items-center justify-between h-16">
@@ -17,18 +18,76 @@
 					<span class="text-xl font-bold text-gradient-gold">Bible.Systems</span>
 				</a>
 				<div class="flex items-center gap-6">
+					<a href="/features-fe" class="text-slate-400 hover:text-amber-400 text-sm hidden sm:block">Features</a>
+					<a href="/contact-fe" class="text-slate-400 hover:text-amber-400 text-sm hidden sm:block">Contact</a>
 					<a href="https://stack.faith" class="text-slate-400 hover:text-amber-400 text-sm">FaithStack</a>
 				</div>
 			</div>
 		</nav>
 	</header>
 
-	<main class="pt-16">
+	<main class="pt-16 flex-1">
 		{@render children()}
 	</main>
 
-	<footer class="bg-slate-900 border-t border-slate-800 py-8 text-center">
-		<p class="text-amber-400 font-semibold mb-2">JESUS CHRIST IS LORD</p>
-		<p class="text-slate-500 text-sm">Part of <a href="https://stack.faith" class="text-amber-400 hover:underline">FaithStack</a></p>
+	<footer class="bg-slate-900 border-t border-slate-800 py-12">
+		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+			<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+				<!-- Brand -->
+				<div class="col-span-2 md:col-span-1">
+					<div class="flex items-center gap-2 mb-4">
+						<span class="text-2xl">📖</span>
+						<span class="text-lg font-bold text-gradient-gold">Bible.Systems</span>
+					</div>
+					<p class="text-slate-400 text-sm">
+						Comprehensive Bible study platform with cross-references, original languages, and API access.
+					</p>
+				</div>
+
+				<!-- Resources -->
+				<div>
+					<h4 class="text-white font-semibold mb-4">Resources</h4>
+					<ul class="space-y-2">
+						<li><a href="/features-fe" class="text-slate-400 hover:text-amber-400 text-sm">Feature Requests</a></li>
+						<li><a href="https://github.com/loveJesus/bible.systems-chirho" class="text-slate-400 hover:text-amber-400 text-sm">GitHub</a></li>
+						<li><a href="https://stack.faith" class="text-slate-400 hover:text-amber-400 text-sm">FaithStack</a></li>
+					</ul>
+				</div>
+
+				<!-- Legal -->
+				<div>
+					<h4 class="text-white font-semibold mb-4">Legal</h4>
+					<ul class="space-y-2">
+						<li><a href="/privacy-fe" class="text-slate-400 hover:text-amber-400 text-sm">Privacy Policy</a></li>
+						<li><a href="/terms-fe" class="text-slate-400 hover:text-amber-400 text-sm">Terms of Service</a></li>
+						<li><a href="/accessibility-fe" class="text-slate-400 hover:text-amber-400 text-sm">Accessibility</a></li>
+					</ul>
+				</div>
+
+				<!-- Contact -->
+				<div>
+					<h4 class="text-white font-semibold mb-4">Contact</h4>
+					<ul class="space-y-2">
+						<li><a href="/contact-fe" class="text-slate-400 hover:text-amber-400 text-sm">Contact Us</a></li>
+						<li><a href="mailto:hello@bible.systems" class="text-slate-400 hover:text-amber-400 text-sm">hello@bible.systems</a></li>
+					</ul>
+				</div>
+			</div>
+
+			<!-- Bottom -->
+			<div class="border-t border-slate-800 pt-8 text-center">
+				<p class="text-amber-400 font-semibold mb-2">JESUS CHRIST IS LORD</p>
+				<p class="text-slate-500 text-sm">
+					Part of <a href="https://stack.faith" class="text-amber-400 hover:underline">FaithStack</a> ·
+					<a href="/privacy-fe" class="hover:text-amber-400">Privacy</a> ·
+					<a href="/terms-fe" class="hover:text-amber-400">Terms</a> ·
+					<a href="/accessibility-fe" class="hover:text-amber-400">Accessibility</a>
+				</p>
+				<p class="text-slate-600 text-xs mt-4">© {new Date().getFullYear()} Bible.Systems. All rights reserved.</p>
+			</div>
+		</div>
 	</footer>
+
+	<!-- Feedback Bubble -->
+	<FeedbackBubbleChirho />
 </div>
