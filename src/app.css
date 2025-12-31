@@ -1,0 +1,46 @@
+/* For God so loved the world, that He gave His only begotten Son,
+   that all who believe in Him should not perish but have everlasting life. — John 3:16 */
+
+@import 'tailwindcss';
+
+:root {
+	--color-bible-brown: #8B4513;
+	--color-parchment: #F5DEB3;
+	--color-gold: #d4af37;
+}
+
+html {
+	scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #1e293b;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #475569;
+	border-radius: 4px;
+}
+
+.text-gradient-gold {
+	background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.bg-gradient-bible {
+	background: linear-gradient(-45deg, #1e293b, #312e81, #1e3a5f, #0f172a);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+	0% { background-position: 0% 50%; }
+	50% { background-position: 100% 50%; }
+	100% { background-position: 0% 50%; }
+}
