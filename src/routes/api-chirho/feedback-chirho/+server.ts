@@ -3,6 +3,7 @@
 
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
+import { TURNSTILE_SECRET_KEY_CHIRHO } from '$env/static/private';
 
 interface FeedbackPayloadChirho {
 	type_chirho: 'bug' | 'feature' | 'general';
@@ -11,14 +12,69 @@ interface FeedbackPayloadChirho {
 	rating_chirho?: number | null;
 	page_url_chirho?: string | null;
 	user_agent_chirho?: string | null;
+	turnstile_token_chirho?: string;
+}
+
+interface TurnstileResponseChirho {
+	success: boolean;
+	'error-codes'?: string[];
 }
 
 // In-memory store for now (will be replaced with D1 database)
 const feedbackStoreChirho: Array<FeedbackPayloadChirho & { id_chirho: string; created_at_chirho: string }> = [];
 
-export const POST: RequestHandler = async ({ request, platform }) => {
+// Verify Turnstile token with Cloudflare
+async function verifyTurnstileChirho(tokenChirho: string, ipChirho: string): Promise<boolean> {
+	try {
+		const responseChirho = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+			body: new URLSearchParams({
+				secret: TURNSTILE_SECRET_KEY_CHIRHO,
+				response: tokenChirho,
+				remoteip: ipChirho
+			})
+		});
+
+		const dataChirho: TurnstileResponseChirho = await responseChirho.json();
+		return dataChirho.success;
+	} catch (errorChirho) {
+		console.error('Turnstile verification error:', errorChirho);
+		return false;
+	}
+}
+
+export const POST: RequestHandler = async ({ request, platform, getClientAddress }) => {
 	try {
 		const bodyChirho: FeedbackPayloadChirho = await request.json();
+
+		// Verify Turnstile token
+		if (!bodyChirho.turnstile_token_chirho) {
+			return json(
+				{
+					error_chirho: {
+						code_chirho: 'VALIDATION_ERROR',
+						message_chirho: 'Verification required'
+					}
+				},
+				{ status: 400 }
+			);
+		}
+
+		const clientIpChirho = getClientAddress();
+		const isValidTurnstileChirho = await verifyTurnstileChirho(bodyChirho.turnstile_token_chirho, clientIpChirho);
+
+		if (!isValidTurnstileChirho) {
+			return json(
+				{
+					error_chirho: {
+						code_chirho: 'VERIFICATION_FAILED',
+						message_chirho: 'Verification failed. Please try again.'
+					}
+				},
+				{ status: 400 }
+			);
+		}
 
 		// Validate required fields
 		if (!bodyChirho.message_chirho || !bodyChirho.message_chirho.trim()) {

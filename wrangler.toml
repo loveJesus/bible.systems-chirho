@@ -17,6 +17,9 @@ directory = ".svelte-kit/cloudflare"
 [vars]
 ENVIRONMENT = "development"
 
+# Secrets (set via `wrangler secret put TURNSTILE_SECRET_KEY_CHIRHO`)
+# TURNSTILE_SECRET_KEY_CHIRHO - Cloudflare Turnstile secret key for verification
+
 [build]
 command = "bun run build"
 

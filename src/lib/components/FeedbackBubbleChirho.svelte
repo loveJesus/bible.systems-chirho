@@ -2,14 +2,23 @@
      that all who believe in Him should not perish but have everlasting life. - John 3:16 -->
 
 <script>
-	let isOpenChirho = false;
-	let feedbackTypeChirho = 'general';
-	let messageChirho = '';
-	let emailChirho = '';
-	let ratingChirho = 0;
-	let isSubmittingChirho = false;
-	let submittedChirho = false;
-	let errorChirho = '';
+	import { onMount } from 'svelte';
+
+	let isOpenChirho = $state(false);
+	let feedbackTypeChirho = $state('general');
+	let messageChirho = $state('');
+	let emailChirho = $state('');
+	let ratingChirho = $state(0);
+	let isSubmittingChirho = $state(false);
+	let submittedChirho = $state(false);
+	let errorChirho = $state('');
+	let turnstileTokenChirho = $state('');
+	let turnstileWidgetIdChirho = $state(null);
+
+	// Turnstile site key (public)
+	// Test key that always passes - replace with production key from Cloudflare Dashboard
+	// Docs: https://developers.cloudflare.com/turnstile/troubleshooting/testing/
+	const TURNSTILE_SITE_KEY_CHIRHO = '1x00000000000000000000AA';
 
 	function toggleBubbleChirho() {
 		isOpenChirho = !isOpenChirho;
@@ -25,7 +34,38 @@
 		ratingChirho = 0;
 		submittedChirho = false;
 		errorChirho = '';
+		turnstileTokenChirho = '';
+		// Reset Turnstile widget if it exists
+		if (turnstileWidgetIdChirho !== null && typeof window !== 'undefined' && window.turnstile) {
+			window.turnstile.reset(turnstileWidgetIdChirho);
+		}
 	}
+
+	function initTurnstileChirho() {
+		if (typeof window !== 'undefined' && window.turnstile) {
+			const containerChirho = document.getElementById('turnstile-container-chirho');
+			if (containerChirho && !turnstileWidgetIdChirho) {
+				turnstileWidgetIdChirho = window.turnstile.render('#turnstile-container-chirho', {
+					sitekey: TURNSTILE_SITE_KEY_CHIRHO,
+					callback: function(tokenChirho) {
+						turnstileTokenChirho = tokenChirho;
+					},
+					'error-callback': function() {
+						errorChirho = 'Verification failed. Please try again.';
+					},
+					theme: 'dark',
+					size: 'flexible'
+				});
+			}
+		}
+	}
+
+	$effect(() => {
+		if (isOpenChirho && !submittedChirho) {
+			// Wait for DOM to update, then init Turnstile
+			setTimeout(initTurnstileChirho, 100);
+		}
+	});
 
 	function setFeedbackTypeBugChirho() {
 		feedbackTypeChirho = 'bug';
@@ -52,6 +92,11 @@
 			return;
 		}
 
+		if (!turnstileTokenChirho) {
+			errorChirho = 'Please complete the verification';
+			return;
+		}
+
 		isSubmittingChirho = true;
 		errorChirho = '';
 
@@ -65,7 +110,8 @@
 					email_chirho: emailChirho || null,
 					rating_chirho: ratingChirho > 0 ? ratingChirho : null,
 					page_url_chirho: window.location.href,
-					user_agent_chirho: navigator.userAgent
+					user_agent_chirho: navigator.userAgent,
+					turnstile_token_chirho: turnstileTokenChirho
 				})
 			});
 
@@ -211,6 +257,9 @@
 						placeholder="your@email.com"
 					/>
 				</div>
+
+				<!-- Turnstile CAPTCHA -->
+				<div id="turnstile-container-chirho" class="flex justify-center"></div>
 
 				<!-- Error Message -->
 				{#if errorChirho}
