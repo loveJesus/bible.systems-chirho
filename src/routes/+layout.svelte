@@ -26,9 +26,10 @@
 					<span class="text-xl font-bold text-gradient-gold">Bible.Systems</span>
 				</a>
 				<div class="flex items-center gap-6">
+					<a href="/read-chirho" class="text-amber-400 hover:text-amber-300 text-sm font-medium">Read Bible</a>
 					<a href="/features-fe" class="text-slate-400 hover:text-amber-400 text-sm hidden sm:block">Features</a>
 					<a href="/contact-fe" class="text-slate-400 hover:text-amber-400 text-sm hidden sm:block">Contact</a>
-					<a href="https://stack.faith" class="text-slate-400 hover:text-amber-400 text-sm">FaithStack</a>
+					<a href="https://stack.faith" class="text-slate-400 hover:text-amber-400 text-sm hidden sm:block">FaithStack</a>
 				</div>
 			</div>
 		</nav>
