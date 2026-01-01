@@ -86,6 +86,13 @@
 			<!-- Bottom -->
 			<div class="border-t border-slate-800 pt-8 text-center">
 				<p class="text-amber-400 font-semibold mb-2">JESUS CHRIST IS LORD</p>
+				<p class="text-slate-400 text-sm mb-3">
+					<a href="https://perffection.com" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400">fe</a>
+					<span class="mx-2">|</span>
+					<a href="https://loveJesus.software" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400">loveJesus</a>
+					<span class="mx-2">|</span>
+					<a href="http://jesusfilm.org/watch/jesus.html/english.html" target="_blank" rel="noopener noreferrer" class="hover:text-amber-400">☧</a>
+				</p>
 				<div class="flex justify-center mb-3">
 					<a
 						href="https://kingdominvest.ing/campaigns-chirho/biblesystems-campaign-chirho"
