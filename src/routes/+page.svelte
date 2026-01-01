@@ -62,6 +62,57 @@
 		</div>
 	</section>
 
+	<!-- Featured Verse & Quick Access -->
+	<section class="max-w-5xl mx-auto px-4 py-8">
+		<div class="grid md:grid-cols-2 gap-6">
+			<!-- Featured Verse -->
+			<div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 md:p-8">
+				<div class="flex items-center gap-2 mb-4">
+					<div class="w-8 h-8 bg-amber-500/20 rounded-lg flex items-center justify-center">
+						<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+						</svg>
+					</div>
+					<span class="text-amber-400 text-sm font-medium">Featured Verse</span>
+				</div>
+				<blockquote class="text-lg md:text-xl text-slate-200 leading-relaxed mb-4 font-serif italic">
+					"For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+				</blockquote>
+				<a href="/read-chirho/jhn/3" class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium transition-colors">
+					John 3:16 — Read Chapter
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+					</svg>
+				</a>
+			</div>
+
+			<!-- Quick Access -->
+			<div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 md:p-8">
+				<div class="flex items-center gap-2 mb-4">
+					<div class="w-8 h-8 bg-amber-500/20 rounded-lg flex items-center justify-center">
+						<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+						</svg>
+					</div>
+					<span class="text-amber-400 text-sm font-medium">Start Reading</span>
+				</div>
+				<p class="text-slate-300 mb-4">Begin your Bible study with these popular passages:</p>
+				<div class="grid grid-cols-2 gap-2">
+					<a href="/read-chirho/gen/1" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Genesis 1</a>
+					<a href="/read-chirho/psa/23" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Psalm 23</a>
+					<a href="/read-chirho/mat/5" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Matthew 5</a>
+					<a href="/read-chirho/pro/3" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Proverbs 3</a>
+				</div>
+				<a href="/read-chirho" class="mt-4 flex items-center justify-center gap-2 w-full py-2.5 bg-amber-500 hover:bg-amber-600 rounded-lg text-white font-medium transition-colors">
+					Browse All Books
+					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+					</svg>
+				</a>
+			</div>
+		</div>
+	</section>
+
 	<!-- Mission Section -->
 	<section class="max-w-4xl mx-auto px-4 py-12">
 		<div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 md:p-10 text-center">

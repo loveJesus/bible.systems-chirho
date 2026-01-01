@@ -48,13 +48,6 @@
 					<p class="text-slate-400 text-sm">In the beginning...</p>
 				</a>
 				<a
-					href="/read-chirho/jhn/1"
-					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
-				>
-					<p class="text-amber-400 font-semibold group-hover:text-amber-300">John 1</p>
-					<p class="text-slate-400 text-sm">The Word was God</p>
-				</a>
-				<a
 					href="/read-chirho/jhn/3"
 					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
 				>
@@ -67,6 +60,41 @@
 				>
 					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Psalm 23</p>
 					<p class="text-slate-400 text-sm">The Lord is my shepherd</p>
+				</a>
+				<a
+					href="/read-chirho/mat/5"
+					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
+				>
+					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Matthew 5</p>
+					<p class="text-slate-400 text-sm">The Beatitudes</p>
+				</a>
+				<a
+					href="/read-chirho/pro/3"
+					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
+				>
+					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Proverbs 3</p>
+					<p class="text-slate-400 text-sm">Trust in the Lord</p>
+				</a>
+				<a
+					href="/read-chirho/jhn/1"
+					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
+				>
+					<p class="text-amber-400 font-semibold group-hover:text-amber-300">John 1</p>
+					<p class="text-slate-400 text-sm">The Word was God</p>
+				</a>
+				<a
+					href="/read-chirho/psa/1"
+					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
+				>
+					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Psalm 1</p>
+					<p class="text-slate-400 text-sm">Blessed is the man</p>
+				</a>
+				<a
+					href="/read-chirho/rom/8"
+					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
+				>
+					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Romans 8</p>
+					<p class="text-slate-400 text-sm">No condemnation</p>
 				</a>
 			</div>
 		</div>
