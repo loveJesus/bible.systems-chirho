@@ -85,6 +85,20 @@
 			<!-- Bottom -->
 			<div class="border-t border-slate-800 pt-8 text-center">
 				<p class="text-amber-400 font-semibold mb-2">JESUS CHRIST IS LORD</p>
+				<div class="flex justify-center mb-3">
+					<a
+						href="https://kingdominvest.ing/campaigns-chirho/biblesystems-campaign-chirho"
+						target="_blank"
+						rel="noopener noreferrer"
+						class="inline-flex items-center gap-1.5 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-4 py-2 rounded-full text-sm font-medium transition-all hover:shadow-lg"
+						title="Support Bible.Systems on KingdomInvest.ing"
+					>
+						<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+							<path d="M5 16L3 5l5.5 5L12 4l3.5 6L21 5l-2 11H5zm14 3H5v2h14v-2z"/>
+						</svg>
+						Support This Project
+					</a>
+				</div>
 				<p class="text-slate-500 text-sm">
 					Part of <a href="https://stack.faith" class="text-amber-400 hover:underline">FaithStack</a> ·
 					<a href="/privacy-fe" class="hover:text-amber-400">Privacy</a> ·
