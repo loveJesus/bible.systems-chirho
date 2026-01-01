@@ -89,8 +89,9 @@
 </script>
 
 <svelte:head>
-	<title>Feature Requests - Bible.Systems</title>
-	<meta name="description" content="Suggest and vote on features for Bible.Systems" />
+	<title>Feature Roadmap - Bible.Systems</title>
+	<meta name="description" content="View the Bible.Systems feature roadmap - Planned features include cross-references, original languages, commentaries, and API access." />
+	<link rel="canonical" href="https://bible.systems/features-fe" />
 </svelte:head>
 
 <div class="max-w-6xl mx-auto px-4 py-16">

@@ -3,12 +3,13 @@
 
 <svelte:head>
 	<title>Accessibility - Bible.Systems</title>
-	<meta name="description" content="Accessibility statement for Bible.Systems" />
+	<meta name="description" content="Accessibility statement for Bible.Systems - Our commitment to making God's Word accessible to all." />
+	<link rel="canonical" href="https://bible.systems/accessibility-fe" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto px-4 py-16">
 	<h1 class="text-4xl font-bold text-white mb-8">Accessibility Statement</h1>
-	<p class="text-slate-400 mb-8">Last updated: December 31, 2025</p>
+	<p class="text-slate-400 mb-8">Last updated: December 31, 2024</p>
 
 	<div class="prose prose-invert prose-amber max-w-none space-y-8">
 		<section class="bg-slate-900/50 border border-slate-800 rounded-xl p-6">

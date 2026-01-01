@@ -3,7 +3,8 @@
 
 <svelte:head>
 	<title>Contact Us - Bible.Systems</title>
-	<meta name="description" content="Contact the Bible.Systems team" />
+	<meta name="description" content="Contact the Bible.Systems team - Get in touch for questions, support, or partnership inquiries." />
+	<link rel="canonical" href="https://bible.systems/contact-fe" />
 </svelte:head>
 
 <div class="max-w-4xl mx-auto px-4 py-16">

@@ -1,0 +1,18 @@
+<!-- For God so loved the world, that He gave His only begotten Son,
+     that all who believe in Him should not perish but have everlasting life. — John 3:16 -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#d4af37"/>
+      <stop offset="50%" style="stop-color:#f4d03f"/>
+      <stop offset="100%" style="stop-color:#d4af37"/>
+    </linearGradient>
+  </defs>
+  <!-- Book shape -->
+  <path d="M4 6 L16 4 L28 6 L28 26 L16 28 L4 26 Z" fill="#1e293b" stroke="url(#gold)" stroke-width="1.5"/>
+  <!-- Center spine -->
+  <line x1="16" y1="4" x2="16" y2="28" stroke="url(#gold)" stroke-width="1"/>
+  <!-- Cross on book -->
+  <line x1="16" y1="10" x2="16" y2="22" stroke="url(#gold)" stroke-width="2" stroke-linecap="round"/>
+  <line x1="11" y1="14" x2="21" y2="14" stroke="url(#gold)" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -8,8 +8,16 @@
 </script>
 
 <div class="min-h-screen bg-slate-950 text-white flex flex-col">
+	<!-- Skip Links for Accessibility -->
+	<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-amber-500 focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold">
+		Skip to main content
+	</a>
+	<a href="#footer-navigation" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-48 focus:z-[100] focus:bg-amber-500 focus:text-slate-900 focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold">
+		Skip to footer
+	</a>
+
 	<header class="fixed top-0 left-0 right-0 z-50 bg-slate-950/90 backdrop-blur-md border-b border-slate-800">
-		<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+		<nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" aria-label="Main navigation">
 			<div class="flex items-center justify-between h-16">
 				<a href="/" class="flex items-center gap-3">
 					<div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-amber-600 rounded-lg flex items-center justify-center">
@@ -26,11 +34,11 @@
 		</nav>
 	</header>
 
-	<main class="pt-16 flex-1">
+	<main id="main-content" class="pt-16 flex-1">
 		{@render children()}
 	</main>
 
-	<footer class="bg-slate-900 border-t border-slate-800 py-12">
+	<footer id="footer-navigation" class="bg-slate-900 border-t border-slate-800 py-12">
 		<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
 				<!-- Brand -->

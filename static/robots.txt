@@ -1,3 +1,8 @@
-# allow crawling everything by default
+# For God so loved the world, that He gave His only begotten Son,
+# that all who believe in Him should not perish but have everlasting life. — John 3:16
+
 User-agent: *
-Disallow:
+Allow: /
+
+# Sitemap
+Sitemap: https://bible.systems/sitemap.xml

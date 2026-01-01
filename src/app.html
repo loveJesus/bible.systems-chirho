@@ -1,11 +1,35 @@
 <!doctype html>
+<!-- For God so loved the world, that He gave His only begotten Son,
+     that all who believe in Him should not perish but have everlasting life. — John 3:16 -->
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<!-- Favicon -->
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" type="image/png" sizes="32x32" href="/favicon.svg" />
+		<link rel="apple-touch-icon" href="/favicon.svg" />
+
+		<!-- Theme -->
+		<meta name="theme-color" content="#0f172a" />
+		<meta name="color-scheme" content="dark" />
+
+		<!-- Base SEO -->
+		<meta name="author" content="Bible.Systems" />
+		<meta name="robots" content="index, follow" />
+
+		<!-- Open Graph defaults (can be overridden per page) -->
+		<meta property="og:site_name" content="Bible.Systems" />
+		<meta property="og:type" content="website" />
+		<meta property="og:locale" content="en_US" />
+
+		<!-- Twitter Card defaults -->
+		<meta name="twitter:card" content="summary_large_image" />
+
 		%sveltekit.head%
 	</head>
-	<body data-sveltekit-preload-data="hover">
+	<body data-sveltekit-preload-data="hover" class="bg-slate-950 text-white">
 		<div style="display: contents">%sveltekit.body%</div>
 	</body>
 </html>
