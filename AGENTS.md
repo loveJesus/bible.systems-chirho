@@ -133,12 +133,17 @@ spec_chirho/                          <- ULTIMATE SOURCE OF TRUTH
 **COMPLETE - Deployed to bible.systems:**
 - Landing page with project description
 - Feedback bubble component (bug reports, feature requests, general feedback)
-- Feedback API endpoint (`/api-chirho/feedback-chirho`)
+- Feedback API endpoint (`/api-chirho/feedback-chirho`) with Turnstile CAPTCHA
+- Bible reader with KJV data (Genesis 1-3, Psalms 1/23/119, Proverbs 3, Matthew 5, John 1/3, Romans 8)
+- Bible API endpoints (`/api-chirho/bible-chirho/`)
+- Verse copying and social sharing (Twitter, Facebook, Email)
+- Keyboard navigation (arrow keys for chapters)
 - Legal pages (Privacy Policy, Terms of Service, Accessibility, Contact)
 - Feature roadmap page (`/features-fe`)
 - Security headers (HSTS, CSP, X-Frame-Options, etc.)
 - Cloudflare Workers deployment
 - GitHub repository
+- Unit tests (Vitest) and E2E tests (Playwright)
 
 **PLANNED - Not Yet Implemented:**
 - Multiple Bible Versions (KJV, ESV, NIV, NASB, etc.)
@@ -184,10 +189,13 @@ bible.systems-chirho/
 +-- AGENTS.md                    # AI instructions (this file)
 +-- AGENTS-MASTER-CHIRHO.md      # Master template for all projects
 +-- wrangler.toml                # Cloudflare Worker config
++-- vitest.config.ts             # Unit test configuration
++-- playwright.config.ts         # E2E test configuration
 +-- src/
 |   +-- routes/
 |   |   +-- +page.svelte         # Home/landing page
 |   |   +-- +layout.svelte       # Global layout with header/footer
+|   |   +-- read-chirho/         # Bible reader pages
 |   |   +-- features-fe/         # Feature roadmap
 |   |   +-- privacy-fe/          # Privacy policy
 |   |   +-- terms-fe/            # Terms of service
@@ -195,11 +203,21 @@ bible.systems-chirho/
 |   |   +-- accessibility-fe/    # Accessibility statement
 |   |   +-- api-chirho/
 |   |       +-- feedback-chirho/ # Feedback API endpoint
+|   |       +-- bible-chirho/    # Bible API endpoints
 |   +-- lib/
 |   |   +-- components/
-|   |       +-- FeedbackBubbleChirho.svelte
+|   |   |   +-- FeedbackBubbleChirho.svelte
+|   |   +-- data_chirho/
+|   |   |   +-- bible_kjv_chirho.ts      # KJV Bible data
+|   |   |   +-- bible_kjv_chirho.test.ts # Bible data tests
+|   |   +-- utils_chirho/
+|   |       +-- validation_chirho.ts      # Validation utilities
+|   |       +-- validation_chirho.test.ts # Validation tests
 |   +-- hooks.server.ts          # Security headers middleware
 |   +-- app.css                  # Global styles
++-- tests-e2e-chirho/            # E2E tests (Playwright)
+|   +-- bible-reader.e2e.ts      # Bible reader E2E tests
+|   +-- feedback.e2e.ts          # Feedback system E2E tests
 +-- static/                      # Static assets
 +-- .env                         # Environment variables (git ignored)
 ```
@@ -252,7 +270,83 @@ When implemented, the following public domain sources will be used:
 
 ---
 
-## 10. Git & Authorship Protocol
+## 10. Testing Strategy
+
+### 10.1 Philosophy
+
+- **Test before deploy**: Never deploy untested code
+- **Fast feedback**: All tests must complete in under 30 seconds
+- **Critical paths first**: Focus on core API handlers and user flows
+- **Headless only**: E2E tests run headless for CI compatibility
+
+### 10.2 Test Tools
+
+| Tool | Purpose | Command |
+|------|---------|---------|
+| Vitest | Unit tests | `bun run test-chirho` |
+| Playwright | E2E tests (headless) | `bun run test-e2e-chirho` |
+
+### 10.3 Test File Conventions
+
+| Type | Location | Naming | Example |
+|------|----------|--------|---------|
+| Unit tests | `src/**/*.test.ts` | `*.test.ts` | `validation_chirho.test.ts` |
+| E2E tests | `tests-e2e-chirho/` | `*.e2e.ts` | `bible-reader.e2e.ts` |
+
+### 10.4 What to Test
+
+**Unit Tests (Vitest):**
+- Validation utilities
+- Data transformation functions
+- Bible data integrity
+- API request/response parsing
+
+**E2E Tests (Playwright):**
+- Critical user flows (Bible reading, feedback submission)
+- API endpoint responses
+- Navigation and routing
+- Form validation and error states
+
+### 10.5 Test Commands
+
+```bash
+bun run test-chirho          # Run unit tests once
+bun run test-watch-chirho    # Run unit tests in watch mode
+bun run test-e2e-chirho      # Run E2E tests (headless)
+bun run test-all-chirho      # Run all tests
+bun run deploy-chirho        # Test + build + deploy
+```
+
+### 10.6 Writing Tests
+
+```typescript
+// For God so loved the world, that He gave His only begotten Son,
+// that all who believe in Him should not perish but have everlasting life. — John 3:16
+
+import { describe, it, expect } from 'vitest';
+
+describe('featureNameChirho', () => {
+  it('should do expected behavior', () => {
+    const resultChirho = functionChirho();
+    expect(resultChirho).toBe(expectedChirho);
+  });
+});
+```
+
+### 10.7 CI/CD Integration
+
+The `deploy-chirho` script enforces test-before-deploy:
+
+```bash
+bun run deploy-chirho
+# Equivalent to: bun run test-chirho && bun run build && bunx wrangler deploy
+```
+
+**Never bypass tests for deployment.**
+
+---
+
+## 11. Git & Authorship Protocol
 
 ### Commit Message Format
 
@@ -277,19 +371,29 @@ The `[AI-CHIRHO]` marker enables programmatic detection of AI-assisted commits.
 
 ---
 
-## 11. Commands
+## 12. Commands
 
 ```bash
+# Development
 bun install                    # Install dependencies
 bun run dev                    # Start dev server
 bun run build                  # Build for production
 bun run preview                # Preview production build
-bunx wrangler deploy           # Deploy to Cloudflare Workers
+
+# Testing
+bun run test-chirho            # Run unit tests
+bun run test-watch-chirho      # Run unit tests (watch mode)
+bun run test-e2e-chirho        # Run E2E tests (headless)
+bun run test-all-chirho        # Run all tests
+
+# Deployment
+bun run deploy-chirho          # Test + build + deploy (recommended)
+bunx wrangler deploy           # Deploy only (skips tests)
 ```
 
 ---
 
-## 12. Environment Variables
+## 13. Environment Variables
 
 Required in `.env` (git ignored):
 
@@ -302,7 +406,7 @@ Required in `.env` (git ignored):
 
 ---
 
-## 13. Quick Reference
+## 14. Quick Reference
 
 ### Naming Summary
 
