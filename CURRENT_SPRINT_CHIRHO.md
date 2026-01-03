@@ -73,7 +73,60 @@ Building Logos-level Bible study architecture with deep features.
 
 ## In Progress
 
-Architecture implementation phase.
+SWORD module integration and data pipeline.
+
+### SWORD Modules Installed (21 total)
+
+**Bibles (4):**
+- KJV - King James with Strong's + Morphology
+- ASV - American Standard Version (1901)
+- MorphGNT - Greek NT with morphology
+- LXX - Septuagint with morphology
+- WLC - Westminster Leningrad Codex (Hebrew)
+
+**Lexicons/Dictionaries (7):**
+- StrongsGreek, StrongsHebrew - Strong's dictionaries
+- AbbottSmithStrongs - Greek lexicon with Strong's
+- BDBGlosses_Strongs - Brown-Driver-Briggs Hebrew
+- Easton, Smith - Bible dictionaries
+- OSHM - Hebrew morphology
+
+**Morphology (2):**
+- Robinson - Greek morphology codes
+- Packard - Morphology codes
+
+**Commentaries (5):**
+- MHC - Matthew Henry Complete
+- JFB - Jamieson Fausset Brown
+- CalvinCommentaries - Calvin's Commentaries
+- Clarke - Adam Clarke
+- KD - Keil & Delitzsch OT
+
+**Cross-References (1):**
+- TSK - Treasury of Scripture Knowledge
+
+**Devotionals (1):**
+- Daily - Daily Light
+
+### Data Import Pipeline
+
+**Scripts:**
+- `scripts/sword-importer-chirho.ts` - TypeScript importer that:
+  - Parses KJV with Strong's numbers and lemmas
+  - Extracts TSK cross-references
+  - Parses Strong's dictionary entries
+  - Exports Hebrew/Greek text
+
+**Usage:**
+```bash
+bun run scripts/sword-importer-chirho.ts
+```
+
+**Sample Output (John 3:16):**
+- 22 words with Strong's numbers
+- Greek lemmas for each word
+- 13 cross-references from TSK
+- Full morphological data available
 
 ## Next Priorities
 
