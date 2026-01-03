@@ -67,23 +67,13 @@
 		}
 	});
 
-	function setFeedbackTypeBugChirho() {
-		feedbackTypeChirho = 'bug';
+	function setFeedbackTypeChirho(typeChirho) {
+		feedbackTypeChirho = typeChirho;
 	}
 
-	function setFeedbackTypeFeatureChirho() {
-		feedbackTypeChirho = 'feature';
+	function setRatingChirho(valueChirho) {
+		ratingChirho = valueChirho;
 	}
-
-	function setFeedbackTypeGeneralChirho() {
-		feedbackTypeChirho = 'general';
-	}
-
-	function setRating1Chirho() { ratingChirho = 1; }
-	function setRating2Chirho() { ratingChirho = 2; }
-	function setRating3Chirho() { ratingChirho = 3; }
-	function setRating4Chirho() { ratingChirho = 4; }
-	function setRating5Chirho() { ratingChirho = 5; }
 
 	async function submitFeedbackChirho(e) {
 		e.preventDefault();
@@ -147,7 +137,7 @@
 
 <!-- Feedback Bubble Button -->
 <button
-	on:click={toggleBubbleChirho}
+	onclick={toggleBubbleChirho}
 	class="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-br from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 rounded-full shadow-lg shadow-amber-500/25 flex items-center justify-center transition-all duration-300 hover:scale-110 group"
 	aria-label="Send feedback"
 >
@@ -187,12 +177,12 @@
 			</div>
 		{:else}
 			<!-- Feedback Form -->
-			<form on:submit={submitFeedbackChirho} class="p-4 space-y-4">
+			<form onsubmit={submitFeedbackChirho} class="p-4 space-y-4">
 				<!-- Feedback Type -->
 				<div class="flex gap-2">
 					<button
 						type="button"
-						on:click={setFeedbackTypeBugChirho}
+						onclick={() => setFeedbackTypeChirho('bug')}
 						class="flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all {feedbackTypeChirho === 'bug' ? 'bg-amber-500/20 border-amber-500 text-amber-400 border' : 'bg-slate-800 border-slate-700 text-slate-400 border hover:bg-slate-700'}"
 					>
 						<span class="block text-lg mb-1">🐛</span>
@@ -200,7 +190,7 @@
 					</button>
 					<button
 						type="button"
-						on:click={setFeedbackTypeFeatureChirho}
+						onclick={() => setFeedbackTypeChirho('feature')}
 						class="flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all {feedbackTypeChirho === 'feature' ? 'bg-amber-500/20 border-amber-500 text-amber-400 border' : 'bg-slate-800 border-slate-700 text-slate-400 border hover:bg-slate-700'}"
 					>
 						<span class="block text-lg mb-1">💡</span>
@@ -208,7 +198,7 @@
 					</button>
 					<button
 						type="button"
-						on:click={setFeedbackTypeGeneralChirho}
+						onclick={() => setFeedbackTypeChirho('general')}
 						class="flex-1 px-3 py-2 rounded-lg text-sm font-medium transition-all {feedbackTypeChirho === 'general' ? 'bg-amber-500/20 border-amber-500 text-amber-400 border' : 'bg-slate-800 border-slate-700 text-slate-400 border hover:bg-slate-700'}"
 					>
 						<span class="block text-lg mb-1">💬</span>
@@ -235,11 +225,11 @@
 					<div>
 						<span class="block text-sm font-medium text-slate-300 mb-2">How would you rate your experience?</span>
 						<div class="flex gap-2 justify-center">
-							<button type="button" on:click={setRating1Chirho} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 1 ? 'text-amber-400' : 'text-slate-600'}">★</button>
-							<button type="button" on:click={setRating2Chirho} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 2 ? 'text-amber-400' : 'text-slate-600'}">★</button>
-							<button type="button" on:click={setRating3Chirho} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 3 ? 'text-amber-400' : 'text-slate-600'}">★</button>
-							<button type="button" on:click={setRating4Chirho} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 4 ? 'text-amber-400' : 'text-slate-600'}">★</button>
-							<button type="button" on:click={setRating5Chirho} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 5 ? 'text-amber-400' : 'text-slate-600'}">★</button>
+							<button type="button" onclick={() => setRatingChirho(1)} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 1 ? 'text-amber-400' : 'text-slate-600'}">★</button>
+							<button type="button" onclick={() => setRatingChirho(2)} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 2 ? 'text-amber-400' : 'text-slate-600'}">★</button>
+							<button type="button" onclick={() => setRatingChirho(3)} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 3 ? 'text-amber-400' : 'text-slate-600'}">★</button>
+							<button type="button" onclick={() => setRatingChirho(4)} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 4 ? 'text-amber-400' : 'text-slate-600'}">★</button>
+							<button type="button" onclick={() => setRatingChirho(5)} class="text-2xl transition-transform hover:scale-110 {ratingChirho >= 5 ? 'text-amber-400' : 'text-slate-600'}">★</button>
 						</div>
 					</div>
 				{/if}
