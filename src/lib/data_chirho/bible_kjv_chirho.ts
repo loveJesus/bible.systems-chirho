@@ -497,6 +497,31 @@ export const bibleKjvChirho: BibleDataChirho = {
 						{ verse: 47, text: 'And if ye salute your brethren only, what do ye more than others? do not even the publicans so?' },
 						{ verse: 48, text: 'Be ye therefore perfect, even as your Father which is in heaven is perfect.' }
 					]
+				},
+				{
+					chapter: 28,
+					verses: [
+						{ verse: 1, text: 'In the end of the sabbath, as it began to dawn toward the first day of the week, came Mary Magdalene and the other Mary to see the sepulchre.' },
+						{ verse: 2, text: 'And, behold, there was a great earthquake: for the angel of the Lord descended from heaven, and came and rolled back the stone from the door, and sat upon it.' },
+						{ verse: 3, text: 'His countenance was like lightning, and his raiment white as snow:' },
+						{ verse: 4, text: 'And for fear of him the keepers did shake, and became as dead men.' },
+						{ verse: 5, text: 'And the angel answered and said unto the women, Fear not ye: for I know that ye seek Jesus, which was crucified.' },
+						{ verse: 6, text: 'He is not here: for he is risen, as he said. Come, see the place where the Lord lay.' },
+						{ verse: 7, text: 'And go quickly, and tell his disciples that he is risen from the dead; and, behold, he goeth before you into Galilee; there shall ye see him: lo, I have told you.' },
+						{ verse: 8, text: 'And they departed quickly from the sepulchre with fear and great joy; and did run to bring his disciples word.' },
+						{ verse: 9, text: 'And as they went to tell his disciples, behold, Jesus met them, saying, All hail. And they came and held him by the feet, and worshipped him.' },
+						{ verse: 10, text: 'Then said Jesus unto them, Be not afraid: go tell my brethren that they go into Galilee, and there shall they see me.' },
+						{ verse: 11, text: 'Now when they were going, behold, some of the watch came into the city, and shewed unto the chief priests all the things that were done.' },
+						{ verse: 12, text: 'And when they were assembled with the elders, and had taken counsel, they gave large money unto the soldiers,' },
+						{ verse: 13, text: 'Saying, Say ye, His disciples came by night, and stole him away while we slept.' },
+						{ verse: 14, text: 'And if this come to the governor\'s ears, we will persuade him, and secure you.' },
+						{ verse: 15, text: 'So they took the money, and did as they were taught: and this saying is commonly reported among the Jews until this day.' },
+						{ verse: 16, text: 'Then the eleven disciples went away into Galilee, into a mountain where Jesus had appointed them.' },
+						{ verse: 17, text: 'And when they saw him, they worshipped him: but some doubted.' },
+						{ verse: 18, text: 'And Jesus came and spake unto them, saying, All power is given unto me in heaven and in earth.' },
+						{ verse: 19, text: 'Go ye therefore, and teach all nations, baptizing them in the name of the Father, and of the Son, and of the Holy Ghost:' },
+						{ verse: 20, text: 'Teaching them to observe all things whatsoever I have commanded you: and, lo, I am with you alway, even unto the end of the world. Amen.' }
+					]
 				}
 			]
 		},
@@ -576,6 +601,194 @@ export const bibleKjvChirho: BibleDataChirho = {
 						{ verse: 10, text: 'Yet it pleased the LORD to bruise him; he hath put him to grief: when thou shalt make his soul an offering for sin, he shall see his seed, he shall prolong his days, and the pleasure of the LORD shall prosper in his hand.' },
 						{ verse: 11, text: 'He shall see of the travail of his soul, and shall be satisfied: by his knowledge shall my righteous servant justify many; for he shall bear their iniquities.' },
 						{ verse: 12, text: 'Therefore will I divide him a portion with the great, and he shall divide the spoil with the strong; because he hath poured out his soul unto death: and he was numbered with the transgressors; and he bare the sin of many, and made intercession for the transgressors.' }
+					]
+				}
+			]
+		},
+		{
+			name: 'Acts',
+			abbrev: 'Act',
+			chapters: [
+				{
+					chapter: 2,
+					verses: [
+						{ verse: 1, text: 'And when the day of Pentecost was fully come, they were all with one accord in one place.' },
+						{ verse: 2, text: 'And suddenly there came a sound from heaven as of a rushing mighty wind, and it filled all the house where they were sitting.' },
+						{ verse: 3, text: 'And there appeared unto them cloven tongues like as of fire, and it sat upon each of them.' },
+						{ verse: 4, text: 'And they were all filled with the Holy Ghost, and began to speak with other tongues, as the Spirit gave them utterance.' },
+						{ verse: 5, text: 'And there were dwelling at Jerusalem Jews, devout men, out of every nation under heaven.' },
+						{ verse: 6, text: 'Now when this was noised abroad, the multitude came together, and were confounded, because that every man heard them speak in his own language.' },
+						{ verse: 7, text: 'And they were all amazed and marvelled, saying one to another, Behold, are not all these which speak Galilaeans?' },
+						{ verse: 8, text: 'And how hear we every man in our own tongue, wherein we were born?' },
+						{ verse: 14, text: 'But Peter, standing up with the eleven, lifted up his voice, and said unto them, Ye men of Judaea, and all ye that dwell at Jerusalem, be this known unto you, and hearken to my words:' },
+						{ verse: 17, text: 'And it shall come to pass in the last days, saith God, I will pour out of my Spirit upon all flesh: and your sons and your daughters shall prophesy, and your young men shall see visions, and your old men shall dream dreams:' },
+						{ verse: 21, text: 'And it shall come to pass, that whosoever shall call on the name of the Lord shall be saved.' },
+						{ verse: 22, text: 'Ye men of Israel, hear these words; Jesus of Nazareth, a man approved of God among you by miracles and wonders and signs, which God did by him in the midst of you, as ye yourselves also know:' },
+						{ verse: 23, text: 'Him, being delivered by the determinate counsel and foreknowledge of God, ye have taken, and by wicked hands have crucified and slain:' },
+						{ verse: 24, text: 'Whom God hath raised up, having loosed the pains of death: because it was not possible that he should be holden of it.' },
+						{ verse: 32, text: 'This Jesus hath God raised up, whereof we all are witnesses.' },
+						{ verse: 36, text: 'Therefore let all the house of Israel know assuredly, that God hath made that same Jesus, whom ye have crucified, both Lord and Christ.' },
+						{ verse: 37, text: 'Now when they heard this, they were pricked in their heart, and said unto Peter and to the rest of the apostles, Men and brethren, what shall we do?' },
+						{ verse: 38, text: 'Then Peter said unto them, Repent, and be baptized every one of you in the name of Jesus Christ for the remission of sins, and ye shall receive the gift of the Holy Ghost.' },
+						{ verse: 39, text: 'For the promise is unto you, and to your children, and to all that are afar off, even as many as the Lord our God shall call.' },
+						{ verse: 41, text: 'Then they that gladly received his word were baptized: and the same day there were added unto them about three thousand souls.' },
+						{ verse: 42, text: 'And they continued stedfastly in the apostles\' doctrine and fellowship, and in breaking of bread, and in prayers.' },
+						{ verse: 46, text: 'And they, continuing daily with one accord in the temple, and breaking bread from house to house, did eat their meat with gladness and singleness of heart,' },
+						{ verse: 47, text: 'Praising God, and having favour with all the people. And the Lord added to the church daily such as should be saved.' }
+					]
+				}
+			]
+		},
+		{
+			name: 'Philippians',
+			abbrev: 'Php',
+			chapters: [
+				{
+					chapter: 4,
+					verses: [
+						{ verse: 1, text: 'Therefore, my brethren dearly beloved and longed for, my joy and crown, so stand fast in the Lord, my dearly beloved.' },
+						{ verse: 4, text: 'Rejoice in the Lord alway: and again I say, Rejoice.' },
+						{ verse: 5, text: 'Let your moderation be known unto all men. The Lord is at hand.' },
+						{ verse: 6, text: 'Be careful for nothing; but in every thing by prayer and supplication with thanksgiving let your requests be made known unto God.' },
+						{ verse: 7, text: 'And the peace of God, which passeth all understanding, shall keep your hearts and minds through Christ Jesus.' },
+						{ verse: 8, text: 'Finally, brethren, whatsoever things are true, whatsoever things are honest, whatsoever things are just, whatsoever things are pure, whatsoever things are lovely, whatsoever things are of good report; if there be any virtue, and if there be any praise, think on these things.' },
+						{ verse: 9, text: 'Those things, which ye have both learned, and received, and heard, and seen in me, do: and the God of peace shall be with you.' },
+						{ verse: 11, text: 'Not that I speak in respect of want: for I have learned, in whatsoever state I am, therewith to be content.' },
+						{ verse: 12, text: 'I know both how to be abased, and I know how to abound: every where and in all things I am instructed both to be full and to be hungry, both to abound and to suffer need.' },
+						{ verse: 13, text: 'I can do all things through Christ which strengtheneth me.' },
+						{ verse: 19, text: 'But my God shall supply all your need according to his riches in glory by Christ Jesus.' },
+						{ verse: 20, text: 'Now unto God and our Father be glory for ever and ever. Amen.' }
+					]
+				}
+			]
+		},
+		{
+			name: 'Galatians',
+			abbrev: 'Gal',
+			chapters: [
+				{
+					chapter: 5,
+					verses: [
+						{ verse: 1, text: 'Stand fast therefore in the liberty wherewith Christ hath made us free, and be not entangled again with the yoke of bondage.' },
+						{ verse: 13, text: 'For, brethren, ye have been called unto liberty; only use not liberty for an occasion to the flesh, but by love serve one another.' },
+						{ verse: 14, text: 'For all the law is fulfilled in one word, even in this; Thou shalt love thy neighbour as thyself.' },
+						{ verse: 16, text: 'This I say then, Walk in the Spirit, and ye shall not fulfil the lust of the flesh.' },
+						{ verse: 17, text: 'For the flesh lusteth against the Spirit, and the Spirit against the flesh: and these are contrary the one to the other: so that ye cannot do the things that ye would.' },
+						{ verse: 22, text: 'But the fruit of the Spirit is love, joy, peace, longsuffering, gentleness, goodness, faith,' },
+						{ verse: 23, text: 'Meekness, temperance: against such there is no law.' },
+						{ verse: 24, text: 'And they that are Christ\'s have crucified the flesh with the affections and lusts.' },
+						{ verse: 25, text: 'If we live in the Spirit, let us also walk in the Spirit.' }
+					]
+				}
+			]
+		},
+		{
+			name: '2 Timothy',
+			abbrev: '2Ti',
+			chapters: [
+				{
+					chapter: 3,
+					verses: [
+						{ verse: 1, text: 'This know also, that in the last days perilous times shall come.' },
+						{ verse: 12, text: 'Yea, and all that will live godly in Christ Jesus shall suffer persecution.' },
+						{ verse: 14, text: 'But continue thou in the things which thou hast learned and hast been assured of, knowing of whom thou hast learned them;' },
+						{ verse: 15, text: 'And that from a child thou hast known the holy scriptures, which are able to make thee wise unto salvation through faith which is in Christ Jesus.' },
+						{ verse: 16, text: 'All scripture is given by inspiration of God, and is profitable for doctrine, for reproof, for correction, for instruction in righteousness:' },
+						{ verse: 17, text: 'That the man of God may be perfect, throughly furnished unto all good works.' }
+					]
+				}
+			]
+		},
+		{
+			name: 'Hebrews',
+			abbrev: 'Heb',
+			chapters: [
+				{
+					chapter: 11,
+					verses: [
+						{ verse: 1, text: 'Now faith is the substance of things hoped for, the evidence of things not seen.' },
+						{ verse: 2, text: 'For by it the elders obtained a good report.' },
+						{ verse: 3, text: 'Through faith we understand that the worlds were framed by the word of God, so that things which are seen were not made of things which do appear.' },
+						{ verse: 4, text: 'By faith Abel offered unto God a more excellent sacrifice than Cain, by which he obtained witness that he was righteous, God testifying of his gifts: and by it he being dead yet speaketh.' },
+						{ verse: 5, text: 'By faith Enoch was translated that he should not see death; and was not found, because God had translated him: for before his translation he had this testimony, that he pleased God.' },
+						{ verse: 6, text: 'But without faith it is impossible to please him: for he that cometh to God must believe that he is, and that he is a rewarder of them that diligently seek him.' },
+						{ verse: 7, text: 'By faith Noah, being warned of God of things not seen as yet, moved with fear, prepared an ark to the saving of his house; by the which he condemned the world, and became heir of the righteousness which is by faith.' },
+						{ verse: 8, text: 'By faith Abraham, when he was called to go out into a place which he should after receive for an inheritance, obeyed; and he went out, not knowing whither he went.' },
+						{ verse: 11, text: 'Through faith also Sara herself received strength to conceive seed, and was delivered of a child when she was past age, because she judged him faithful who had promised.' },
+						{ verse: 13, text: 'These all died in faith, not having received the promises, but having seen them afar off, and were persuaded of them, and embraced them, and confessed that they were strangers and pilgrims on the earth.' },
+						{ verse: 16, text: 'But now they desire a better country, that is, an heavenly: wherefore God is not ashamed to be called their God: for he hath prepared for them a city.' },
+						{ verse: 17, text: 'By faith Abraham, when he was tried, offered up Isaac: and he that had received the promises offered up his only begotten son,' },
+						{ verse: 24, text: 'By faith Moses, when he was come to years, refused to be called the son of Pharaoh\'s daughter;' },
+						{ verse: 25, text: 'Choosing rather to suffer affliction with the people of God, than to enjoy the pleasures of sin for a season;' },
+						{ verse: 26, text: 'Esteeming the reproach of Christ greater riches than the treasures in Egypt: for he had respect unto the recompence of the reward.' },
+						{ verse: 32, text: 'And what shall I more say? for the time would fail me to tell of Gedeon, and of Barak, and of Samson, and of Jephthae; of David also, and Samuel, and of the prophets:' },
+						{ verse: 33, text: 'Who through faith subdued kingdoms, wrought righteousness, obtained promises, stopped the mouths of lions,' },
+						{ verse: 34, text: 'Quenched the violence of fire, escaped the edge of the sword, out of weakness were made strong, waxed valiant in fight, turned to flight the armies of the aliens.' },
+						{ verse: 39, text: 'And these all, having obtained a good report through faith, received not the promise:' },
+						{ verse: 40, text: 'God having provided some better thing for us, that they without us should not be made perfect.' }
+					]
+				}
+			]
+		},
+		{
+			name: 'James',
+			abbrev: 'Jas',
+			chapters: [
+				{
+					chapter: 1,
+					verses: [
+						{ verse: 2, text: 'My brethren, count it all joy when ye fall into divers temptations;' },
+						{ verse: 3, text: 'Knowing this, that the trying of your faith worketh patience.' },
+						{ verse: 4, text: 'But let patience have her perfect work, that ye may be perfect and entire, wanting nothing.' },
+						{ verse: 5, text: 'If any of you lack wisdom, let him ask of God, that giveth to all men liberally, and upbraideth not; and it shall be given him.' },
+						{ verse: 6, text: 'But let him ask in faith, nothing wavering. For he that wavereth is like a wave of the sea driven with the wind and tossed.' },
+						{ verse: 12, text: 'Blessed is the man that endureth temptation: for when he is tried, he shall receive the crown of life, which the Lord hath promised to them that love him.' },
+						{ verse: 17, text: 'Every good gift and every perfect gift is from above, and cometh down from the Father of lights, with whom is no variableness, neither shadow of turning.' },
+						{ verse: 19, text: 'Wherefore, my beloved brethren, let every man be swift to hear, slow to speak, slow to wrath:' },
+						{ verse: 22, text: 'But be ye doers of the word, and not hearers only, deceiving your own selves.' },
+						{ verse: 25, text: 'But whoso looketh into the perfect law of liberty, and continueth therein, he being not a forgetful hearer, but a doer of the work, this man shall be blessed in his deed.' },
+						{ verse: 27, text: 'Pure religion and undefiled before God and the Father is this, To visit the fatherless and widows in their affliction, and to keep himself unspotted from the world.' }
+					]
+				}
+			]
+		},
+		{
+			name: 'Revelation',
+			abbrev: 'Rev',
+			chapters: [
+				{
+					chapter: 21,
+					verses: [
+						{ verse: 1, text: 'And I saw a new heaven and a new earth: for the first heaven and the first earth were passed away; and there was no more sea.' },
+						{ verse: 2, text: 'And I John saw the holy city, new Jerusalem, coming down from God out of heaven, prepared as a bride adorned for her husband.' },
+						{ verse: 3, text: 'And I heard a great voice out of heaven saying, Behold, the tabernacle of God is with men, and he will dwell with them, and they shall be his people, and God himself shall be with them, and be their God.' },
+						{ verse: 4, text: 'And God shall wipe away all tears from their eyes; and there shall be no more death, neither sorrow, nor crying, neither shall there be any more pain: for the former things are passed away.' },
+						{ verse: 5, text: 'And he that sat upon the throne said, Behold, I make all things new. And he said unto me, Write: for these words are true and faithful.' },
+						{ verse: 6, text: 'And he said unto me, It is done. I am Alpha and Omega, the beginning and the end. I will give unto him that is athirst of the fountain of the water of life freely.' },
+						{ verse: 7, text: 'He that overcometh shall inherit all things; and I will be his God, and he shall be my son.' },
+						{ verse: 10, text: 'And he carried me away in the spirit to a great and high mountain, and shewed me that great city, the holy Jerusalem, descending out of heaven from God,' },
+						{ verse: 11, text: 'Having the glory of God: and her light was like unto a stone most precious, even like a jasper stone, clear as crystal;' },
+						{ verse: 22, text: 'And I saw no temple therein: for the Lord God Almighty and the Lamb are the temple of it.' },
+						{ verse: 23, text: 'And the city had no need of the sun, neither of the moon, to shine in it: for the glory of God did lighten it, and the Lamb is the light thereof.' },
+						{ verse: 25, text: 'And the gates of it shall not be shut at all by day: for there shall be no night there.' },
+						{ verse: 27, text: 'And there shall in no wise enter into it any thing that defileth, neither whatsoever worketh abomination, or maketh a lie: but they which are written in the Lamb\'s book of life.' }
+					]
+				},
+				{
+					chapter: 22,
+					verses: [
+						{ verse: 1, text: 'And he shewed me a pure river of water of life, clear as crystal, proceeding out of the throne of God and of the Lamb.' },
+						{ verse: 2, text: 'In the midst of the street of it, and on either side of the river, was there the tree of life, which bare twelve manner of fruits, and yielded her fruit every month: and the leaves of the tree were for the healing of the nations.' },
+						{ verse: 3, text: 'And there shall be no more curse: but the throne of God and of the Lamb shall be in it; and his servants shall serve him:' },
+						{ verse: 4, text: 'And they shall see his face; and his name shall be in their foreheads.' },
+						{ verse: 5, text: 'And there shall be no night there; and they need no candle, neither light of the sun; for the Lord God giveth them light: and they shall reign for ever and ever.' },
+						{ verse: 12, text: 'And, behold, I come quickly; and my reward is with me, to give every man according as his work shall be.' },
+						{ verse: 13, text: 'I am Alpha and Omega, the beginning and the end, the first and the last.' },
+						{ verse: 14, text: 'Blessed are they that do his commandments, that they may have right to the tree of life, and may enter in through the gates into the city.' },
+						{ verse: 16, text: 'I Jesus have sent mine angel to testify unto you these things in the churches. I am the root and the offspring of David, and the bright and morning star.' },
+						{ verse: 17, text: 'And the Spirit and the bride say, Come. And let him that heareth say, Come. And let him that is athirst come. And whosoever will, let him take the water of life freely.' },
+						{ verse: 20, text: 'He which testifieth these things saith, Surely I come quickly. Amen. Even so, come, Lord Jesus.' },
+						{ verse: 21, text: 'The grace of our Lord Jesus Christ be with you all. Amen.' }
 					]
 				}
 			]
