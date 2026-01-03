@@ -1,8 +1,10 @@
 # For God so loved the world, that He gave His only begotten Son, that all who believe in Him should not perish but have everlasting life. — John 3:16
 
-# Bible.Systems - AI Agent Instructions
+# Bible.Systems - AI Agent Instructions (v2.0)
 
 > **The Gospel:** Jesus Christ, the Son of God, died for our sins, was buried, and rose again on the third day according to the Scriptures. Whoever believes in Him shall not perish but have eternal life. (1 Corinthians 15:3-4, John 3:16)
+
+> *"Whatever you do, work at it with all your heart, as working for the Lord."* — Colossians 3:23
 
 ---
 
@@ -10,9 +12,27 @@
 
 This work is licensed under the **MIT License**.
 
+**Part of [FaithStack](https://stack.faith)** - the ecosystem of Christ-centered technology.
+
 ---
 
-## 1. Project Overview
+## 1. Prime Directive
+
+You operate as a **spec-driven AI agent**. Your core responsibility involves implementing exactly what specifications require—no more, no less.
+
+**Critical Rules:**
+- Read `spec_chirho/` before writing code
+- Never assume; ask if unclear
+- Use `_chirho`, `-chirho`, or `Chirho` suffixes for ALL identifiers
+- Use `bun` and `bunx` exclusively—**NEVER** `npm`, `npx`, `yarn`, `pnpm`
+- Match existing code patterns and style
+- Uncommitted changes require human confirmation
+- Never place API keys in `wrangler.toml` or source code
+- Use latest wrangler and adapter-cloudflare (NOT pages)
+
+---
+
+## 2. Project Overview
 
 Bible.Systems is an open-source, comprehensive Bible study platform designed to provide:
 
@@ -28,37 +48,73 @@ Bible.Systems is an open-source, comprehensive Bible study platform designed to 
 
 ---
 
-## 2. Naming & Casing Conventions
+## 3. Comprehensive Identifier Suffixing
 
-All project-created identifiers use the `_chirho` or `-chirho` suffix to distinguish from third-party code.
+**CRITICAL:** Every identifier we create must include the chirho suffix in appropriate case.
 
-### 2.1 The Suffix Rule
+### 3.1 Complete Suffix Rules
 
 | Type | Case Style | Suffix | Example |
 |------|------------|--------|---------|
-| **Variables/Functions (JS/TS)** | `camelCase` | `Chirho` | `userDataChirho`, `fetchVersesChirho()` |
-| **Variables/Functions (Python/Rust)** | `snake_case` | `_chirho` | `user_data_chirho`, `fetch_verses_chirho()` |
-| **Classes/Components/Types** | `PascalCase` | `Chirho` | `VerseDisplayChirho`, `FeedbackBubbleChirho` |
-| **Constants/Env Vars** | `SCREAMING_SNAKE` | `_CHIRHO` | `API_KEY_CHIRHO`, `MAX_VERSES_CHIRHO` |
-| **NPM/Bun Scripts** | `kebab-case` | `-chirho` | `build-prod-chirho`, `deploy-chirho` |
-| **Directories (project-created)** | `snake_case` or `kebab-case` | `_chirho` or `-chirho` | `services_chirho/`, `api-chirho/` |
-| **Web Routes/Paths** | `kebab-case` | `-chirho` | `/features-fe/`, `/privacy-fe/` |
-| **API Endpoints** | `kebab-case` | `-chirho` | `/api-chirho/feedback-chirho/` |
-| **Database Tables/Columns** | `snake_case` | `_chirho` | `verses_chirho`, `book_name_chirho` |
-| **File Names** | Match language convention | `_chirho` or `-chirho` | `auth_chirho.ts`, `FeedbackBubbleChirho.svelte` |
+| Variables/Functions/Properties/Parameters | `camelCase` | `Chirho` | `userDataChirho`, `fetchVersesChirho()` |
+| Classes/Components/Types/Interfaces | `PascalCase` | `Chirho` | `VerseDisplayChirho`, `FeedbackBubbleChirho` |
+| Constants/Env Vars | `SCREAMING_SNAKE` | `_CHIRHO` | `API_KEY_CHIRHO`, `MAX_VERSES_CHIRHO` |
+| Directories (project-created) | `kebab-case` | `-chirho` | `spec_chirho/`, `tests-e2e-chirho/` |
+| Files | `kebab-case` | `-chirho` | `validation-chirho.ts`, `bible-kjv-chirho.ts` |
+| Web Routes (public pages) | `kebab-case` | `-fe` | `/privacy-fe`, `/features-fe` |
+| API Endpoints | `kebab-case` | `-chirho` | `/api-chirho/feedback-chirho` |
+| Database Tables/Columns | `snake_case` | `_chirho` | `verses_chirho`, `book_name_chirho` |
+| CSS Classes | `kebab-case` | `-chirho` | `.hero-chirho`, `.button-chirho` |
+| package.json Scripts | `kebab-case` | `-chirho` | `test-chirho`, `deploy-chirho` |
+| KV Keys | `kebab-case:kebab-case` | `-chirho` | `feedback-chirho:uuid-chirho` |
+| JSON API Response Props | `camelCase` | `Chirho` | `successChirho`, `dataChirho` |
+| R2 Buckets | `kebab-case` | `-chirho` | `audit-logs-chirho` |
+| Wrangler Bindings | `SCREAMING_SNAKE` | `_CHIRHO` | `DB_CHIRHO`, `FEEDBACK_KV_CHIRHO` |
 
-### 2.2 Framework Directories (No Suffix)
+### 3.2 Example Code
 
-Directories required by frameworks keep their standard names:
+```typescript
+// ✅ CORRECT - All identifiers properly suffixed
 
-| Framework | Required Directories |
-|-----------|---------------------|
-| SvelteKit | `src/`, `routes/`, `lib/`, `static/` |
-| Cloudflare | `.wrangler/`, `functions/` |
+interface VerseChirho {
+  idChirho: string;
+  bookChirho: string;
+  chapterChirho: number;
+  verseChirho: number;
+  textChirho: string;
+}
 
-**Principle:** Suffix what *we* create. Leave framework conventions alone.
+const MAX_VERSES_CHIRHO = 176;
 
-### 2.3 The Divine Header
+async function fetchVersesChirho(bookIdChirho: string): Promise<VerseChirho[]> {
+  const versesChirho: VerseChirho[] = [];
+
+  try {
+    const responseChirho = await fetch(`/api-chirho/bible-chirho/${bookIdChirho}`);
+    const dataChirho = await responseChirho.json();
+
+    for (const verseChirho of dataChirho.versesChirho) {
+      versesChirho.push(verseChirho);
+    }
+
+    return versesChirho.filter((vChirho) => vChirho.textChirho !== null);
+  } catch (errorChirho) {
+    console.error('Failed:', errorChirho);
+    throw errorChirho;
+  }
+}
+```
+
+### 3.3 What NOT to Suffix
+
+- Framework files: `+page.svelte`, `+server.ts`, `vite.config.ts`, `package.json`
+- Framework directories: `src/`, `routes/`, `lib/`, `static/`, `node_modules/`
+- Third-party imports: `import { redirect } from '@sveltejs/kit'`
+- Framework functions: `json()`, `error()`, `redirect()`, `fetch()`
+- Node/Bun globals: `console`, `process`, `crypto`, `Request`, `Response`
+- HTML attributes: `class`, `id`, `href`, `src` (but values can include `-chirho`)
+
+### 3.4 The Divine Header
 
 Every project file must include John 3:16 at the top:
 
@@ -77,9 +133,50 @@ Every project file must include John 3:16 at the top:
 
 ---
 
-## 3. Source of Truth & Synchronization
+## 4. Secrets Management
 
-### 3.1 The Hierarchy
+### 4.1 Never Put Secrets In:
+- `wrangler.toml`
+- Source code
+- Git-tracked files
+- Comments or documentation
+
+### 4.2 Proper Secret Storage
+
+**Local development (.env, git-ignored):**
+```bash
+TURNSTILE_SECRET_KEY_CHIRHO=1x0000000000000000000000000000000AA
+# Future:
+# STRIPE_SECRET_KEY_CHIRHO=sk_live_...
+# DATABASE_URL_CHIRHO=...
+```
+
+**Production (via wrangler):**
+```bash
+bunx wrangler secret put TURNSTILE_SECRET_KEY_CHIRHO
+bunx wrangler secret put STRIPE_SECRET_KEY_CHIRHO
+```
+
+**Documentation (.env.example, git-tracked, no values):**
+```bash
+TURNSTILE_SECRET_KEY_CHIRHO=
+STRIPE_SECRET_KEY_CHIRHO=
+```
+
+### 4.3 Required .gitignore Entries
+```
+.env
+.env.local
+.env.*
+*.env
+.dev.vars
+```
+
+---
+
+## 5. Source of Truth & Synchronization
+
+### 5.1 The Hierarchy
 
 The **Spec** (`spec_chirho/`) is the ultimate source of truth when it exists. All other artifacts derive from it.
 
@@ -101,7 +198,7 @@ spec_chirho/                          <- ULTIMATE SOURCE OF TRUTH
         +-- openapi_chirho.yaml
 ```
 
-### 3.2 File Authority Classification
+### 5.2 File Authority Classification
 
 | Category | Description | Examples | Edit Policy |
 |----------|-------------|----------|-------------|
@@ -109,7 +206,7 @@ spec_chirho/                          <- ULTIMATE SOURCE OF TRUTH
 | **Generated** | Derived from Source | `schema.ts`, `types_chirho/*.ts`, `*.HUMAN_CHIRHO.md` | Do not edit directly |
 | **Bidirectional** | Can flow either direction | `src/routes/**`, implementation code | See sync rules |
 
-### 3.3 The Cardinal Rules
+### 5.3 The Cardinal Rules
 
 1. **Never silently diverge.** If Spec and Code don't match, stop and resolve.
 2. **Spec changes require approval.** Always show changes before implementing.
@@ -118,7 +215,32 @@ spec_chirho/                          <- ULTIMATE SOURCE OF TRUTH
 
 ---
 
-## 4. Feature Status (Honest Assessment)
+## 6. Required Footer
+
+Every page footer must include:
+
+```html
+<footer class="footer-chirho">
+  <nav class="footer-links-chirho">
+    <a href="/privacy-fe">Privacy</a>
+    <a href="/terms-fe">Terms</a>
+    <a href="/accessibility-fe">Accessibility</a>
+    <a href="/contact-fe">Contact</a>
+  </nav>
+
+  <p class="footer-faith-chirho">
+    <a href="https://perffection.com">fe</a> |
+    <a href="https://loveJesus.software">loveJesus</a> |
+    <a href="http://jesusfilm.org/watch/jesus.html/english.html">☧</a>
+  </p>
+
+  <p class="footer-lord-chirho">JESUS CHRIST IS LORD</p>
+</footer>
+```
+
+---
+
+## 7. Feature Status (Honest Assessment)
 
 ### Status Indicators
 
@@ -160,7 +282,7 @@ spec_chirho/                          <- ULTIMATE SOURCE OF TRUTH
 
 ---
 
-## 5. Tech Stack
+## 8. Tech Stack
 
 ### Currently Active
 
@@ -182,15 +304,23 @@ spec_chirho/                          <- ULTIMATE SOURCE OF TRUTH
 
 ---
 
-## 6. Directory Structure
+## 9. Directory Structure
 
 ```
 bible.systems-chirho/
++-- CLAUDE.md                    # Points to @AGENTS.md
 +-- AGENTS.md                    # AI instructions (this file)
-+-- AGENTS-MASTER-CHIRHO.md      # Master template for all projects
-+-- wrangler.toml                # Cloudflare Worker config
++-- .env                         # Secrets (git-ignored)
++-- .env.example                 # Template (git-tracked)
++-- wrangler.toml                # Cloudflare Worker config (NO SECRETS)
 +-- vitest.config.ts             # Unit test configuration
 +-- playwright.config.ts         # E2E test configuration
+|
++-- spec_chirho/                 # THE SOURCE OF TRUTH
+|   +-- 01-testing-chirho.md     # Testing guide
+|   +-- 02-feedback-chirho.md    # Feedback systems
+|   +-- 03-best-practices-chirho.md  # Best practices
+|
 +-- src/
 |   +-- routes/
 |   |   +-- +page.svelte         # Home/landing page
@@ -224,7 +354,7 @@ bible.systems-chirho/
 
 ---
 
-## 7. API Endpoints
+## 10. API Endpoints
 
 ### Currently Implemented
 
@@ -245,7 +375,7 @@ bible.systems-chirho/
 
 ---
 
-## 8. MCP Server (Planned)
+## 11. MCP Server (Planned)
 
 For AI assistants like Claude to access Bible data:
 
@@ -258,7 +388,7 @@ For AI assistants like Claude to access Bible data:
 
 ---
 
-## 9. Data Sources (Open/Public Domain)
+## 12. Data Sources (Open/Public Domain)
 
 When implemented, the following public domain sources will be used:
 
@@ -270,30 +400,30 @@ When implemented, the following public domain sources will be used:
 
 ---
 
-## 10. Testing Strategy
+## 13. Testing Strategy
 
-### 10.1 Philosophy
+### 13.1 Philosophy
 
 - **Test before deploy**: Never deploy untested code
 - **Fast feedback**: All tests must complete in under 30 seconds
 - **Critical paths first**: Focus on core API handlers and user flows
 - **Headless only**: E2E tests run headless for CI compatibility
 
-### 10.2 Test Tools
+### 13.2 Test Tools
 
 | Tool | Purpose | Command |
 |------|---------|---------|
 | Vitest | Unit tests | `bun run test-chirho` |
 | Playwright | E2E tests (headless) | `bun run test-e2e-chirho` |
 
-### 10.3 Test File Conventions
+### 13.3 Test File Conventions
 
 | Type | Location | Naming | Example |
 |------|----------|--------|---------|
 | Unit tests | `src/**/*.test.ts` | `*.test.ts` | `validation_chirho.test.ts` |
 | E2E tests | `tests-e2e-chirho/` | `*.e2e.ts` | `bible-reader.e2e.ts` |
 
-### 10.4 What to Test
+### 13.4 What to Test
 
 **Unit Tests (Vitest):**
 - Validation utilities
@@ -307,7 +437,7 @@ When implemented, the following public domain sources will be used:
 - Navigation and routing
 - Form validation and error states
 
-### 10.5 Test Commands
+### 13.5 Test Commands
 
 ```bash
 bun run test-chirho          # Run unit tests once
@@ -317,7 +447,7 @@ bun run test-all-chirho      # Run all tests
 bun run deploy-chirho        # Test + build + deploy
 ```
 
-### 10.6 Writing Tests
+### 13.6 Writing Tests
 
 ```typescript
 // For God so loved the world, that He gave His only begotten Son,
@@ -333,7 +463,7 @@ describe('featureNameChirho', () => {
 });
 ```
 
-### 10.7 CI/CD Integration
+### 13.7 CI/CD Integration
 
 The `deploy-chirho` script enforces test-before-deploy:
 
@@ -346,7 +476,7 @@ bun run deploy-chirho
 
 ---
 
-## 11. Git & Authorship Protocol
+## 14. Git & Authorship Protocol
 
 ### Commit Message Format
 
@@ -371,7 +501,7 @@ The `[AI-CHIRHO]` marker enables programmatic detection of AI-assisted commits.
 
 ---
 
-## 12. Commands
+## 15. Commands
 
 ```bash
 # Development
@@ -393,7 +523,7 @@ bunx wrangler deploy           # Deploy only (skips tests)
 
 ---
 
-## 13. Environment Variables
+## 16. Environment Variables
 
 Required in `.env` (git ignored):
 
@@ -406,7 +536,7 @@ Required in `.env` (git ignored):
 
 ---
 
-## 14. Quick Reference
+## 17. Quick Reference
 
 ### Naming Summary
 
@@ -435,9 +565,52 @@ Required in `.env` (git ignored):
 
 ---
 
+## 18. Implementation Checklist
+
+### Setup
+- [x] CLAUDE.md points to @AGENTS.md
+- [x] AGENTS.md customized from master
+- [x] .env copied (git-ignored)
+- [x] .gitignore includes .env files
+- [x] spec_chirho/ directory created
+
+### Secrets
+- [x] NO secrets in wrangler.toml
+- [x] Turnstile secret via `wrangler secret put`
+- [ ] Stripe secrets configured (when needed)
+
+### Identifiers
+- [x] Variables use `Chirho` suffix
+- [x] Functions use `Chirho` suffix
+- [x] Constants use `_CHIRHO` suffix
+- [x] Routes use `-chirho` or `-fe` suffix
+- [x] package.json scripts use `-chirho` suffix
+
+### Features
+- [x] Feedback bubble on every page
+- [x] Turnstile protection on forms
+- [x] Footer with fe | loveJesus | ☧ links
+- [x] Privacy/Terms/Contact/Accessibility pages
+- [x] Bible reader with KJV data
+
+### Testing
+- [x] Vitest for unit tests
+- [x] Playwright for E2E tests (headless)
+- [x] deploy-chirho runs tests first
+- [x] All tests pass in <30 seconds
+
+### Deployment
+- [x] Using adapter-cloudflare (NOT pages)
+- [x] bunx wrangler deploy works
+- [x] Security headers configured
+
+---
+
 > *"For by grace you have been saved through faith. And this is not your own doing; it is the gift of God, not a result of works, so that no one may boast."* — Ephesians 2:8-9
 
 > *"Whatever you do, work at it with all your heart, as working for the Lord, not for human masters."* — Colossians 3:23
+
+> *"And whatever you do, in word or deed, do everything in the name of the Lord Jesus, giving thanks to God the Father through him."* — Colossians 3:17
 
 ---
 
