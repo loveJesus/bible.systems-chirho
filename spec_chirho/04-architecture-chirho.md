@@ -78,48 +78,62 @@
 └─────────────────────────────────────────────────────────────────────────────┘
 ```
 
-## 3. Database Sharding Architecture
+## 3. Database Sharding Architecture (Dynamic Allocation)
 
 ```
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         64-SHARD D1 DATABASE LAYOUT                          │
+│                    DYNAMIC D1 SHARDING WITH CATALOG DB                       │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │                                                                              │
-│   Resource Key: "kjv:gen:1:1" (version:book:chapter:verse)                  │
+│   New Resource Import: "mhenry" (Matthew Henry Commentary, ~10 MB)          │
 │                                                                              │
 │   ┌─────────────────────────────────────────────────────────────┐           │
-│   │                    SHA-256 Hash Function                     │           │
-│   │         Input: "kjv:gen:1:1"                                │           │
-│   │         Output: 0x7a3f...  (256-bit hash)                   │           │
+│   │                    CATALOG_DB_CHIRHO                         │           │
+│   │         "Which shard has space for 10 MB?"                  │           │
 │   └──────────────────────────┬──────────────────────────────────┘           │
 │                              │                                              │
 │   ┌──────────────────────────▼──────────────────────────────────┐           │
-│   │              Extract First 6 Bits                            │           │
-│   │         0x7a = 0111 1010                                     │           │
-│   │         First 6 bits: 011110 = 30 (decimal)                  │           │
+│   │              Query Shard Sizes                               │           │
+│   │   SELECT shard_index_chirho, SUM(size_estimate_chirho)      │           │
+│   │   FROM resource_locations_chirho                             │           │
+│   │   GROUP BY shard_index_chirho                                │           │
 │   └──────────────────────────┬──────────────────────────────────┘           │
 │                              │                                              │
 │   ┌──────────────────────────▼──────────────────────────────────┐           │
-│   │              Route to Database                               │           │
-│   │         Shard Index: 30 → "bible-res-1e-chirho"             │           │
-│   │         Binding: RES_1E_CHIRHO                               │           │
+│   │              Find Least-Full Shard                           │           │
+│   │   Shard 00: 2.1 GB                                          │           │
+│   │   Shard 01: 1.8 GB  ← Least full!                           │           │
+│   │   Shard 02: 3.2 GB                                          │           │
+│   │   ...                                                       │           │
+│   └──────────────────────────┬──────────────────────────────────┘           │
+│                              │                                              │
+│   ┌──────────────────────────▼──────────────────────────────────┐           │
+│   │              Record Location + Route                         │           │
+│   │   INSERT INTO resource_locations_chirho                      │           │
+│   │     (resource_id, shard_index, size_estimate)               │           │
+│   │     VALUES ('mhenry', 1, 10485760)                          │           │
+│   │                                                             │           │
+│   │   → Route to RES_01_CHIRHO                                  │           │
 │   └─────────────────────────────────────────────────────────────┘           │
 │                                                                              │
 │   ┌─────────────────────────────────────────────────────────────┐           │
-│   │                    Shard Distribution                        │           │
+│   │               Current Shard Layout (16 initial)              │           │
 │   ├─────────────────────────────────────────────────────────────┤           │
-│   │  00 01 02 03 04 05 06 07 08 09 0A 0B 0C 0D 0E 0F           │           │
-│   │  10 11 12 13 14 15 16 17 18 19 1A 1B 1C 1D 1E 1F           │           │
-│   │  20 21 22 23 24 25 26 27 28 29 2A 2B 2C 2D 2E 2F           │           │
-│   │  30 31 32 33 34 35 36 37 38 39 3A 3B 3C 3D 3E 3F           │           │
+│   │   00 ████████░░ 2.1GB    08 ██████░░░░ 1.5GB               │           │
+│   │   01 ██████░░░░ 1.8GB    09 ████████░░ 2.0GB               │           │
+│   │   02 ██████████ 3.2GB    0A ██████░░░░ 1.6GB               │           │
+│   │   03 ████░░░░░░ 1.0GB    0B ██████████ 2.8GB               │           │
+│   │   04 ████████░░ 2.2GB    0C ████░░░░░░ 0.9GB               │           │
+│   │   05 ██████░░░░ 1.7GB    0D ██████░░░░ 1.4GB               │           │
+│   │   06 ██████████ 2.9GB    0E ████████░░ 2.3GB               │           │
+│   │   07 ████░░░░░░ 1.1GB    0F ██████░░░░ 1.7GB               │           │
 │   └─────────────────────────────────────────────────────────────┘           │
+│                                                                              │
+│   When all shards > 8GB: Create new shard (10, 11, 12...)                   │
 │                                                                              │
 │   Each shard contains same schema:                                          │
-│   - verses_chirho                                                           │
-│   - word_instances_chirho                                                   │
-│   - cross_refs_chirho                                                       │
-│   - lexicon_entries_chirho                                                  │
-│   - commentary_refs_chirho                                                  │
+│   - verses_chirho, word_instances_chirho, cross_refs_chirho                 │
+│   - lexicon_entries_chirho, commentary_refs_chirho                          │
 │                                                                              │
 └─────────────────────────────────────────────────────────────────────────────┘
 ```

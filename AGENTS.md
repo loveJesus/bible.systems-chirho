@@ -658,61 +658,134 @@ Before you have real testimonials:
 
 ---
 
-## 14.4 Sharded D1 Architecture for Bible Resources
+## 14.4 Dynamic D1 Sharding Architecture for Bible Resources
 
-Bible.Systems requires massive data storage (Bible texts, commentaries, lexicons, cross-references). D1 has a 10GB limit per database. We use a **64-database sharding strategy** for resources.
+Bible.Systems requires massive data storage (Bible texts, commentaries, lexicons, cross-references). D1 has a 10GB limit per database. We use a **dynamic allocation strategy** with a catalog database.
 
 ### Database Naming Convention
 
 ```
-bible-res-00-chirho  through  bible-res-3f-chirho  (64 databases, hex 00-3F)
-app-chirho                                          (application data: users, feedback, etc.)
+catalog-chirho                 Primary DB - tracks where each resource lives
+bible-res-00-chirho           Resource shard 0
+bible-res-01-chirho           Resource shard 1
+...                           (start with 16, expand as needed)
+app-chirho                    Application data (users, feedback, sessions)
 ```
 
-### Sharding Algorithm
+### Dynamic Allocation Strategy
 
-Resources are distributed using the first 6 bits of a SHA-256 hash:
+Instead of hash-based sharding, resources are placed in the **least-full database**:
 
 ```typescript
 // For God so loved the world, that He gave His only begotten Son,
 // that all who believe in Him should not perish but have everlasting life. — John 3:16
 
-async function getShardIndexChirho(resourceKeyChirho: string): Promise<number> {
-  const encoderChirho = new TextEncoder();
-  const dataChirho = encoderChirho.encode(resourceKeyChirho);
-  const hashBufferChirho = await crypto.subtle.digest('SHA-256', dataChirho);
-  const hashArrayChirho = new Uint8Array(hashBufferChirho);
-  // First 6 bits = value 0-63
-  return hashArrayChirho[0] >> 2;
+// Catalog table tracks where each resource lives
+interface ResourceLocationChirho {
+  resourceIdChirho: string;           // "kjv", "tsk", "mhenry"
+  shardIndexChirho: number;           // 0-15 (expandable)
+  sizeEstimateChirho: number;         // Size in bytes
+  createdAtChirho: Date;
 }
 
-function getDbNameChirho(shardIndexChirho: number): string {
-  const hexChirho = shardIndexChirho.toString(16).padStart(2, '0');
-  return `bible-res-${hexChirho}-chirho`;
+// Find least-full shard for new resource
+async function allocateResourceChirho(
+  catalogDbChirho: D1Database,
+  resourceIdChirho: string,
+  estimatedSizeChirho: number
+): Promise<number> {
+  // Get current shard sizes
+  const shardsChirho = await catalogDbChirho.prepare(`
+    SELECT shard_index_chirho, SUM(size_estimate_chirho) as total_size_chirho
+    FROM resource_locations_chirho
+    GROUP BY shard_index_chirho
+  `).all();
+
+  // Find least-full shard under 8GB (leave 2GB buffer)
+  const MAX_SHARD_SIZE_CHIRHO = 8 * 1024 * 1024 * 1024; // 8GB
+  let targetShardChirho = 0;
+  let minSizeChirho = Infinity;
+
+  for (const shardChirho of shardsChirho.results) {
+    if (shardChirho.total_size_chirho < minSizeChirho &&
+        shardChirho.total_size_chirho + estimatedSizeChirho < MAX_SHARD_SIZE_CHIRHO) {
+      minSizeChirho = shardChirho.total_size_chirho;
+      targetShardChirho = shardChirho.shard_index_chirho;
+    }
+  }
+
+  // If all shards too full, create new one (up to configured max)
+  if (minSizeChirho + estimatedSizeChirho >= MAX_SHARD_SIZE_CHIRHO) {
+    targetShardChirho = await createNewShardChirho();
+  }
+
+  // Record location in catalog
+  await catalogDbChirho.prepare(`
+    INSERT INTO resource_locations_chirho
+    (resource_id_chirho, shard_index_chirho, size_estimate_chirho)
+    VALUES (?, ?, ?)
+  `).bind(resourceIdChirho, targetShardChirho, estimatedSizeChirho).run();
+
+  return targetShardChirho;
 }
 
-// Usage:
-const keyChirho = 'kjv:gen:1:1';  // version:book:chapter:verse
-const shardChirho = await getShardIndexChirho(keyChirho);  // e.g., 42
-const dbNameChirho = getDbNameChirho(shardChirho);         // "bible-res-2a-chirho"
+// Look up where a resource lives
+async function getResourceShardChirho(
+  catalogDbChirho: D1Database,
+  resourceIdChirho: string
+): Promise<number> {
+  const resultChirho = await catalogDbChirho.prepare(`
+    SELECT shard_index_chirho FROM resource_locations_chirho
+    WHERE resource_id_chirho = ?
+  `).bind(resourceIdChirho).first();
+
+  return resultChirho?.shard_index_chirho ?? 0;
+}
 ```
 
-### Resource Key Formats
+### Catalog Database Schema
 
-| Resource Type | Key Format | Example |
-|---------------|------------|---------|
-| Verse text | `{version}:{book}:{chapter}:{verse}` | `kjv:gen:1:1` |
-| Cross-reference | `xref:{book}:{chapter}:{verse}` | `xref:gen:1:1` |
-| Commentary | `comm:{name}:{book}:{chapter}` | `comm:mhenry:gen:1` |
-| Lexicon entry | `lex:{strongs}` | `lex:H1234` |
-| Morphology | `morph:{word_id}` | `morph:kjv:gen:1:1:3` |
+```sql
+-- catalog-chirho database
 
-### Wrangler Configuration (64 Resource DBs)
+-- Resource locations
+CREATE TABLE resource_locations_chirho (
+  resource_id_chirho TEXT PRIMARY KEY,  -- "kjv", "tsk", "mhenry:gen"
+  shard_index_chirho INTEGER NOT NULL,
+  size_estimate_chirho INTEGER NOT NULL,
+  resource_type_chirho TEXT,            -- "bible", "crossref", "commentary", "lexicon"
+  created_at_chirho TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Shard registry (for dynamic expansion)
+CREATE TABLE shards_chirho (
+  shard_index_chirho INTEGER PRIMARY KEY,
+  database_name_chirho TEXT NOT NULL,
+  binding_name_chirho TEXT NOT NULL,
+  created_at_chirho TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  status_chirho TEXT DEFAULT 'active'   -- 'active', 'full', 'maintenance'
+);
+
+-- Initial 16 shards
+INSERT INTO shards_chirho (shard_index_chirho, database_name_chirho, binding_name_chirho) VALUES
+  (0, 'bible-res-00-chirho', 'RES_00_CHIRHO'),
+  (1, 'bible-res-01-chirho', 'RES_01_CHIRHO'),
+  -- ... through 15
+  (15, 'bible-res-0f-chirho', 'RES_0F_CHIRHO');
+```
+
+### Wrangler Configuration (Initial 16 Shards)
 
 ```toml
-# wrangler.toml - Resource database bindings
-# Generate with script: for i in {0..63}; do printf "[[d1_databases]]\nbinding = \"RES_%02X_CHIRHO\"\ndatabase_name = \"bible-res-%02x-chirho\"\ndatabase_id = \"...\"\n\n" $i $i; done
+# wrangler.toml
 
+# Catalog database (knows where everything is)
+[[d1_databases]]
+binding = "CATALOG_DB_CHIRHO"
+database_name = "catalog-chirho"
+database_id = "..."
+
+# Resource shards (start with 16, add more as needed)
 [[d1_databases]]
 binding = "RES_00_CHIRHO"
 database_name = "bible-res-00-chirho"
@@ -723,7 +796,7 @@ binding = "RES_01_CHIRHO"
 database_name = "bible-res-01-chirho"
 database_id = "..."
 
-# ... through RES_3F_CHIRHO (64 total)
+# ... through RES_0F_CHIRHO (16 total to start)
 
 # Application database (separate from resources)
 [[d1_databases]]
@@ -737,41 +810,34 @@ database_id = "..."
 ```typescript
 // src/lib/db_chirho/router-chirho.ts
 
-type DbBindingsChirho = {
-  RES_00_CHIRHO: D1Database;
-  RES_01_CHIRHO: D1Database;
-  // ... through RES_3F_CHIRHO
-  APP_DB_CHIRHO: D1Database;
-};
-
-const DB_BINDINGS_CHIRHO = [
-  'RES_00_CHIRHO', 'RES_01_CHIRHO', 'RES_02_CHIRHO', /* ... */ 'RES_3F_CHIRHO'
-] as const;
-
 export async function getResourceDbChirho(
-  envChirho: DbBindingsChirho,
-  resourceKeyChirho: string
+  envChirho: EnvBindingsChirho,
+  resourceIdChirho: string
 ): Promise<D1Database> {
-  const shardIndexChirho = await getShardIndexChirho(resourceKeyChirho);
-  const bindingNameChirho = DB_BINDINGS_CHIRHO[shardIndexChirho];
+  // Look up shard in catalog
+  const shardIndexChirho = await getResourceShardChirho(
+    envChirho.CATALOG_DB_CHIRHO,
+    resourceIdChirho
+  );
+
+  // Get binding name for shard
+  const bindingNameChirho = `RES_${shardIndexChirho.toString(16).toUpperCase().padStart(2, '0')}_CHIRHO`;
+
   return envChirho[bindingNameChirho];
 }
 ```
 
 ### Capacity Planning
 
-| Content Type | Estimated Size | Databases Needed |
-|--------------|----------------|------------------|
-| Full KJV text | ~4.5 MB | 1 (distributed) |
-| 10 Bible versions | ~45 MB | 1 (distributed) |
-| TSK cross-references | ~50 MB | 1 (distributed) |
-| Strong's + lexicons | ~100 MB | 1 (distributed) |
-| Matthew Henry | ~6 MB | 1 (distributed) |
-| 20 commentaries | ~120 MB | 2 (distributed) |
-| Original language morphology | ~200 MB | 3 (distributed) |
-| **Total estimated** | **~500 MB** | **< 1 GB per shard** |
+| Content Type | Estimated Size | Typical Shard |
+|--------------|----------------|---------------|
+| Full KJV text | ~4.5 MB | Any available |
+| Bible version (avg) | ~5 MB | Any available |
+| TSK cross-references | ~50 MB | Dedicated shard |
+| Strong's + lexicons | ~100 MB | Dedicated shard |
+| Commentary (avg) | ~10 MB | Any available |
 
-With 64 shards and ~500 MB total, each shard averages ~8 MB. This leaves massive room for growth (640 GB theoretical max).
+**Starting with 16 shards = 160 GB capacity. Expand by adding more shards as needed.**
 
 ---
 
