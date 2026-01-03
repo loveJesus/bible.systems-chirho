@@ -132,20 +132,23 @@
 	<!-- Features Grid -->
 	<section class="max-w-7xl mx-auto px-4 py-16">
 		<div class="text-center mb-12">
-			<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Planned Features</h2>
+			<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Features</h2>
 			<p class="text-slate-400 text-lg">Tools designed for serious Bible study</p>
 		</div>
 
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 			<!-- Cross-References -->
-			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-slate-800 hover:border-amber-500/30 transition-all duration-300">
-				<div class="w-12 h-12 bg-amber-500/10 rounded-lg flex items-center justify-center mb-4 group-hover:bg-amber-500/20 transition-colors">
-					<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-					</svg>
+			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-green-500/30 hover:border-green-500/50 transition-all duration-300">
+				<div class="flex items-start justify-between mb-4">
+					<div class="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
+						<svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+						</svg>
+					</div>
+					<span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full">Available</span>
 				</div>
 				<h3 class="text-xl font-bold text-white mb-2">Cross-References</h3>
-				<p class="text-slate-400">Treasury of Scripture Knowledge integration with visual exploration of connected passages.</p>
+				<p class="text-slate-400">Treasury of Scripture Knowledge data — click the chain icon on any verse to explore connected passages.</p>
 			</div>
 
 			<!-- Original Languages -->
