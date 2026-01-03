@@ -326,7 +326,366 @@ Use available MCP image generation tools for original artwork:
 
 ---
 
-## 8. Feature Status (Honest Assessment)
+## 8. Image Format Guidelines
+
+### 8.1 Convert Generated Images to JPG
+
+When using MCP image generation tools, convert outputs to JPG for web delivery:
+
+```typescript
+// Convert generated images to optimized JPG
+const imageBufferChirho = await generateImageChirho(promptChirho);
+const jpgBufferChirho = await convertToJpgChirho(imageBufferChirho, 85); // 85% quality
+```
+
+### 8.2 Image Requirements
+
+| Use Case | Format | Max Size | Notes |
+|----------|--------|----------|-------|
+| Photos/Backgrounds | JPG | 200KB | Use compression |
+| Screenshots | PNG | 500KB | When transparency needed |
+| Icons/Logos | SVG | 10KB | Prefer vectors |
+| OG/Social Images | JPG | 100KB | 1200x630px minimum |
+
+### 8.3 Lazy Loading
+
+Always use lazy loading for images below the fold:
+
+```html
+<img
+  src="/images-chirho/verse-art-chirho.jpg"
+  alt="Artistic rendering of Scripture"
+  loading="lazy"
+  decoding="async"
+  width="800"
+  height="600"
+/>
+```
+
+---
+
+## 9. Email Setup (2SMTP + Mailu)
+
+### 9.1 When Implemented
+
+Email functionality uses 2SMTP for sending:
+
+```typescript
+// Email addresses use .fe suffix pattern
+const fromEmailChirho = 'noreply.fe@bible.systems';
+const supportEmailChirho = 'support.fe@bible.systems';
+```
+
+### 9.2 2SMTP API Pattern
+
+```typescript
+async function sendEmailChirho(
+  toChirho: string[],
+  subjectChirho: string,
+  bodyHtmlChirho: string
+): Promise<boolean> {
+  const responseChirho = await fetch('https://2smtp.com/api_fe/send_email_fe', {
+    method: 'POST',
+    headers: {
+      'X-API-Key': env.PROJECT_2SMTP_API_KEY_CHIRHO,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      to_chirho: toChirho,
+      subject_chirho: subjectChirho,
+      body_html_chirho: bodyHtmlChirho,
+      reply_to_chirho: supportEmailChirho
+    })
+  });
+  return responseChirho.ok;
+}
+```
+
+### 9.3 DNS Records Required
+
+| Record | Purpose |
+|--------|---------|
+| SPF | `v=spf1 include:_spf.mailer-aleluya.xjes.us ~all` |
+| DKIM | Add key from Mailu admin panel |
+| DMARC | `v=DMARC1; p=quarantine; rua=mailto:dmarc.fe@bible.systems` |
+
+---
+
+## 10. Stripe Integration (Critical Notes)
+
+### 10.1 CRITICAL: Use Async Webhook Verification
+
+**Cloudflare Workers use SubtleCrypto which is async-only.** The synchronous method WILL FAIL:
+
+```typescript
+// ❌ WRONG - This fails on Cloudflare Workers
+const eventChirho = stripe.webhooks.constructEvent(
+  payloadChirho,
+  signatureChirho,
+  webhookSecretChirho
+);
+
+// ✅ CORRECT - Use async version
+const eventChirho = await stripe.webhooks.constructEventAsync(
+  payloadChirho,
+  signatureChirho,
+  webhookSecretChirho
+);
+```
+
+### 10.2 Webhook Handler Pattern
+
+```typescript
+// src/routes/api-chirho/stripe-webhook-chirho/+server.ts
+export const POST: RequestHandler = async ({ request, platform }) => {
+  const payloadChirho = await request.text();
+  const signatureChirho = request.headers.get('stripe-signature');
+
+  let eventChirho: Stripe.Event;
+  try {
+    // ✅ MUST use constructEventAsync on Workers
+    eventChirho = await stripeChirho.webhooks.constructEventAsync(
+      payloadChirho,
+      signatureChirho,
+      platform.env.STRIPE_WEBHOOK_SECRET_CHIRHO
+    );
+  } catch (errChirho) {
+    throw error(400, 'Invalid signature');
+  }
+
+  switch (eventChirho.type) {
+    case 'checkout.session.completed':
+      await handleCheckoutCompleteChirho(eventChirho.data.object);
+      break;
+    // Handle other events...
+  }
+
+  return json({ receivedChirho: true });
+};
+```
+
+---
+
+## 11. Context Preservation (Zero-Context Resumability)
+
+### 11.1 The Problem
+
+AI agents lose context between sessions. Without preservation, every session starts from scratch.
+
+### 11.2 The Solution: CURRENT_SPRINT_CHIRHO.md
+
+Maintain a **living state document** that any agent can read to continue immediately:
+
+```markdown
+# CURRENT_SPRINT_CHIRHO.md
+
+## Active Task
+Implementing cross-reference system for Bible.Systems
+
+## Status
+- [x] Research Treasury of Scripture Knowledge format
+- [x] Design database schema for cross-refs
+- [ ] Create API endpoint /api-chirho/crossref-chirho
+- [ ] Add UI component for displaying references
+
+## Blockers
+None currently
+
+## Context
+- TSK data is public domain
+- Schema defined in spec_chirho/01-data-model-chirho/
+- Target: 500ms response time for lookups
+
+## Next Steps
+1. Implement D1 migration for cross_refs_chirho table
+2. Create server endpoint with caching
+```
+
+### 11.3 Rules
+
+1. **Update as you work** — Keep the sprint file current
+2. **Delete when done** — Remove completed context to avoid confusion
+3. **Pull from gist** — Reference FaithStack Master Gist for patterns
+4. **Be specific** — Include file paths, decisions made, blockers
+
+### 11.4 Why This Matters
+
+A developer (human or AI) can:
+1. Clone the repo fresh
+2. Read `AGENTS.md` (permanent rules)
+3. Read `CURRENT_SPRINT_CHIRHO.md` (current state)
+4. Continue immediately — no re-explaining needed
+
+**The repository itself becomes the saved game state.**
+
+---
+
+## 12. Performance & Accessibility
+
+### 12.1 Core Web Vitals Targets
+
+| Metric | Target | Description |
+|--------|--------|-------------|
+| LCP | < 2.5s | Largest Contentful Paint |
+| FID | < 100ms | First Input Delay |
+| CLS | < 0.1 | Cumulative Layout Shift |
+| TTFB | < 600ms | Time to First Byte |
+
+### 12.2 Accessibility (WCAG 2.1 AA)
+
+**Required:**
+- Keyboard navigation for ALL interactions
+- Color contrast ratio ≥ 4.5:1
+- Alt text for all images
+- ARIA labels on interactive elements
+- Visible focus indicators
+- Skip navigation link
+
+**Testing:**
+```bash
+# Run Lighthouse accessibility audit
+npx lighthouse https://bible.systems --only-categories=accessibility
+```
+
+### 12.3 Rate Limiting (When Implemented)
+
+| Endpoint Type | Limit | Window |
+|---------------|-------|--------|
+| API reads | 100/min | Per IP |
+| API writes | 30/min | Per IP |
+| Auth attempts | 10/min | Per IP |
+| Feedback | 5/min | Per IP |
+
+---
+
+## 13. wrangler.toml Configuration
+
+### 13.1 Complete Example (NO SECRETS!)
+
+```toml
+name = "bible-systems-chirho"
+main = ".svelte-kit/cloudflare/_worker.js"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+# CRITICAL: Required for static assets
+[assets]
+directory = ".svelte-kit/cloudflare"
+binding = "ASSETS"
+
+# KV Namespaces
+[[kv_namespaces]]
+binding = "FEEDBACK_KV_CHIRHO"
+id = "your-kv-id-here"
+
+[[kv_namespaces]]
+binding = "SESSIONS_KV_CHIRHO"
+id = "your-sessions-kv-id"
+
+# D1 Database (when implemented)
+[[d1_databases]]
+binding = "DB_CHIRHO"
+database_name = "bible-systems-db-chirho"
+database_id = "your-d1-id-here"
+
+# R2 Buckets (when implemented)
+[[r2_buckets]]
+binding = "MEDIA_R2_CHIRHO"
+bucket_name = "bible-systems-media-chirho"
+
+# NEVER put secrets here - use:
+# bunx wrangler secret put TURNSTILE_SECRET_KEY_CHIRHO
+# bunx wrangler secret put STRIPE_SECRET_KEY_CHIRHO
+```
+
+### 13.2 Common Issues
+
+| Issue | Solution |
+|-------|----------|
+| "No static assets to upload" | Add `[assets]` section |
+| Assets 404 after deploy | Verify `directory` path |
+| KV/D1 not available | Add bindings to wrangler.toml |
+| Wrong deploy command | Use `wrangler deploy`, NOT `wrangler pages deploy` |
+
+---
+
+## 14. Database-Driven Content
+
+### 14.1 Never Hardcode
+
+**Testimonials, featured content, and dynamic text MUST come from database:**
+
+```typescript
+// ❌ WRONG - Hardcoded testimonials
+const testimonialsChirho = [
+  { name: 'John', text: 'Great app!' },
+  { name: 'Mary', text: 'Love it!' }
+];
+
+// ✅ CORRECT - Database-driven
+const testimonialsChirho = await db.select()
+  .from(testimonialsTableChirho)
+  .where(eq(approvedChirho, true))
+  .limit(5);
+```
+
+### 14.2 Pre-Launch Pattern
+
+Before you have real testimonials:
+
+```html
+<section class="testimonials-chirho">
+  <p class="testimonials-placeholder-chirho">
+    We're just getting started! Be among our first users
+    and share your experience with Bible.Systems.
+  </p>
+</section>
+```
+
+### 14.3 D1 Size Guidelines
+
+| Data Type | Storage | Notes |
+|-----------|---------|-------|
+| Small text (<512 bytes) | D1 directly | Normal columns |
+| Large text (>512 bytes) | KV + D1 key | Store key reference |
+| Files | R2 | Store R2 path in D1 |
+| Analytics events | Pipelines → R2 | Long-term queryable |
+
+**Keep D1 under 10GB** — use KV/R2 for large content.
+
+---
+
+## 15. FaithStack Master Gist Reference
+
+### 15.1 The Master Gist
+
+All FaithStack patterns live in the master gist:
+
+**Gist ID:** `c93fbd61bc1dd6d898ef89c4b6981694`
+**URL:** `https://gist.github.com/loveJesus/c93fbd61bc1dd6d898ef89c4b6981694`
+
+### 15.2 Available Guides
+
+| File | Purpose |
+|------|---------|
+| `00-README_CHIRHO.md` | Overview and quick start |
+| `01-AGENTS_MASTER_CHIRHO.md` | Complete AI agent instructions |
+| `02-TESTING_CHIRHO.md` | Solo dev testing strategy |
+| `03-COMMUNITY_FEEDBACK_CHIRHO.md` | Feedback, tickets, Q&A systems |
+| `04-DATABASE_AUDIT_CHIRHO.md` | Audit pipeline with Cloudflare Pipelines |
+| `05-BEST_PRACTICES_CHIRHO.md` | Legal, security, compliance (55 sections) |
+
+### 15.3 Usage Pattern
+
+When implementing a new feature:
+1. Check if the master gist has a relevant guide
+2. Pull the pattern into `CURRENT_SPRINT_CHIRHO.md`
+3. Implement following the pattern
+4. Delete the context when feature is complete
+
+---
+
+## 16. Feature Status (Honest Assessment)
 
 ### Status Indicators
 
@@ -368,7 +727,7 @@ Use available MCP image generation tools for original artwork:
 
 ---
 
-## 9. Tech Stack
+## 17. Tech Stack
 
 ### Currently Active
 
@@ -390,12 +749,13 @@ Use available MCP image generation tools for original artwork:
 
 ---
 
-## 10. Directory Structure
+## 18. Directory Structure
 
 ```
 bible.systems-chirho/
 +-- CLAUDE.md                    # Points to @AGENTS.md
 +-- AGENTS.md                    # AI instructions (this file)
++-- CURRENT_SPRINT_CHIRHO.md     # Living state document (when active)
 +-- .env                         # Secrets (git-ignored)
 +-- .env.example                 # Template (git-tracked)
 +-- wrangler.toml                # Cloudflare Worker config (NO SECRETS)
@@ -440,7 +800,7 @@ bible.systems-chirho/
 
 ---
 
-## 11. API Endpoints
+## 19. API Endpoints
 
 ### Currently Implemented
 
@@ -461,7 +821,7 @@ bible.systems-chirho/
 
 ---
 
-## 12. MCP Server (Planned)
+## 20. MCP Server (Planned)
 
 For AI assistants like Claude to access Bible data:
 
@@ -474,7 +834,7 @@ For AI assistants like Claude to access Bible data:
 
 ---
 
-## 13. Data Sources (Open/Public Domain)
+## 21. Data Sources (Open/Public Domain)
 
 When implemented, the following public domain sources will be used:
 
@@ -486,30 +846,30 @@ When implemented, the following public domain sources will be used:
 
 ---
 
-## 14. Testing Strategy
+## 22. Testing Strategy
 
-### 14.1 Philosophy
+### 22.1 Philosophy
 
 - **Test before deploy**: Never deploy untested code
 - **Fast feedback**: All tests must complete in under 30 seconds
 - **Critical paths first**: Focus on core API handlers and user flows
 - **Headless only**: E2E tests run headless for CI compatibility
 
-### 14.2 Test Tools
+### 22.2 Test Tools
 
 | Tool | Purpose | Command |
 |------|---------|---------|
 | Vitest | Unit tests | `bun run test-chirho` |
 | Playwright | E2E tests (headless) | `bun run test-e2e-chirho` |
 
-### 14.3 Test File Conventions
+### 22.3 Test File Conventions
 
 | Type | Location | Naming | Example |
 |------|----------|--------|---------|
 | Unit tests | `src/**/*.test.ts` | `*.test.ts` | `validation_chirho.test.ts` |
 | E2E tests | `tests-e2e-chirho/` | `*.e2e.ts` | `bible-reader.e2e.ts` |
 
-### 14.4 What to Test
+### 22.4 What to Test
 
 **Unit Tests (Vitest):**
 - Validation utilities
@@ -523,7 +883,7 @@ When implemented, the following public domain sources will be used:
 - Navigation and routing
 - Form validation and error states
 
-### 14.5 Test Commands
+### 22.5 Test Commands
 
 ```bash
 bun run test-chirho          # Run unit tests once
@@ -533,7 +893,7 @@ bun run test-all-chirho      # Run all tests
 bun run deploy-chirho        # Test + build + deploy
 ```
 
-### 14.6 Writing Tests
+### 22.6 Writing Tests
 
 ```typescript
 // For God so loved the world, that He gave His only begotten Son,
@@ -549,7 +909,7 @@ describe('featureNameChirho', () => {
 });
 ```
 
-### 14.7 CI/CD Integration
+### 22.7 CI/CD Integration
 
 The `deploy-chirho` script enforces test-before-deploy:
 
@@ -562,7 +922,7 @@ bun run deploy-chirho
 
 ---
 
-## 15. Git & Authorship Protocol
+## 23. Git & Authorship Protocol
 
 ### Commit Message Format
 
@@ -587,7 +947,7 @@ The `[AI-CHIRHO]` marker enables programmatic detection of AI-assisted commits.
 
 ---
 
-## 16. Commands
+## 24. Commands
 
 ```bash
 # Development
@@ -609,7 +969,7 @@ bunx wrangler deploy           # Deploy only (skips tests)
 
 ---
 
-## 17. Environment Variables
+## 25. Environment Variables
 
 Required in `.env` (git ignored):
 
@@ -622,7 +982,7 @@ Required in `.env` (git ignored):
 
 ---
 
-## 18. Quick Reference
+## 26. Quick Reference
 
 ### Naming Summary
 
@@ -651,7 +1011,7 @@ Required in `.env` (git ignored):
 
 ---
 
-## 19. Implementation Checklist
+## 27. Implementation Checklist
 
 ### Setup
 - [x] CLAUDE.md points to @AGENTS.md
