@@ -10,19 +10,33 @@
 
 ## Active Task
 
-Expanding Bible content and improving user experience.
+Building Logos-level Bible study architecture with deep features.
 
 ## Recent Completions
 
-- [x] FaithStack Master Spec v2.0 integration (27 sections in AGENTS.md)
+- [x] **Major Architecture Expansion** (AGENTS.md now 29 sections):
+  - Dynamic D1 sharding (16 databases, expandable)
+  - SWORD/diatheke integration for Bible module import
+  - Louw-Nida semantic domain system (93 domains)
+  - Cross-reference provenance tracking
+  - Advanced morphological search DSL
+  - Publisher portal with Stripe Connect
+  - Word-level data model with syntax trees
+
+- [x] **New Specifications**:
+  - `spec_chirho/04-architecture-chirho.md` - System diagrams, sharding, data models
+  - `spec_chirho/05-publisher-licensing-chirho.md` - Publisher portal, licensing types
+
+- [x] **Frontend Updates**:
+  - Homepage: Logos-Level branding, stats bar, architecture preview
+  - Features page: Categorized into Core, Architecture, Study Tools
+  - stack.faith: Updated Bible.Systems entry
+  - kingdominvest.ing: Updated Bible.Systems campaign
+
+- [x] FaithStack Master Spec v2.0 integration
 - [x] Testing infrastructure (Vitest + Playwright) - 54 tests passing
-- [x] Turnstile CAPTCHA protection
-- [x] Feedback bubble component
-- [x] Security headers
-- [x] Legal pages (Privacy, Terms, Accessibility, Contact)
 - [x] D1 database integration for feedback storage
-- [x] Cross-reference system with TSK data
-- [x] Cross-reference UI in Bible reader
+- [x] Cross-reference system with TSK data + provenance
 - [x] **Bible content expansion** (20 books, 35+ chapters):
 
   **Old Testament (6 books):**
@@ -59,14 +73,16 @@ Expanding Bible content and improving user experience.
 
 ## In Progress
 
-None currently - major expansion complete!
+Architecture implementation phase.
 
 ## Next Priorities
 
-1. Multiple Bible version support (ESV, NIV, NASB)
-2. Original language tools (Hebrew/Greek)
-3. Search functionality
-4. Continue expanding to complete books
+1. **D1 Catalog Database** - Create catalog for shard allocation
+2. **Morphological Search Engine** - Implement search DSL parser
+3. **SWORD Module Importer** - diatheke integration for Bible texts
+4. **Louw-Nida Domain Mapping** - 93 semantic domains
+5. **Publisher Portal** - Stripe Connect integration
+6. **Word-Level Data Model** - Morphology at every position
 
 ## Blockers
 
@@ -74,40 +90,41 @@ None currently.
 
 ## Context for Next Session
 
-### Recent Changes (2026-01)
-- **Major Bible Content Expansion**: Grew from 9 books/20 chapters to 20 books/35+ chapters
-  - Added Exodus 20 (Ten Commandments - all 17 verses)
-  - Added Deuteronomy 6 (Shema - 9 verses)
-  - Added Matthew 28 (Great Commission - all 20 verses)
-  - Added Acts 2 (Pentecost - key verses)
-  - Added Galatians 5 (Fruit of the Spirit)
-  - Added Philippians 4 (Rejoice in the Lord)
-  - Added Colossians 3 (Set mind on things above)
-  - Added 2 Timothy 3 (All Scripture inspired)
-  - Added Hebrews 11 (Hall of Faith - 20 key verses)
-  - Added James 1 (Trials and Temptation)
-  - Added 1 Peter 1-2 (Living Hope, Royal Priesthood)
-  - Added Revelation 21-22 (New Heaven and Earth)
-- **D1 Database**: `feedback-db-chirho` database with `feedback_chirho` table
-  - Binding: `FEEDBACK_DB_CHIRHO`
-  - Schema: `migrations-chirho/0001_create_feedback_table_chirho.sql`
-- **Cross-References API**: `/api-chirho/cross-references-chirho`
-  - Query: `?book=Gen&chapter=1&verse=1`
-  - Stats: `?stats=true`
-- **Cross-Reference Data**: `src/lib/data_chirho/cross_references_chirho.ts`
-  - Sample TSK data for key verses
-  - Helper functions: `getCrossReferencesChirho`, `formatReferenceChirho`, etc.
-- **Bible Reader Update**: Click chain icon to view cross-references
+### Architecture Overview (2026-01)
+
+**Dynamic D1 Sharding:**
+- 16 databases initially, expandable as needed
+- Catalog DB tracks resource → shard mapping
+- Resources allocated to least-full shard (under 8GB)
+- Add new shards when all are near capacity
+
+**Key Specifications:**
+- `spec_chirho/04-architecture-chirho.md` - System diagrams, sharding, data models
+- `spec_chirho/05-publisher-licensing-chirho.md` - Publisher portal, license types
+
+**Deep Features (Logos-level):**
+- Morphological search DSL: `genitive nouns within 3 words of verb`
+- Louw-Nida semantic domains: 93 categories
+- Cross-reference provenance: source, tradition, confidence
+- Word-level data: every position has morphology, syntax
+
+**Publisher Portal:**
+- License types: public_domain, creative_commons, freemium, subscription, per_use
+- Stripe Connect integration (70/30 revenue split)
+- API access pricing configurable per resource
 
 ### Key Files
-- KJV data: `src/lib/data_chirho/bible_kjv_chirho.ts` (20 books, 35+ chapters, ~94KB)
+- AGENTS.md: 29 sections with complete architecture
+- KJV data: `src/lib/data_chirho/bible_kjv_chirho.ts` (20 books, ~94KB)
 - Cross-refs: `src/lib/data_chirho/cross_references_chirho.ts`
-- API endpoints: `/api-chirho/bible-chirho/`, `/api-chirho/feedback-chirho/`, `/api-chirho/cross-references-chirho/`
-- Tests: 54 passing (37 validation/Bible + 17 cross-reference)
+- Architecture spec: `spec_chirho/04-architecture-chirho.md`
+- Publisher spec: `spec_chirho/05-publisher-licensing-chirho.md`
+- Tests: 54 passing
 
 ### Deployment
-- Deployed to bible.systems via Cloudflare Workers
-- D1 database active
+- bible.systems via Cloudflare Workers
+- stack.faith entry updated
+- kingdominvest.ing campaign updated
 
 ## Reference
 
