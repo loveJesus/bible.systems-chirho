@@ -62,7 +62,9 @@ Bible.Systems is an open-source, comprehensive Bible study platform designed to 
 | Directories (project-created) | `kebab-case` | `-chirho` | `spec_chirho/`, `tests-e2e-chirho/` |
 | Files | `kebab-case` | `-chirho` | `validation-chirho.ts`, `bible-kjv-chirho.ts` |
 | Web Routes (public pages) | `kebab-case` | `-fe` | `/privacy-fe`, `/features-fe` |
-| API Endpoints | `kebab-case` | `-chirho` | `/api-chirho/feedback-chirho` |
+| API Endpoints (paths) | `kebab-case` | `-chirho` | `/api-chirho/feedback-chirho` |
+| **API Route Parameters** | `kebab-case` | `_chirho` | `:version_chirho`, `:book_chirho`, `:chapter_chirho` |
+| **All Route Segments** | `kebab-case` | `-chirho` | `/search-chirho`, `/lexicon-chirho` |
 | Database Tables/Columns | `snake_case` | `_chirho` | `verses_chirho`, `book_name_chirho` |
 | CSS Classes | `kebab-case` | `-chirho` | `.hero-chirho`, `.button-chirho` |
 | package.json Scripts | `kebab-case` | `-chirho` | `test-chirho`, `deploy-chirho` |
@@ -70,6 +72,7 @@ Bible.Systems is an open-source, comprehensive Bible study platform designed to 
 | JSON API Response Props | `camelCase` | `Chirho` | `successChirho`, `dataChirho` |
 | R2 Buckets | `kebab-case` | `-chirho` | `audit-logs-chirho` |
 | Wrangler Bindings | `SCREAMING_SNAKE` | `_CHIRHO` | `DB_CHIRHO`, `FEEDBACK_KV_CHIRHO` |
+| D1 Database Names | `kebab-case` | `-chirho` | `bible-res-00-chirho`, `app-chirho` |
 
 ### 3.2 Example Code
 
@@ -655,16 +658,237 @@ Before you have real testimonials:
 
 ---
 
-## 15. FaithStack Master Gist Reference
+## 14.4 Sharded D1 Architecture for Bible Resources
 
-### 15.1 The Master Gist
+Bible.Systems requires massive data storage (Bible texts, commentaries, lexicons, cross-references). D1 has a 10GB limit per database. We use a **64-database sharding strategy** for resources.
+
+### Database Naming Convention
+
+```
+bible-res-00-chirho  through  bible-res-3f-chirho  (64 databases, hex 00-3F)
+app-chirho                                          (application data: users, feedback, etc.)
+```
+
+### Sharding Algorithm
+
+Resources are distributed using the first 6 bits of a SHA-256 hash:
+
+```typescript
+// For God so loved the world, that He gave His only begotten Son,
+// that all who believe in Him should not perish but have everlasting life. — John 3:16
+
+async function getShardIndexChirho(resourceKeyChirho: string): Promise<number> {
+  const encoderChirho = new TextEncoder();
+  const dataChirho = encoderChirho.encode(resourceKeyChirho);
+  const hashBufferChirho = await crypto.subtle.digest('SHA-256', dataChirho);
+  const hashArrayChirho = new Uint8Array(hashBufferChirho);
+  // First 6 bits = value 0-63
+  return hashArrayChirho[0] >> 2;
+}
+
+function getDbNameChirho(shardIndexChirho: number): string {
+  const hexChirho = shardIndexChirho.toString(16).padStart(2, '0');
+  return `bible-res-${hexChirho}-chirho`;
+}
+
+// Usage:
+const keyChirho = 'kjv:gen:1:1';  // version:book:chapter:verse
+const shardChirho = await getShardIndexChirho(keyChirho);  // e.g., 42
+const dbNameChirho = getDbNameChirho(shardChirho);         // "bible-res-2a-chirho"
+```
+
+### Resource Key Formats
+
+| Resource Type | Key Format | Example |
+|---------------|------------|---------|
+| Verse text | `{version}:{book}:{chapter}:{verse}` | `kjv:gen:1:1` |
+| Cross-reference | `xref:{book}:{chapter}:{verse}` | `xref:gen:1:1` |
+| Commentary | `comm:{name}:{book}:{chapter}` | `comm:mhenry:gen:1` |
+| Lexicon entry | `lex:{strongs}` | `lex:H1234` |
+| Morphology | `morph:{word_id}` | `morph:kjv:gen:1:1:3` |
+
+### Wrangler Configuration (64 Resource DBs)
+
+```toml
+# wrangler.toml - Resource database bindings
+# Generate with script: for i in {0..63}; do printf "[[d1_databases]]\nbinding = \"RES_%02X_CHIRHO\"\ndatabase_name = \"bible-res-%02x-chirho\"\ndatabase_id = \"...\"\n\n" $i $i; done
+
+[[d1_databases]]
+binding = "RES_00_CHIRHO"
+database_name = "bible-res-00-chirho"
+database_id = "..."
+
+[[d1_databases]]
+binding = "RES_01_CHIRHO"
+database_name = "bible-res-01-chirho"
+database_id = "..."
+
+# ... through RES_3F_CHIRHO (64 total)
+
+# Application database (separate from resources)
+[[d1_databases]]
+binding = "APP_DB_CHIRHO"
+database_name = "app-chirho"
+database_id = "..."
+```
+
+### Database Router
+
+```typescript
+// src/lib/db_chirho/router-chirho.ts
+
+type DbBindingsChirho = {
+  RES_00_CHIRHO: D1Database;
+  RES_01_CHIRHO: D1Database;
+  // ... through RES_3F_CHIRHO
+  APP_DB_CHIRHO: D1Database;
+};
+
+const DB_BINDINGS_CHIRHO = [
+  'RES_00_CHIRHO', 'RES_01_CHIRHO', 'RES_02_CHIRHO', /* ... */ 'RES_3F_CHIRHO'
+] as const;
+
+export async function getResourceDbChirho(
+  envChirho: DbBindingsChirho,
+  resourceKeyChirho: string
+): Promise<D1Database> {
+  const shardIndexChirho = await getShardIndexChirho(resourceKeyChirho);
+  const bindingNameChirho = DB_BINDINGS_CHIRHO[shardIndexChirho];
+  return envChirho[bindingNameChirho];
+}
+```
+
+### Capacity Planning
+
+| Content Type | Estimated Size | Databases Needed |
+|--------------|----------------|------------------|
+| Full KJV text | ~4.5 MB | 1 (distributed) |
+| 10 Bible versions | ~45 MB | 1 (distributed) |
+| TSK cross-references | ~50 MB | 1 (distributed) |
+| Strong's + lexicons | ~100 MB | 1 (distributed) |
+| Matthew Henry | ~6 MB | 1 (distributed) |
+| 20 commentaries | ~120 MB | 2 (distributed) |
+| Original language morphology | ~200 MB | 3 (distributed) |
+| **Total estimated** | **~500 MB** | **< 1 GB per shard** |
+
+With 64 shards and ~500 MB total, each shard averages ~8 MB. This leaves massive room for growth (640 GB theoretical max).
+
+---
+
+## 15. SWORD/Diatheke Integration
+
+Bible.Systems uses [SWORD Project](https://crosswire.org/sword/) tools for accessing Bible modules.
+
+### 15.1 SWORD Tools
+
+| Tool | Purpose | Usage |
+|------|---------|-------|
+| `installmgr` | Download/manage SWORD modules | `installmgr -sc` (list sources) |
+| `diatheke` | Query SWORD modules | `diatheke -b KJV -k "Gen 1:1"` |
+
+### 15.2 Available Module Types
+
+| Type | Code | Examples |
+|------|------|----------|
+| Biblical Texts | `bible` | KJV, ASV, WEB, NASB |
+| Commentaries | `comm` | MHC (Matthew Henry), Gill |
+| Lexicons/Dictionaries | `lex` | StrongsHebrew, StrongsGreek |
+| Daily Devotionals | `devotional` | Various |
+| Generic Books | `book` | Various references |
+
+### 15.3 Import Pipeline
+
+```bash
+# 1. Install SWORD and modules
+brew install sword  # macOS
+installmgr -init
+installmgr -sc      # list sources
+installmgr -r CrossWire  # refresh CrossWire
+installmgr -ri CrossWire KJV  # install KJV
+
+# 2. Export to JSON for import
+diatheke -b KJV -f plain -k "Gen 1:1-31" > gen1.txt
+
+# 3. Parse and import to D1 (custom script)
+bun run import-sword-chirho --module KJV --book Gen
+```
+
+### 15.4 Diatheke Query Patterns
+
+```bash
+# Single verse
+diatheke -b KJV -k "John 3:16"
+
+# Verse range
+diatheke -b KJV -k "Rom 8:28-39"
+
+# Full chapter
+diatheke -b KJV -k "Psalm 23"
+
+# With Strong's numbers (if module supports)
+diatheke -b KJV -o n -k "Gen 1:1"
+
+# Search
+diatheke -b KJV -s regex -k "love.*neighbor"
+
+# Lexicon lookup
+diatheke -b StrongsHebrew -k "H430"
+```
+
+### 15.5 Module Data Extraction Script
+
+```typescript
+// scripts-chirho/import-sword-chirho.ts
+import { execSync } from 'child_process';
+
+interface VerseDataChirho {
+  bookChirho: string;
+  chapterChirho: number;
+  verseChirho: number;
+  textChirho: string;
+  strongsChirho?: string[];
+}
+
+function extractVerseChirho(
+  moduleChirho: string,
+  referenceChirho: string
+): VerseDataChirho {
+  const outputChirho = execSync(
+    `diatheke -b ${moduleChirho} -f plain -k "${referenceChirho}"`,
+    { encoding: 'utf-8' }
+  );
+  // Parse output and return structured data
+  return parseVerseOutputChirho(outputChirho);
+}
+```
+
+### 15.6 Public Domain Modules
+
+| Module | Description | License |
+|--------|-------------|---------|
+| KJV | King James Version | Public Domain |
+| KJVA | KJV with Apocrypha | Public Domain |
+| ASV | American Standard Version | Public Domain |
+| WEB | World English Bible | Public Domain |
+| YLT | Young's Literal Translation | Public Domain |
+| Darby | Darby Translation | Public Domain |
+| StrongsHebrew | Strong's Hebrew Dictionary | Public Domain |
+| StrongsGreek | Strong's Greek Dictionary | Public Domain |
+| Robinson | Robinson's Morphological Analysis | Public Domain |
+| MHC | Matthew Henry Concise | Public Domain |
+
+---
+
+## 16. FaithStack Master Gist Reference
+
+### 16.1 The Master Gist
 
 All FaithStack patterns live in the master gist:
 
 **Gist ID:** `c93fbd61bc1dd6d898ef89c4b6981694`
 **URL:** `https://gist.github.com/loveJesus/c93fbd61bc1dd6d898ef89c4b6981694`
 
-### 15.2 Available Guides
+### 16.2 Available Guides
 
 | File | Purpose |
 |------|---------|
@@ -675,7 +899,7 @@ All FaithStack patterns live in the master gist:
 | `04-DATABASE_AUDIT_CHIRHO.md` | Audit pipeline with Cloudflare Pipelines |
 | `05-BEST_PRACTICES_CHIRHO.md` | Legal, security, compliance (55 sections) |
 
-### 15.3 Usage Pattern
+### 16.3 Usage Pattern
 
 When implementing a new feature:
 1. Check if the master gist has a relevant guide
@@ -685,7 +909,7 @@ When implementing a new feature:
 
 ---
 
-## 16. Feature Status (Honest Assessment)
+## 17. Feature Status (Honest Assessment)
 
 ### Status Indicators
 
@@ -727,7 +951,548 @@ When implementing a new feature:
 
 ---
 
-## 17. Tech Stack
+## 18. Deep Feature Parity (Logos/Blue Letter Bible Level)
+
+Bible.Systems aims for feature parity with professional Bible study software like Logos, Blue Letter Bible, and Accordance. This section defines the comprehensive data model.
+
+### 18.1 Word-Level Data Model
+
+Every word in every Bible version is indexed with deep metadata:
+
+```typescript
+// For God so loved the world, that He gave His only begotten Son,
+// that all who believe in Him should not perish but have everlasting life. — John 3:16
+
+interface WordInstanceChirho {
+  idChirho: string;                    // Unique: "kjv:gen:1:1:1" (version:book:ch:vs:pos)
+  positionChirho: number;              // Word position in verse (1-indexed)
+  textChirho: string;                  // Surface form: "Beginning"
+  lemmaChirho: string;                 // Dictionary form: "beginning"
+
+  // Original language (when applicable)
+  originalTextChirho?: string;         // Hebrew/Greek: "בְּרֵאשִׁית"
+  transliterationChirho?: string;      // "bereshith"
+  strongsChirho?: string;              // "H7225"
+
+  // Morphology
+  morphologyChirho?: MorphologyChirho;
+
+  // Semantic domains
+  louwNidaChirho?: string[];           // ["67.65", "68.1"] - Louw-Nida domains
+  semanticFieldChirho?: string[];      // ["time", "beginning", "origin"]
+
+  // Relationships
+  verseIdChirho: string;               // "kjv:gen:1:1"
+  sentenceIdChirho?: string;           // For sentence-level analysis
+}
+
+interface MorphologyChirho {
+  partOfSpeechChirho: string;          // "noun", "verb", "adjective", etc.
+  personChirho?: string;               // "1st", "2nd", "3rd"
+  numberChirho?: string;               // "singular", "plural", "dual"
+  genderChirho?: string;               // "masculine", "feminine", "neuter"
+  tenseChirho?: string;                // Hebrew: "perfect", "imperfect"; Greek: "aorist", "present"
+  voiceChirho?: string;                // "active", "passive", "middle"
+  moodChirho?: string;                 // "indicative", "subjunctive", "imperative"
+  stateChirho?: string;                // Hebrew: "construct", "absolute"
+  caseChirho?: string;                 // Greek: "nominative", "genitive", etc.
+  stemChirho?: string;                 // Hebrew: "qal", "piel", "hiphil", etc.
+  suffixChirho?: string;               // Pronominal suffix
+  prefixChirho?: string;               // Prefix particles
+  robinsonCodeChirho?: string;         // Robinson's morphological code
+}
+```
+
+### 18.2 Semantic Domain System (Louw-Nida)
+
+Beyond Strong's numbers, track semantic domains for nuanced word meaning:
+
+```typescript
+interface SemanticDomainChirho {
+  domainIdChirho: string;              // "67.65"
+  domainNameChirho: string;            // "A Point of Time With Reference to Other Points of Time: Beginning"
+  superdomainChirho: string;           // "67 Time"
+  glossesChirho: string[];             // ["beginning", "origin", "first"]
+  relatedDomainsChirho: string[];      // ["68.1", "67.66"]
+}
+
+// Example query: "Find all words meaning 'beginning' in semantic sense"
+// Returns words across H7225, G746, G2075 that share domain 67.65
+```
+
+### 18.3 Cross-Reference Provenance
+
+Track WHERE cross-references come from and WHO says what:
+
+```typescript
+interface CrossReferenceChirho {
+  idChirho: string;
+  fromVerseChirho: string;             // "gen:1:1"
+  toVerseChirho: string;               // "jhn:1:1"
+
+  // Provenance
+  sourceChirho: CrossRefSourceChirho;  // Where did this ref come from?
+  confidenceChirho: number;            // 0.0-1.0 confidence score
+  typeChirho: CrossRefTypeChirho;      // Type of relationship
+
+  // Attribution (who says this connection?)
+  attributionChirho?: AttributionChirho[];
+}
+
+type CrossRefSourceChirho =
+  | 'tsk_chirho'                       // Treasury of Scripture Knowledge
+  | 'scripture_quotation_chirho'       // Direct quotation in text
+  | 'allusion_chirho'                  // Literary allusion
+  | 'parallel_chirho'                  // Parallel passage (Synoptics)
+  | 'typology_chirho'                  // Type/antitype relationship
+  | 'commentary_chirho'                // From commentary
+  | 'user_chirho';                     // User-submitted
+
+type CrossRefTypeChirho =
+  | 'direct_quote_chirho'              // NT quoting OT
+  | 'allusion_chirho'                  // Indirect reference
+  | 'parallel_chirho'                  // Same event, different account
+  | 'thematic_chirho'                  // Same theme
+  | 'typological_chirho'               // Type/antitype
+  | 'contrast_chirho';                 // Contrasting passages
+
+interface AttributionChirho {
+  authorChirho: string;                // "Matthew Henry", "John Gill"
+  workChirho: string;                  // "Complete Commentary"
+  citationChirho: string;              // Location in work
+}
+```
+
+### 18.4 Book-to-Book References
+
+Not just Scripture, but books quoting Scripture and each other:
+
+```typescript
+interface BookReferenceChirho {
+  idChirho: string;
+  sourceWorkChirho: string;            // "mhenry:gen:1" (commentary location)
+  targetVerseChirho: string;           // "gen:1:1" (Bible verse)
+  quotationChirho?: string;            // Quoted text
+  analysisChirho?: string;             // Commentary text about the verse
+}
+
+// Enable queries like:
+// "What does Matthew Henry say about Genesis 1:1?"
+// "Which commentators discuss John 3:16?"
+// "Find all references to Romans 8:28 across all resources"
+```
+
+### 18.5 Multi-Language Support
+
+Bible.Systems supports multiple interface AND content languages:
+
+```typescript
+interface LanguageConfigChirho {
+  codeChirho: string;                  // ISO 639-1: "en", "es", "zh"
+  nameChirho: string;                  // "English", "Español", "中文"
+  directionChirho: 'ltr' | 'rtl';      // Text direction
+  fontFamilyChirho: string;            // Appropriate font stack
+}
+
+// Supported Bible languages (initial)
+const BIBLE_LANGUAGES_CHIRHO = [
+  'en',    // English (KJV, ASV, WEB)
+  'he',    // Hebrew (WLC, BHS)
+  'grc',   // Greek (Nestle-Aland, Textus Receptus, LXX)
+  'la',    // Latin (Vulgate)
+  'es',    // Spanish (RVR)
+  'de',    // German (Luther)
+  'fr',    // French (Segond)
+  'zh',    // Chinese (CUV)
+  'ar',    // Arabic
+  'ko',    // Korean
+  'ja',    // Japanese
+] as const;
+```
+
+### 18.6 Database Schema for Deep Features
+
+```sql
+-- Word instances (every word in every version)
+CREATE TABLE word_instances_chirho (
+  id_chirho TEXT PRIMARY KEY,          -- "kjv:gen:1:1:1"
+  verse_id_chirho TEXT NOT NULL,
+  position_chirho INTEGER NOT NULL,
+  text_chirho TEXT NOT NULL,
+  lemma_chirho TEXT,
+  original_text_chirho TEXT,
+  transliteration_chirho TEXT,
+  strongs_chirho TEXT,
+  morphology_json_chirho TEXT,         -- JSON blob
+  louw_nida_chirho TEXT,               -- Comma-separated domain IDs
+  FOREIGN KEY (verse_id_chirho) REFERENCES verses_chirho(id_chirho)
+);
+
+-- Semantic domains (Louw-Nida)
+CREATE TABLE semantic_domains_chirho (
+  domain_id_chirho TEXT PRIMARY KEY,   -- "67.65"
+  domain_name_chirho TEXT NOT NULL,
+  superdomain_chirho TEXT,
+  glosses_chirho TEXT,                 -- Comma-separated
+  related_domains_chirho TEXT          -- Comma-separated
+);
+
+-- Cross-references with provenance
+CREATE TABLE cross_refs_chirho (
+  id_chirho TEXT PRIMARY KEY,
+  from_verse_chirho TEXT NOT NULL,
+  to_verse_chirho TEXT NOT NULL,
+  source_chirho TEXT NOT NULL,         -- 'tsk', 'quotation', etc.
+  type_chirho TEXT,
+  confidence_chirho REAL DEFAULT 1.0,
+  attribution_json_chirho TEXT,        -- JSON array of attributions
+  FOREIGN KEY (from_verse_chirho) REFERENCES verses_chirho(id_chirho),
+  FOREIGN KEY (to_verse_chirho) REFERENCES verses_chirho(id_chirho)
+);
+
+-- Book references (commentary → Scripture, etc.)
+CREATE TABLE book_refs_chirho (
+  id_chirho TEXT PRIMARY KEY,
+  source_work_chirho TEXT NOT NULL,    -- "mhenry:gen:1"
+  target_verse_chirho TEXT NOT NULL,
+  quotation_chirho TEXT,
+  analysis_chirho TEXT
+);
+
+-- Index for fast lookups
+CREATE INDEX idx_word_strongs_chirho ON word_instances_chirho(strongs_chirho);
+CREATE INDEX idx_word_lemma_chirho ON word_instances_chirho(lemma_chirho);
+CREATE INDEX idx_xref_from_chirho ON cross_refs_chirho(from_verse_chirho);
+CREATE INDEX idx_xref_to_chirho ON cross_refs_chirho(to_verse_chirho);
+CREATE INDEX idx_bookref_verse_chirho ON book_refs_chirho(target_verse_chirho);
+```
+
+### 18.7 API Endpoints for Deep Features
+
+| Endpoint | Purpose |
+|----------|---------|
+| `/api-chirho/word-chirho/:word_id_chirho` | Get full word data with morphology |
+| `/api-chirho/word-chirho/strongs-chirho/:strongs_chirho` | All occurrences of Strong's number |
+| `/api-chirho/word-chirho/lemma-chirho/:lemma_chirho` | All occurrences of lemma |
+| `/api-chirho/word-chirho/domain-chirho/:domain_id_chirho` | Words by Louw-Nida domain |
+| `/api-chirho/morphology-chirho/:verse_id_chirho` | Full morphological breakdown |
+| `/api-chirho/crossref-chirho/:verse_id_chirho/provenance-chirho` | Cross-refs with sources |
+| `/api-chirho/bookref-chirho/:verse_id_chirho` | All book references to verse |
+| `/api-chirho/search-chirho/semantic-chirho` | Semantic domain search |
+
+### 18.8 Advanced Morphological Search
+
+Support Logos-level grammatical queries:
+
+```typescript
+// Query DSL for morphological search
+interface MorphSearchQueryChirho {
+  // Basic pattern matching
+  patternChirho: MorphPatternChirho[];
+
+  // Constraints
+  withinChirho?: number;               // Within N words
+  sameVerseChirho?: boolean;           // Must be in same verse
+  sameClauseChirho?: boolean;          // Must be in same clause
+  orderedChirho?: boolean;             // Must appear in order
+
+  // Filters
+  booksChirho?: string[];              // Limit to books
+  versionsChirho?: string[];           // Limit to versions
+}
+
+interface MorphPatternChirho {
+  // Text matching
+  lemmaChirho?: string;                // Match lemma
+  textChirho?: string;                 // Match surface form
+  strongsChirho?: string;              // Match Strong's
+
+  // Morphology matching (all optional, combine with AND)
+  posChirho?: string;                  // Part of speech
+  caseChirho?: string;                 // Grammatical case
+  genderChirho?: string;               // Gender
+  numberChirho?: string;               // Number
+  personChirho?: string;               // Person
+  tenseChirho?: string;                // Tense
+  voiceChirho?: string;                // Voice
+  moodChirho?: string;                 // Mood
+  stemChirho?: string;                 // Hebrew stem
+
+  // Position
+  captureAsChirho?: string;            // Capture this match with a name
+}
+
+// Example queries:
+// "Find θεός in genitive case followed by adjective within 3 words"
+const queryChirho: MorphSearchQueryChirho = {
+  patternChirho: [
+    { lemmaChirho: 'θεός', caseChirho: 'genitive', captureAsChirho: 'noun' },
+    { posChirho: 'adjective', captureAsChirho: 'adj' }
+  ],
+  withinChirho: 3,
+  orderedChirho: true
+};
+
+// "Find all instances where a verb in aorist passive precedes its subject"
+// "Find construct chains in Hebrew (noun-construct + noun-absolute)"
+// "Find participles used as substantives"
+```
+
+### 18.9 Study & Sermon Preparation Tools
+
+```typescript
+// Study note system
+interface StudyNoteChirho {
+  idChirho: string;
+  userIdChirho: string;
+  verseRangeChirho: VerseRangeChirho;
+  contentChirho: string;               // Markdown content
+  tagsChirho: string[];
+  createdAtChirho: Date;
+  updatedAtChirho: Date;
+
+  // Sermon-specific
+  isSermonChirho?: boolean;
+  sermonTitleChirho?: string;
+  sermonDateChirho?: Date;
+  outlineChirho?: SermonOutlineChirho;
+}
+
+interface SermonOutlineChirho {
+  titleChirho: string;
+  textChirho: VerseRangeChirho;
+  pointsChirho: SermonPointChirho[];
+  applicationsChirho: string[];
+  illustrationsChirho: IllustrationChirho[];
+}
+
+interface SermonPointChirho {
+  headingChirho: string;
+  subPointsChirho?: SermonPointChirho[];
+  versesChirho: string[];              // Supporting verses
+  notesChirho: string;
+  wordStudiesChirho?: string[];        // Strong's numbers to highlight
+}
+
+// Sermon prep workflow
+interface SermonPrepWorkflowChirho {
+  // 1. Passage analysis
+  passageAnalysisChirho: {
+    structureChirho: string;           // Literary structure
+    keyWordsChirho: WordStudyChirho[];
+    parallelPassagesChirho: string[];
+    crossRefsChirho: CrossReferenceChirho[];
+  };
+
+  // 2. Historical context
+  historicalContextChirho: {
+    authorChirho: string;
+    audienceChirho: string;
+    dateChirho: string;
+    settingChirho: string;
+    purposeChirho: string;
+  };
+
+  // 3. Theological analysis
+  theologicalAnalysisChirho: {
+    themesChirho: string[];
+    doctrinesChirho: string[];
+    christologicalConnectionChirho?: string;
+  };
+
+  // 4. Application
+  applicationChirho: {
+    originalApplicationChirho: string;
+    contemporaryApplicationChirho: string;
+    practicalStepsChirho: string[];
+  };
+}
+```
+
+### 18.10 Visualization & Analytics
+
+```typescript
+// Word usage visualization
+interface WordUsageChartChirho {
+  wordChirho: string;                  // Strong's or lemma
+  dataPointsChirho: {
+    bookChirho: string;
+    countChirho: number;
+    percentageChirho: number;
+  }[];
+
+  // Compare across versions
+  versionComparisonChirho?: {
+    versionChirho: string;
+    translationsChirho: Map<string, number>; // word → count
+  }[];
+}
+
+// Timeline visualizations
+interface BibleTimelineChirho {
+  eventsChirho: TimelineEventChirho[];
+  periodsChirho: TimelinePeriodChirho[];
+  relatedVersesChirho: Map<string, string[]>;
+}
+
+// Relationship graphs
+interface RelationshipGraphChirho {
+  nodesChirho: GraphNodeChirho[];      // People, places, concepts
+  edgesChirho: GraphEdgeChirho[];      // Relationships between nodes
+  clustersChirho: GraphClusterChirho[]; // Groupings
+}
+
+// Cross-reference network
+interface CrossRefNetworkChirho {
+  centerVerseChirho: string;
+  depthChirho: number;                 // How many levels deep
+  nodesChirho: {
+    verseIdChirho: string;
+    levelChirho: number;
+    referenceCountChirho: number;
+  }[];
+  linksChirho: {
+    fromChirho: string;
+    toChirho: string;
+    typeChirho: string;
+    strengthChirho: number;
+  }[];
+}
+
+// Chart types available
+type ChartTypeChirho =
+  | 'word_frequency_bar_chirho'        // Bar chart of word frequency by book
+  | 'word_frequency_heatmap_chirho'    // Heatmap of word across Bible
+  | 'translation_comparison_chirho'    // How versions translate same word
+  | 'timeline_chirho'                  // Events on timeline
+  | 'relationship_network_chirho'      // People/place relationships
+  | 'crossref_network_chirho'          // Cross-reference connections
+  | 'semantic_cluster_chirho'          // Words clustered by meaning
+  | 'morphology_distribution_chirho';  // Distribution of grammatical forms
+```
+
+### 18.11 Complete Feature List
+
+**Bible Text Features:**
+- [ ] Multiple versions (KJV, ASV, WEB, YLT, Darby + licensed)
+- [ ] Parallel passage display (2-4 versions side by side)
+- [ ] Red letter display (words of Christ)
+- [ ] Paragraph formatting vs verse-by-verse
+- [ ] Poetry/prose formatting detection
+- [ ] Section headings (toggleable)
+- [ ] Footnotes and textual variants
+- [ ] Audio Bible integration
+
+**Original Language Features:**
+- [ ] Hebrew text (WLC, BHS)
+- [ ] Greek text (NA28, TR, LXX)
+- [ ] Aramaic text
+- [ ] Interlinear display (original above, translation below)
+- [ ] Reverse interlinear (translation above, original below)
+- [ ] Word-by-word morphological parsing
+- [ ] Hover tooltips with full word data
+- [ ] Cantillation marks (Hebrew)
+- [ ] Accents (Greek)
+
+**Lexicon & Word Study:**
+- [ ] Strong's Concordance (Hebrew H1-8674, Greek G1-5624)
+- [ ] Brown-Driver-Briggs Hebrew Lexicon
+- [ ] Thayer's Greek Lexicon
+- [ ] BDAG Greek Lexicon (if licensable)
+- [ ] HALOT Hebrew Lexicon (if licensable)
+- [ ] Louw-Nida Semantic Domains
+- [ ] Word frequency statistics
+- [ ] All occurrences search
+- [ ] Related words (cognates, synonyms)
+- [ ] Usage over time (early vs late books)
+
+**Morphology Features:**
+- [ ] Part of speech tagging
+- [ ] Full parsing (person, number, gender, case, tense, voice, mood)
+- [ ] Hebrew stem analysis (qal, niphal, piel, etc.)
+- [ ] Greek aspect analysis
+- [ ] Syntax trees
+- [ ] Clause analysis
+- [ ] Discourse analysis markers
+
+**Search Features:**
+- [ ] Full-text search (all versions)
+- [ ] Original language search
+- [ ] Morphological search (find verbs in aorist passive)
+- [ ] Proximity search (word A within N words of word B)
+- [ ] Boolean operators (AND, OR, NOT)
+- [ ] Wildcard search
+- [ ] Phrase search
+- [ ] Semantic search (find concepts, not just words)
+- [ ] Search by Louw-Nida domain
+- [ ] Save and share searches
+
+**Cross-Reference Features:**
+- [ ] Treasury of Scripture Knowledge (340K+ refs)
+- [ ] Scripture quotations in NT from OT
+- [ ] Allusions and echoes
+- [ ] Parallel passages (Synoptic Gospels, Kings/Chronicles)
+- [ ] Typological connections
+- [ ] Cross-reference network visualization
+- [ ] User-submitted cross-references
+- [ ] Provenance tracking (source of each reference)
+
+**Commentary Features:**
+- [ ] Matthew Henry Complete
+- [ ] Matthew Henry Concise
+- [ ] John Gill's Exposition
+- [ ] Jamieson-Fausset-Brown
+- [ ] Adam Clarke
+- [ ] John Wesley's Notes
+- [ ] Albert Barnes' Notes
+- [ ] Commentary comparison view
+- [ ] Search within commentaries
+- [ ] Link commentary to verses
+
+**Study Tools:**
+- [ ] Personal notes (verse-level)
+- [ ] Highlighting with colors
+- [ ] Bookmarks
+- [ ] Tags and categories
+- [ ] Reading plans
+- [ ] Study guides
+- [ ] Sermon preparation workspace
+- [ ] Outline builder
+- [ ] Export to various formats
+
+**Visualization Features:**
+- [ ] Word frequency charts
+- [ ] Word usage heatmaps
+- [ ] Translation comparison charts
+- [ ] Bible timeline
+- [ ] Maps of biblical places
+- [ ] Relationship networks (people, places)
+- [ ] Cross-reference network graphs
+- [ ] Morphology distribution charts
+
+**API & Integration:**
+- [ ] REST API for all data
+- [ ] MCP server for AI assistants
+- [ ] Webhook support
+- [ ] OAuth for third-party apps
+- [ ] Export (JSON, CSV, XML, OSIS)
+- [ ] Import from other Bible apps
+- [ ] Embed widgets for websites
+
+**Platform Features:**
+- [ ] Web application
+- [ ] Progressive Web App (offline support)
+- [ ] Desktop app (Tauri)
+- [ ] Mobile responsive
+- [ ] Keyboard navigation
+- [ ] Screen reader accessibility
+- [ ] Dark mode
+- [ ] Font size controls
+- [ ] Multiple languages (interface)
+
+---
+
+## 19. Tech Stack
 
 ### Currently Active
 
@@ -749,7 +1514,7 @@ When implementing a new feature:
 
 ---
 
-## 18. Directory Structure
+## 20. Directory Structure
 
 ```
 bible.systems-chirho/
@@ -800,28 +1565,48 @@ bible.systems-chirho/
 
 ---
 
-## 19. API Endpoints
+## 21. API Endpoints
+
+**CRITICAL:** All route parameters MUST be suffixed with `_chirho`. All path segments MUST be suffixed with `-chirho`.
 
 ### Currently Implemented
 
 | Endpoint | Methods | Purpose | Status |
 |----------|---------|---------|--------|
 | `/api-chirho/feedback-chirho` | POST, GET | Submit and retrieve feedback | COMPLETE |
+| `/api-chirho/cross-references-chirho` | GET | Get cross-references for verse | COMPLETE |
 
 ### Planned API Endpoints
 
 | Endpoint | Methods | Purpose | Status |
 |----------|---------|---------|--------|
-| `/api-chirho/bible-chirho/:version/:book/:chapter` | GET | Get chapter text | PLANNED |
-| `/api-chirho/bible-chirho/:version/:book/:chapter/:verse` | GET | Get verse text | PLANNED |
+| `/api-chirho/bible-chirho/:version_chirho/:book_chirho/:chapter_chirho` | GET | Get chapter text | PLANNED |
+| `/api-chirho/bible-chirho/:version_chirho/:book_chirho/:chapter_chirho/:verse_chirho` | GET | Get verse text | PLANNED |
 | `/api-chirho/search-chirho` | GET | Search Bible text | PLANNED |
-| `/api-chirho/crossref-chirho/:book/:chapter/:verse` | GET | Get cross-references | PLANNED |
-| `/api-chirho/lexicon-chirho/:strongs` | GET | Get lexicon entry | PLANNED |
-| `/api-chirho/word-chirho/:word` | GET | Get word study data | PLANNED |
+| `/api-chirho/crossref-chirho/:book_chirho/:chapter_chirho/:verse_chirho` | GET | Get cross-references | PLANNED |
+| `/api-chirho/lexicon-chirho/:strongs_chirho` | GET | Get lexicon entry | PLANNED |
+| `/api-chirho/word-chirho/:word_chirho` | GET | Get word study data | PLANNED |
+| `/api-chirho/commentary-chirho/:commentary_chirho/:book_chirho/:chapter_chirho` | GET | Get commentary | PLANNED |
+| `/api-chirho/interlinear-chirho/:book_chirho/:chapter_chirho/:verse_chirho` | GET | Get interlinear data | PLANNED |
+| `/api-chirho/morphology-chirho/:word_chirho` | GET | Get morphological analysis | PLANNED |
+
+### Route Parameter Examples
+
+```typescript
+// ✅ CORRECT - All parameters suffixed
+// SvelteKit route: src/routes/api-chirho/bible-chirho/[version_chirho]/[book_chirho]/[chapter_chirho]/+server.ts
+export async function GET({ params }: RequestEvent) {
+  const { version_chirho, book_chirho, chapter_chirho } = params;
+  // ...
+}
+
+// ❌ WRONG - Parameters not suffixed
+// src/routes/api-chirho/bible-chirho/[version]/[book]/[chapter]/+server.ts
+```
 
 ---
 
-## 20. MCP Server (Planned)
+## 22. MCP Server (Planned)
 
 For AI assistants like Claude to access Bible data:
 
@@ -834,42 +1619,64 @@ For AI assistants like Claude to access Bible data:
 
 ---
 
-## 21. Data Sources (Open/Public Domain)
+## 23. Data Sources (Open/Public Domain)
 
-When implemented, the following public domain sources will be used:
+Bible.Systems uses SWORD modules and other public domain sources:
 
-- KJV, ASV, WEB (public domain Bible translations)
-- Strong's Concordance
-- Treasury of Scripture Knowledge
-- Open-source commentaries
-- Hebrew/Greek lexicons
+### Bible Translations (Public Domain)
+- KJV, KJVA (King James Version)
+- ASV (American Standard Version, 1901)
+- WEB (World English Bible)
+- YLT (Young's Literal Translation)
+- Darby (Darby Translation)
+
+### Study Resources (Public Domain)
+- Strong's Hebrew Concordance (H1-H8674)
+- Strong's Greek Concordance (G1-G5624)
+- Treasury of Scripture Knowledge (340K+ cross-references)
+- Robinson's Morphological Analysis
+- Brown-Driver-Briggs Hebrew Lexicon
+- Thayer's Greek Lexicon
+
+### Commentaries (Public Domain)
+- Matthew Henry's Complete Commentary
+- Matthew Henry's Concise Commentary
+- John Gill's Exposition
+- Jamieson-Fausset-Brown Commentary
+- Adam Clarke's Commentary
+- John Wesley's Notes
+
+### SWORD Module Sources
+- CrossWire Bible Society: https://crosswire.org/sword/modules/
+- eBible.org: https://ebible.org/
+- Unbound Bible: https://unbound.biola.edu/
 
 ---
 
-## 22. Testing Strategy
+## 24. Testing Strategy
 
-### 22.1 Philosophy
+### 24.1 Philosophy
 
 - **Test before deploy**: Never deploy untested code
 - **Fast feedback**: All tests must complete in under 30 seconds
 - **Critical paths first**: Focus on core API handlers and user flows
 - **Headless only**: E2E tests run headless for CI compatibility
 
-### 22.2 Test Tools
+### 24.2 Test Tools
 
 | Tool | Purpose | Command |
 |------|---------|---------|
 | Vitest | Unit tests | `bun run test-chirho` |
 | Playwright | E2E tests (headless) | `bun run test-e2e-chirho` |
 
-### 22.3 Test File Conventions
+### 24.3 Test File Conventions
 
 | Type | Location | Naming | Example |
 |------|----------|--------|---------|
 | Unit tests | `src/**/*.test.ts` | `*.test.ts` | `validation_chirho.test.ts` |
 | E2E tests | `tests-e2e-chirho/` | `*.e2e.ts` | `bible-reader.e2e.ts` |
 
-### 22.4 What to Test
+### 24.4 What to Test
 
 **Unit Tests (Vitest):**
 - Validation utilities
@@ -883,7 +1690,7 @@ When implemented, the following public domain sources will be used:
 - Navigation and routing
 - Form validation and error states
 
-### 22.5 Test Commands
+### 24.5 Test Commands
 
 ```bash
 bun run test-chirho          # Run unit tests once
@@ -893,7 +1700,7 @@ bun run test-all-chirho      # Run all tests
 bun run deploy-chirho        # Test + build + deploy
 ```
 
-### 22.6 Writing Tests
+### 24.6 Writing Tests
 
 ```typescript
 // For God so loved the world, that He gave His only begotten Son,
@@ -909,7 +1716,7 @@ describe('featureNameChirho', () => {
 });
 ```
 
-### 22.7 CI/CD Integration
+### 24.7 CI/CD Integration
 
 The `deploy-chirho` script enforces test-before-deploy:
 
@@ -922,7 +1729,7 @@ bun run deploy-chirho
 
 ---
 
-## 23. Git & Authorship Protocol
+## 25. Git & Authorship Protocol
 
 ### Commit Message Format
 
@@ -947,7 +1754,7 @@ The `[AI-CHIRHO]` marker enables programmatic detection of AI-assisted commits.
 
 ---
 
-## 24. Commands
+## 26. Commands
 
 ```bash
 # Development
@@ -969,7 +1776,7 @@ bunx wrangler deploy           # Deploy only (skips tests)
 
 ---
 
-## 25. Environment Variables
+## 27. Environment Variables
 
 Required in `.env` (git ignored):
 
@@ -982,7 +1789,7 @@ Required in `.env` (git ignored):
 
 ---
 
-## 26. Quick Reference
+## 28. Quick Reference
 
 ### Naming Summary
 
@@ -992,7 +1799,8 @@ Required in `.env` (git ignored):
 | Our functions | `camelCaseChirho` | `fetchBibleChirho()` |
 | Our types/classes | `PascalCaseChirho` | `VerseChirho` |
 | Our constants | `SCREAMING_SNAKE_CHIRHO` | `MAX_VERSES_CHIRHO` |
-| Our routes | `kebab-case-chirho` or `-fe` | `/api-chirho/`, `/features-fe/` |
+| Our route paths | `kebab-case-chirho` or `-fe` | `/api-chirho/search-chirho`, `/features-fe/` |
+| **Our route params** | `snake_case_chirho` | `:version_chirho`, `:book_chirho` |
 | Our DB tables | `snake_case_chirho` | `verses_chirho` |
 | Framework dirs | As required | `src/`, `routes/`, `lib/` |
 
@@ -1011,7 +1819,7 @@ Required in `.env` (git ignored):
 
 ---
 
-## 27. Implementation Checklist
+## 29. Implementation Checklist
 
 ### Setup
 - [x] CLAUDE.md points to @AGENTS.md
