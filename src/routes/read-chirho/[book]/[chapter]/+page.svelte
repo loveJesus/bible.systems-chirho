@@ -8,6 +8,28 @@
 	let showChapterSelectorChirho = $state(false);
 	let copiedVerseChirho = $state(null);
 	let showShareMenuChirho = $state(null);
+	let selectedVerseChirho = $state(null);
+	let crossRefsChirho = $state(null);
+	let loadingRefsChirho = $state(false);
+
+	// Book abbreviation mapping for cross-reference lookup
+	const bookAbbrevMapChirho = {
+		genesis: 'Gen',
+		exodus: 'Exo',
+		leviticus: 'Lev',
+		numbers: 'Num',
+		deuteronomy: 'Deu',
+		psalms: 'Psa',
+		proverbs: 'Pro',
+		john: 'Jhn',
+		romans: 'Rom',
+		matthew: 'Mat'
+	};
+
+	function getBookAbbrevChirho() {
+		const lowerNameChirho = data.bookChirho.name.toLowerCase();
+		return bookAbbrevMapChirho[lowerNameChirho] || data.bookChirho.abbrev;
+	}
 
 	function toggleBookSelectorChirho() {
 		showBookSelectorChirho = !showBookSelectorChirho;
@@ -52,6 +74,33 @@
 		showShareMenuChirho = null;
 	}
 
+	async function toggleCrossRefsChirho(verseNumChirho) {
+		if (selectedVerseChirho === verseNumChirho) {
+			selectedVerseChirho = null;
+			crossRefsChirho = null;
+			return;
+		}
+
+		selectedVerseChirho = verseNumChirho;
+		loadingRefsChirho = true;
+		crossRefsChirho = null;
+
+		try {
+			const bookAbbrevChirho = getBookAbbrevChirho();
+			const responseChirho = await fetch(
+				`/api-chirho/cross-references-chirho?book=${bookAbbrevChirho}&chapter=${data.chapterChirho}&verse=${verseNumChirho}`
+			);
+			const resultChirho = await responseChirho.json();
+			if (resultChirho.data_chirho) {
+				crossRefsChirho = resultChirho.data_chirho;
+			}
+		} catch (errorChirho) {
+			console.error('Error fetching cross-references:', errorChirho);
+		} finally {
+			loadingRefsChirho = false;
+		}
+	}
+
 	// Close menus when clicking outside
 	function handleClickOutsideChirho(eventChirho) {
 		if (!eventChirho.target.closest('.share-menu-chirho') && !eventChirho.target.closest('.share-btn-chirho')) {
@@ -72,11 +121,14 @@
 			window.location.href = `/read-chirho/${data.bookChirho.abbrev.toLowerCase()}/${data.navigationChirho.prevChapter}`;
 		} else if (eventChirho.key === 'ArrowRight' && data.navigationChirho.nextChapter) {
 			window.location.href = `/read-chirho/${data.bookChirho.abbrev.toLowerCase()}/${data.navigationChirho.nextChapter}`;
+		} else if (eventChirho.key === 'Escape') {
+			selectedVerseChirho = null;
+			crossRefsChirho = null;
 		}
 	}
 </script>
 
-<svelte:window on:click={handleClickOutsideChirho} on:keydown={handleKeydownChirho} />
+<svelte:window onclick={handleClickOutsideChirho} onkeydown={handleKeydownChirho} />
 
 <svelte:head>
 	<title>{data.bookChirho.name} {data.chapterChirho} - Bible.Systems</title>
@@ -186,12 +238,22 @@
 		<div class="space-y-4">
 			{#each data.versesChirho as verseChirho}
 				<div class="group relative" id="v{verseChirho.verse}">
-					<p class="text-lg md:text-xl text-slate-200 leading-relaxed pr-16">
+					<p class="text-lg md:text-xl text-slate-200 leading-relaxed pr-20">
 						<sup class="text-amber-500 font-semibold mr-2 text-base">{verseChirho.verse}</sup>
 						<span class="scripture-text">{verseChirho.text}</span>
 					</p>
 					<!-- Verse Actions -->
 					<div class="absolute right-0 top-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+						<!-- Cross-Reference Button -->
+						<button
+							onclick={() => toggleCrossRefsChirho(verseChirho.verse)}
+							class="p-2 transition-colors {selectedVerseChirho === verseChirho.verse ? 'text-amber-400' : 'text-slate-500 hover:text-amber-400'}"
+							title="View cross-references"
+						>
+							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+							</svg>
+						</button>
 						<!-- Copy Button -->
 						<button
 							onclick={() => copyVerseChirho(verseChirho)}
@@ -247,6 +309,59 @@
 							{/if}
 						</div>
 					</div>
+
+					<!-- Cross-References Panel -->
+					{#if selectedVerseChirho === verseChirho.verse}
+						<div class="mt-3 p-4 bg-slate-800/50 border border-slate-700 rounded-lg">
+							{#if loadingRefsChirho}
+								<div class="flex items-center gap-2 text-slate-400">
+									<svg class="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+										<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+										<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+									</svg>
+									Loading cross-references...
+								</div>
+							{:else if crossRefsChirho && crossRefsChirho.cross_references_chirho?.length > 0}
+								<div class="space-y-3">
+									<div class="flex items-center justify-between">
+										<h4 class="text-sm font-semibold text-amber-400 flex items-center gap-2">
+											<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+											</svg>
+											Cross-References ({crossRefsChirho.total_references_chirho})
+										</h4>
+										<button
+											onclick={() => { selectedVerseChirho = null; crossRefsChirho = null; }}
+											class="text-slate-500 hover:text-slate-300 p-1"
+										>
+											<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+												<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+											</svg>
+										</button>
+									</div>
+									{#each crossRefsChirho.cross_references_chirho as groupChirho}
+										<div>
+											{#if groupChirho.topic_chirho}
+												<p class="text-xs text-slate-400 uppercase tracking-wide mb-1">{groupChirho.topic_chirho}</p>
+											{/if}
+											<div class="flex flex-wrap gap-2">
+												{#each groupChirho.references_chirho as refChirho}
+													<span
+														class="inline-block px-2 py-1 bg-slate-700 hover:bg-amber-500/20 border border-slate-600 hover:border-amber-500/50 rounded text-sm text-slate-300 hover:text-amber-400 transition-colors cursor-pointer"
+														title={refChirho.raw_chirho}
+													>
+														{refChirho.formatted_chirho}
+													</span>
+												{/each}
+											</div>
+										</div>
+									{/each}
+								</div>
+							{:else}
+								<p class="text-slate-400 text-sm">No cross-references available for this verse yet.</p>
+							{/if}
+						</div>
+					{/if}
 				</div>
 			{/each}
 		</div>
