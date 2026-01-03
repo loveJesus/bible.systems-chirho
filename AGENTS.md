@@ -240,7 +240,93 @@ Every page footer must include:
 
 ---
 
-## 7. Feature Status (Honest Assessment)
+## 7. Design Guidelines
+
+### 7.1 Avoid Overused Patterns
+
+**DO NOT** use the tired, overused "left-aligned emoji followed by text" panel layout:
+
+```html
+<!-- ❌ AVOID THIS - Generic, overused, lazy -->
+<div class="feature-card">
+  <span class="emoji">📖</span>
+  <h3>Read the Bible</h3>
+  <p>Access multiple translations...</p>
+</div>
+
+<div class="feature-card">
+  <span class="emoji">🔍</span>
+  <h3>Search Scripture</h3>
+  <p>Find any verse...</p>
+</div>
+```
+
+This pattern is seen on every SaaS landing page and lacks originality.
+
+### 7.2 Be Original & Fitting
+
+Design should reflect the reverence and beauty befitting Scripture:
+
+- **Use typography thoughtfully** — Consider serif fonts for Scripture text, clean sans-serif for UI
+- **Embrace whitespace** — Let the Word breathe; don't crowd the text
+- **Subtle, meaningful imagery** — Use MCP image generation tools (Imagen) for unique, project-specific visuals
+- **CSS artistry** — Gradients, shadows, and animations that feel timeless rather than trendy
+- **Iconography with purpose** — If using icons, prefer custom SVGs or meaningful symbols (☧, †) over generic emoji
+
+### 7.3 MCP Tools for Visual Assets
+
+Use available MCP image generation tools for original artwork:
+
+```typescript
+// Generate unique header images, backgrounds, or illustrations
+// using mcp__imagen__imagen_t2i or similar tools
+
+// Example: Generate a reverent, artistic background
+// Prompt: "Ancient manuscript texture, warm parchment tones,
+//          subtle Hebrew lettering watermark, elegant and timeless"
+```
+
+### 7.4 CSS Techniques to Embrace
+
+```css
+/* ✅ GOOD - Thoughtful, original styling */
+.verse-text-chirho {
+  font-family: 'Crimson Text', Georgia, serif;
+  font-size: 1.25rem;
+  line-height: 1.8;
+  letter-spacing: 0.01em;
+  color: var(--text-scripture-chirho);
+}
+
+.chapter-header-chirho {
+  background: linear-gradient(
+    135deg,
+    var(--gold-warm-chirho) 0%,
+    var(--gold-deep-chirho) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Subtle, reverent animations */
+.verse-highlight-chirho {
+  animation: gentle-glow-chirho 2s ease-in-out infinite alternate;
+}
+```
+
+### 7.5 Design Principles for Bible.Systems
+
+| Principle | Application |
+|-----------|-------------|
+| **Reverence** | Design choices honor the sacred nature of Scripture |
+| **Clarity** | Nothing distracts from reading God's Word |
+| **Timelessness** | Avoid trendy patterns that will look dated |
+| **Accessibility** | High contrast, readable fonts, keyboard navigation |
+| **Originality** | Stand apart from generic SaaS/startup aesthetics |
+
+---
+
+## 8. Feature Status (Honest Assessment)
 
 ### Status Indicators
 
@@ -282,7 +368,7 @@ Every page footer must include:
 
 ---
 
-## 8. Tech Stack
+## 9. Tech Stack
 
 ### Currently Active
 
@@ -304,7 +390,7 @@ Every page footer must include:
 
 ---
 
-## 9. Directory Structure
+## 10. Directory Structure
 
 ```
 bible.systems-chirho/
@@ -354,7 +440,7 @@ bible.systems-chirho/
 
 ---
 
-## 10. API Endpoints
+## 11. API Endpoints
 
 ### Currently Implemented
 
@@ -375,7 +461,7 @@ bible.systems-chirho/
 
 ---
 
-## 11. MCP Server (Planned)
+## 12. MCP Server (Planned)
 
 For AI assistants like Claude to access Bible data:
 
@@ -388,7 +474,7 @@ For AI assistants like Claude to access Bible data:
 
 ---
 
-## 12. Data Sources (Open/Public Domain)
+## 13. Data Sources (Open/Public Domain)
 
 When implemented, the following public domain sources will be used:
 
@@ -400,30 +486,30 @@ When implemented, the following public domain sources will be used:
 
 ---
 
-## 13. Testing Strategy
+## 14. Testing Strategy
 
-### 13.1 Philosophy
+### 14.1 Philosophy
 
 - **Test before deploy**: Never deploy untested code
 - **Fast feedback**: All tests must complete in under 30 seconds
 - **Critical paths first**: Focus on core API handlers and user flows
 - **Headless only**: E2E tests run headless for CI compatibility
 
-### 13.2 Test Tools
+### 14.2 Test Tools
 
 | Tool | Purpose | Command |
 |------|---------|---------|
 | Vitest | Unit tests | `bun run test-chirho` |
 | Playwright | E2E tests (headless) | `bun run test-e2e-chirho` |
 
-### 13.3 Test File Conventions
+### 14.3 Test File Conventions
 
 | Type | Location | Naming | Example |
 |------|----------|--------|---------|
 | Unit tests | `src/**/*.test.ts` | `*.test.ts` | `validation_chirho.test.ts` |
 | E2E tests | `tests-e2e-chirho/` | `*.e2e.ts` | `bible-reader.e2e.ts` |
 
-### 13.4 What to Test
+### 14.4 What to Test
 
 **Unit Tests (Vitest):**
 - Validation utilities
@@ -437,7 +523,7 @@ When implemented, the following public domain sources will be used:
 - Navigation and routing
 - Form validation and error states
 
-### 13.5 Test Commands
+### 14.5 Test Commands
 
 ```bash
 bun run test-chirho          # Run unit tests once
@@ -447,7 +533,7 @@ bun run test-all-chirho      # Run all tests
 bun run deploy-chirho        # Test + build + deploy
 ```
 
-### 13.6 Writing Tests
+### 14.6 Writing Tests
 
 ```typescript
 // For God so loved the world, that He gave His only begotten Son,
@@ -463,7 +549,7 @@ describe('featureNameChirho', () => {
 });
 ```
 
-### 13.7 CI/CD Integration
+### 14.7 CI/CD Integration
 
 The `deploy-chirho` script enforces test-before-deploy:
 
@@ -476,7 +562,7 @@ bun run deploy-chirho
 
 ---
 
-## 14. Git & Authorship Protocol
+## 15. Git & Authorship Protocol
 
 ### Commit Message Format
 
@@ -501,7 +587,7 @@ The `[AI-CHIRHO]` marker enables programmatic detection of AI-assisted commits.
 
 ---
 
-## 15. Commands
+## 16. Commands
 
 ```bash
 # Development
@@ -523,7 +609,7 @@ bunx wrangler deploy           # Deploy only (skips tests)
 
 ---
 
-## 16. Environment Variables
+## 17. Environment Variables
 
 Required in `.env` (git ignored):
 
@@ -536,7 +622,7 @@ Required in `.env` (git ignored):
 
 ---
 
-## 17. Quick Reference
+## 18. Quick Reference
 
 ### Naming Summary
 
@@ -565,7 +651,7 @@ Required in `.env` (git ignored):
 
 ---
 
-## 18. Implementation Checklist
+## 19. Implementation Checklist
 
 ### Setup
 - [x] CLAUDE.md points to @AGENTS.md
