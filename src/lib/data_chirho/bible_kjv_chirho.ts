@@ -131,6 +131,54 @@ export const bibleKjvChirho: BibleDataChirho = {
 			]
 		},
 		{
+			name: 'Exodus',
+			abbrev: 'Exo',
+			chapters: [
+				{
+					chapter: 20,
+					verses: [
+						{ verse: 1, text: 'And God spake all these words, saying,' },
+						{ verse: 2, text: 'I am the LORD thy God, which have brought thee out of the land of Egypt, out of the house of bondage.' },
+						{ verse: 3, text: 'Thou shalt have no other gods before me.' },
+						{ verse: 4, text: 'Thou shalt not make unto thee any graven image, or any likeness of any thing that is in heaven above, or that is in the earth beneath, or that is in the water under the earth:' },
+						{ verse: 5, text: 'Thou shalt not bow down thyself to them, nor serve them: for I the LORD thy God am a jealous God, visiting the iniquity of the fathers upon the children unto the third and fourth generation of them that hate me;' },
+						{ verse: 6, text: 'And shewing mercy unto thousands of them that love me, and keep my commandments.' },
+						{ verse: 7, text: 'Thou shalt not take the name of the LORD thy God in vain; for the LORD will not hold him guiltless that taketh his name in vain.' },
+						{ verse: 8, text: 'Remember the sabbath day, to keep it holy.' },
+						{ verse: 9, text: 'Six days shalt thou labour, and do all thy work:' },
+						{ verse: 10, text: 'But the seventh day is the sabbath of the LORD thy God: in it thou shalt not do any work, thou, nor thy son, nor thy daughter, thy manservant, nor thy maidservant, nor thy cattle, nor thy stranger that is within thy gates:' },
+						{ verse: 11, text: 'For in six days the LORD made heaven and earth, the sea, and all that in them is, and rested the seventh day: wherefore the LORD blessed the sabbath day, and hallowed it.' },
+						{ verse: 12, text: 'Honour thy father and thy mother: that thy days may be long upon the land which the LORD thy God giveth thee.' },
+						{ verse: 13, text: 'Thou shalt not kill.' },
+						{ verse: 14, text: 'Thou shalt not commit adultery.' },
+						{ verse: 15, text: 'Thou shalt not steal.' },
+						{ verse: 16, text: 'Thou shalt not bear false witness against thy neighbour.' },
+						{ verse: 17, text: 'Thou shalt not covet thy neighbour\'s house, thou shalt not covet thy neighbour\'s wife, nor his manservant, nor his maidservant, nor his ox, nor his ass, nor any thing that is thy neighbour\'s.' }
+					]
+				}
+			]
+		},
+		{
+			name: 'Deuteronomy',
+			abbrev: 'Deu',
+			chapters: [
+				{
+					chapter: 6,
+					verses: [
+						{ verse: 1, text: 'Now these are the commandments, the statutes, and the judgments, which the LORD your God commanded to teach you, that ye might do them in the land whither ye go to possess it:' },
+						{ verse: 2, text: 'That thou mightest fear the LORD thy God, to keep all his statutes and his commandments, which I command thee, thou, and thy son, and thy son\'s son, all the days of thy life; and that thy days may be prolonged.' },
+						{ verse: 3, text: 'Hear therefore, O Israel, and observe to do it; that it may be well with thee, and that ye may increase mightily, as the LORD God of thy fathers hath promised thee, in the land that floweth with milk and honey.' },
+						{ verse: 4, text: 'Hear, O Israel: The LORD our God is one LORD:' },
+						{ verse: 5, text: 'And thou shalt love the LORD thy God with all thine heart, and with all thy soul, and with all thy might.' },
+						{ verse: 6, text: 'And these words, which I command thee this day, shall be in thine heart:' },
+						{ verse: 7, text: 'And thou shalt teach them diligently unto thy children, and shalt talk of them when thou sittest in thine house, and when thou walkest by the way, and when thou liest down, and when thou risest up.' },
+						{ verse: 8, text: 'And thou shalt bind them for a sign upon thine hand, and they shall be as frontlets between thine eyes.' },
+						{ verse: 9, text: 'And thou shalt write them upon the posts of thy house, and on thy gates.' }
+					]
+				}
+			]
+		},
+		{
 			name: 'Psalms',
 			abbrev: 'Psa',
 			chapters: [
@@ -726,6 +774,67 @@ export const bibleKjvChirho: BibleDataChirho = {
 						{ verse: 34, text: 'Quenched the violence of fire, escaped the edge of the sword, out of weakness were made strong, waxed valiant in fight, turned to flight the armies of the aliens.' },
 						{ verse: 39, text: 'And these all, having obtained a good report through faith, received not the promise:' },
 						{ verse: 40, text: 'God having provided some better thing for us, that they without us should not be made perfect.' }
+					]
+				}
+			]
+		},
+		{
+			name: '1 Peter',
+			abbrev: '1Pe',
+			chapters: [
+				{
+					chapter: 1,
+					verses: [
+						{ verse: 3, text: 'Blessed be the God and Father of our Lord Jesus Christ, which according to his abundant mercy hath begotten us again unto a lively hope by the resurrection of Jesus Christ from the dead,' },
+						{ verse: 4, text: 'To an inheritance incorruptible, and undefiled, and that fadeth not away, reserved in heaven for you,' },
+						{ verse: 5, text: 'Who are kept by the power of God through faith unto salvation ready to be revealed in the last time.' },
+						{ verse: 6, text: 'Wherein ye greatly rejoice, though now for a season, if need be, ye are in heaviness through manifold temptations:' },
+						{ verse: 7, text: 'That the trial of your faith, being much more precious than of gold that perisheth, though it be tried with fire, might be found unto praise and honour and glory at the appearing of Jesus Christ:' },
+						{ verse: 8, text: 'Whom having not seen, ye love; in whom, though now ye see him not, yet believing, ye rejoice with joy unspeakable and full of glory:' },
+						{ verse: 9, text: 'Receiving the end of your faith, even the salvation of your souls.' },
+						{ verse: 13, text: 'Wherefore gird up the loins of your mind, be sober, and hope to the end for the grace that is to be brought unto you at the revelation of Jesus Christ;' },
+						{ verse: 15, text: 'But as he which hath called you is holy, so be ye holy in all manner of conversation;' },
+						{ verse: 16, text: 'Because it is written, Be ye holy; for I am holy.' },
+						{ verse: 18, text: 'Forasmuch as ye know that ye were not redeemed with corruptible things, as silver and gold, from your vain conversation received by tradition from your fathers;' },
+						{ verse: 19, text: 'But with the precious blood of Christ, as of a lamb without blemish and without spot:' },
+						{ verse: 23, text: 'Being born again, not of corruptible seed, but of incorruptible, by the word of God, which liveth and abideth for ever.' },
+						{ verse: 24, text: 'For all flesh is as grass, and all the glory of man as the flower of grass. The grass withereth, and the flower thereof falleth away:' },
+						{ verse: 25, text: 'But the word of the Lord endureth for ever. And this is the word which by the gospel is preached unto you.' }
+					]
+				},
+				{
+					chapter: 2,
+					verses: [
+						{ verse: 2, text: 'As newborn babes, desire the sincere milk of the word, that ye may grow thereby:' },
+						{ verse: 5, text: 'Ye also, as lively stones, are built up a spiritual house, an holy priesthood, to offer up spiritual sacrifices, acceptable to God by Jesus Christ.' },
+						{ verse: 9, text: 'But ye are a chosen generation, a royal priesthood, an holy nation, a peculiar people; that ye should shew forth the praises of him who hath called you out of darkness into his marvellous light:' },
+						{ verse: 11, text: 'Dearly beloved, I beseech you as strangers and pilgrims, abstain from fleshly lusts, which war against the soul;' },
+						{ verse: 21, text: 'For even hereunto were ye called: because Christ also suffered for us, leaving us an example, that ye should follow his steps:' },
+						{ verse: 24, text: 'Who his own self bare our sins in his own body on the tree, that we, being dead to sins, should live unto righteousness: by whose stripes ye were healed.' },
+						{ verse: 25, text: 'For ye were as sheep going astray; but are now returned unto the Shepherd and Bishop of your souls.' }
+					]
+				}
+			]
+		},
+		{
+			name: 'Colossians',
+			abbrev: 'Col',
+			chapters: [
+				{
+					chapter: 3,
+					verses: [
+						{ verse: 1, text: 'If ye then be risen with Christ, seek those things which are above, where Christ sitteth on the right hand of God.' },
+						{ verse: 2, text: 'Set your affection on things above, not on things on the earth.' },
+						{ verse: 3, text: 'For ye are dead, and your life is hid with Christ in God.' },
+						{ verse: 4, text: 'When Christ, who is our life, shall appear, then shall ye also appear with him in glory.' },
+						{ verse: 12, text: 'Put on therefore, as the elect of God, holy and beloved, bowels of mercies, kindness, humbleness of mind, meekness, longsuffering;' },
+						{ verse: 13, text: 'Forbearing one another, and forgiving one another, if any man have a quarrel against any: even as Christ forgave you, so also do ye.' },
+						{ verse: 14, text: 'And above all these things put on charity, which is the bond of perfectness.' },
+						{ verse: 15, text: 'And let the peace of God rule in your hearts, to the which also ye are called in one body; and be ye thankful.' },
+						{ verse: 16, text: 'Let the word of Christ dwell in you richly in all wisdom; teaching and admonishing one another in psalms and hymns and spiritual songs, singing with grace in your hearts to the Lord.' },
+						{ verse: 17, text: 'And whatsoever ye do in word or deed, do all in the name of the Lord Jesus, giving thanks to God and the Father by him.' },
+						{ verse: 23, text: 'And whatsoever ye do, do it heartily, as to the Lord, and not unto men;' },
+						{ verse: 24, text: 'Knowing that of the Lord ye shall receive the reward of the inheritance: for ye serve the Lord Christ.' }
 					]
 				}
 			]
