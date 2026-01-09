@@ -154,8 +154,9 @@
 	.original-text-chirho {
 		font-size: 1.5rem;
 		font-weight: 700;
-		color: #1a0f08;
+		color: #1a0a05 !important;
 		line-height: 1.4;
+		text-shadow: none;
 	}
 
 	.original-text-chirho.greek-chirho {
@@ -169,24 +170,24 @@
 	}
 
 	.transliteration-chirho {
-		font-size: 0.8rem;
-		color: #4a3728;
+		font-size: 0.85rem;
+		color: #3d2a1a !important;
 		font-style: italic;
 		margin-top: 0.25rem;
 	}
 
 	.strongs-chirho {
-		font-size: 0.75rem;
-		color: #b8860b;
+		font-size: 0.8rem;
+		color: #b8860b !important;
 		font-family: var(--font-mono-chirho, monospace);
-		font-weight: 600;
+		font-weight: 700;
 		margin-top: 0.25rem;
 	}
 
 	.translation-chirho {
-		font-size: 1rem;
-		color: #0f0f0f;
-		font-weight: 600;
+		font-size: 1.1rem;
+		color: #0a0a0a !important;
+		font-weight: 700;
 		margin-top: 0.375rem;
 		border-top: 2px solid #c9a961;
 		padding-top: 0.375rem;
@@ -194,11 +195,11 @@
 	}
 
 	.morphology-chirho {
-		font-size: 0.65rem;
-		color: #5a4a3a;
+		font-size: 0.7rem;
+		color: #4a3a2a !important;
 		font-family: var(--font-mono-chirho, monospace);
 		margin-top: 0.25rem;
-		font-weight: 500;
+		font-weight: 600;
 	}
 
 	/* Tooltip */
