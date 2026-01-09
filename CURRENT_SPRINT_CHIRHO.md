@@ -71,18 +71,63 @@ Building Logos-level Bible study architecture with deep features.
 
 - [x] Component improvements (accessibility fixes - aria-label on button)
 
+## Recent Session Completions (2026-01-09)
+
+- [x] **InterlinearViewChirho.svelte component** - Full interlinear display with:
+  - Greek/Hebrew word display with proper fonts
+  - Transliteration overlay
+  - Strong's number links
+  - Morphology codes (V-AAI-3S, etc.)
+  - Louw-Nida semantic domain tooltips on hover
+  - Multi-language translation alignment (English/Spanish)
+  - Dark mode support
+  - Responsive design
+
+- [x] **Spanish Bible module (SpaRV1909)** installed via SWORD:
+  - Reina-Valera 1909 with Strong's numbers
+  - Enables Spanish interlinear alignment via shared Strong's
+
+- [x] **D1 Catalog Database Schema** (Drizzle ORM):
+  - `drizzle-chirho/schema-catalog-chirho.ts` - Shard registry, resource locations
+  - `drizzle-chirho/schema-resource-chirho.ts` - Verses, word instances, cross-refs
+  - `migrations-chirho/0001_catalog_schema_chirho.sql` - Initial 16 shards
+  - `migrations-chirho/0002_resource_schema_chirho.sql` - Resource tables
+
+- [x] **Interlinear page route** (`/interlinear-chirho`):
+  - John 3:16 sample data with 7 Greek words
+  - Greek text, transliteration, Strong's, morphology, English/Spanish
+
 ## In Progress
 
-SWORD module integration and data pipeline.
+Logos-level data architecture with interlinear alignment and semantic domains.
 
-### SWORD Modules Installed (21 total)
+### SWORD Modules Installed (22 total)
 
-**Bibles (4):**
+**Bibles (5):**
 - KJV - King James with Strong's + Morphology
 - ASV - American Standard Version (1901)
 - MorphGNT - Greek NT with morphology
 - LXX - Septuagint with morphology
 - WLC - Westminster Leningrad Codex (Hebrew)
+- **SpaRV1909** - Spanish Reina-Valera 1909 with Strong's
+
+### New Type System (Complete)
+
+**src/lib/types_chirho/**:
+- `louw-nida-chirho.ts` - All 93 Louw-Nida semantic domains
+- `interlinear-chirho.ts` - N:M word alignment via Strong's numbers
+- `comprehensive-schema-chirho.ts` - Full Logos-level data model
+
+**src/lib/data_chirho/**:
+- `strongs-louw-nida-mapping-chirho.ts` - Strong's → Louw-Nida domain mappings
+
+**Features Implemented**:
+- N:M interlinear alignment (one word → multiple Strong's, one Strong's → multiple words)
+- Louw-Nida semantic domain lookup by Strong's number
+- Hebrew/Greek alphabet references
+- Verse number mapping (Hebrew vs modern)
+- Polysemy detection (words with multiple meanings)
+- Domain-based word search
 
 **Lexicons/Dictionaries (7):**
 - StrongsGreek, StrongsHebrew - Strong's dictionaries
@@ -116,6 +161,8 @@ SWORD module integration and data pipeline.
   - Extracts TSK cross-references
   - Parses Strong's dictionary entries
   - Exports Hebrew/Greek text
+  - **NEW: Integrates Louw-Nida domain lookup**
+  - **NEW: Creates interlinear alignment blocks**
 
 **Usage:**
 ```bash
@@ -127,15 +174,21 @@ bun run scripts/sword-importer-chirho.ts
 - Greek lemmas for each word
 - 13 cross-references from TSK
 - Full morphological data available
+- **Louw-Nida domains per word** (e.g., G0025 → 25.43 "love")
+- **Interlinear Greek↔English alignment**
 
 ## Next Priorities
 
-1. **D1 Catalog Database** - Create catalog for shard allocation
-2. **Morphological Search Engine** - Implement search DSL parser
-3. **SWORD Module Importer** - diatheke integration for Bible texts
-4. **Louw-Nida Domain Mapping** - 93 semantic domains
-5. **Publisher Portal** - Stripe Connect integration
-6. **Word-Level Data Model** - Morphology at every position
+1. ~~**Louw-Nida Domain Mapping** - 93 semantic domains~~ ✅ Complete
+2. ~~**Word-Level Data Model** - Morphology at every position~~ ✅ Complete
+3. ~~**SWORD Module Importer** - diatheke integration for Bible texts~~ ✅ Enhanced
+4. ~~**Interlinear UI Component** - Display aligned Greek/Hebrew/English~~ ✅ Complete (2026-01-09)
+5. ~~**D1 Catalog Database** - Create catalog for shard allocation~~ ✅ Complete (2026-01-09)
+6. ~~**Spanish Interlinear** - SpaRV1909 aligned via Strong's~~ ✅ Module installed (2026-01-09)
+7. **Morphological Search Engine** - Implement search DSL parser
+8. **Publisher Portal** - Stripe Connect integration
+9. **D1 Database Deployment** - Deploy catalog + resource shards to Cloudflare
+10. **Full John 3:16 Interlinear** - Complete verse with all Greek words
 
 ## Blockers
 
@@ -172,7 +225,23 @@ None currently.
 - Cross-refs: `src/lib/data_chirho/cross_references_chirho.ts`
 - Architecture spec: `spec_chirho/04-architecture-chirho.md`
 - Publisher spec: `spec_chirho/05-publisher-licensing-chirho.md`
-- Tests: 54 passing
+- Tests: 68 passing
+
+**Type System Files:**
+- `src/lib/types_chirho/louw-nida-chirho.ts` - 93 domains + sample entries
+- `src/lib/types_chirho/interlinear-chirho.ts` - N:M alignment types
+- `src/lib/types_chirho/comprehensive-schema-chirho.ts` - Full data model
+- `src/lib/data_chirho/strongs-louw-nida-mapping-chirho.ts` - 25+ word mappings
+
+**Database Schema Files (NEW 2026-01-09):**
+- `drizzle-chirho/schema-catalog-chirho.ts` - Catalog DB: shards, resources, publishers
+- `drizzle-chirho/schema-resource-chirho.ts` - Resource shard: verses, words, lexicons
+- `migrations-chirho/0001_catalog_schema_chirho.sql` - Catalog migration
+- `migrations-chirho/0002_resource_schema_chirho.sql` - Resource migration
+
+**UI Components (NEW 2026-01-09):**
+- `src/lib/components/InterlinearViewChirho.svelte` - Interlinear word display
+- `src/routes/interlinear-chirho/+page.svelte` - Interlinear page route
 
 ### Deployment
 - bible.systems via Cloudflare Workers
