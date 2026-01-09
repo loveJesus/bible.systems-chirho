@@ -104,22 +104,26 @@
 	}
 
 	h1 {
-		color: var(--text-primary-chirho, #2c1810);
+		color: #f5f0e8;
 		margin-bottom: 0.5rem;
+		font-size: 2rem;
+		font-weight: 700;
 	}
 
 	.verse-ref-chirho {
-		color: var(--text-secondary-chirho, #6b5b4f);
+		color: #c9a961;
 		font-style: italic;
 		margin-bottom: 2rem;
+		font-size: 1.1rem;
 	}
 
 	.translation-toggle-chirho {
 		margin-top: 2rem;
-		padding: 1rem;
-		background: var(--bg-muted-chirho, #f5f0e8);
+		padding: 1rem 1.5rem;
+		background: rgba(201, 169, 97, 0.1);
+		border: 1px solid rgba(201, 169, 97, 0.3);
 		border-radius: 0.5rem;
-		font-size: 0.875rem;
-		color: var(--text-secondary-chirho, #6b5b4f);
+		font-size: 0.95rem;
+		color: #d4c5a9;
 	}
 </style>

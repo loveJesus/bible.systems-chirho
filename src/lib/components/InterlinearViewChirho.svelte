@@ -125,33 +125,36 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		padding: 0.5rem 0.75rem;
-		border-radius: 0.375rem;
-		background: var(--bg-block-chirho, #f8f5f0);
-		border: 1px solid transparent;
+		padding: 0.75rem 1rem;
+		border-radius: 0.5rem;
+		background: #ffffff;
+		border: 1px solid #d4c5a9;
 		cursor: pointer;
 		position: relative;
 		transition: all 0.2s ease;
-		min-width: 3rem;
+		min-width: 4rem;
 		text-align: center;
 		font-family: inherit;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
 	}
 
 	.interlinear-block-chirho:hover,
 	.interlinear-block-chirho.hovered-chirho {
-		background: var(--bg-block-hover-chirho, #f0ebe3);
-		border-color: var(--border-hover-chirho, #c9a961);
-		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+		background: #fffef8;
+		border-color: #c9a961;
+		box-shadow: 0 4px 12px rgba(201, 169, 97, 0.25);
+		transform: translateY(-2px);
 	}
 
 	.interlinear-block-chirho.has-strongs-chirho {
-		background: var(--bg-strongs-chirho, #faf8f5);
+		background: #fffdf5;
+		border-color: #c9a961;
 	}
 
 	.original-text-chirho {
-		font-size: 1.25rem;
-		font-weight: 500;
-		color: var(--text-original-chirho, #2c1810);
+		font-size: 1.5rem;
+		font-weight: 700;
+		color: #1a0f08;
 		line-height: 1.4;
 	}
 
@@ -162,38 +165,40 @@
 	.original-text-chirho.hebrew-chirho {
 		font-family: 'SBL Hebrew', 'Ezra SIL', 'Times New Roman', serif;
 		direction: rtl;
-		font-size: 1.4rem;
+		font-size: 1.6rem;
 	}
 
 	.transliteration-chirho {
-		font-size: 0.75rem;
-		color: var(--text-translit-chirho, #6b5b4f);
+		font-size: 0.8rem;
+		color: #4a3728;
 		font-style: italic;
-		margin-top: 0.125rem;
+		margin-top: 0.25rem;
 	}
 
 	.strongs-chirho {
-		font-size: 0.625rem;
-		color: var(--text-strongs-chirho, #8b7355);
+		font-size: 0.75rem;
+		color: #b8860b;
 		font-family: var(--font-mono-chirho, monospace);
-		margin-top: 0.125rem;
+		font-weight: 600;
+		margin-top: 0.25rem;
 	}
 
 	.translation-chirho {
-		font-size: 0.875rem;
-		color: var(--text-translation-chirho, #1a1a1a);
-		font-weight: 500;
-		margin-top: 0.25rem;
-		border-top: 1px solid var(--border-translation-chirho, #e0d8c8);
-		padding-top: 0.25rem;
+		font-size: 1rem;
+		color: #0f0f0f;
+		font-weight: 600;
+		margin-top: 0.375rem;
+		border-top: 2px solid #c9a961;
+		padding-top: 0.375rem;
 		width: 100%;
 	}
 
 	.morphology-chirho {
-		font-size: 0.5rem;
-		color: var(--text-morph-chirho, #999);
+		font-size: 0.65rem;
+		color: #5a4a3a;
 		font-family: var(--font-mono-chirho, monospace);
-		margin-top: 0.125rem;
+		margin-top: 0.25rem;
+		font-weight: 500;
 	}
 
 	/* Tooltip */
