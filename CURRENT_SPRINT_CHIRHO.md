@@ -14,6 +14,20 @@
 
 ## Session Completions (2026-01-10)
 
+### Session 4: Bible API D1 Integration (COMPLETE)
+- [x] **Created bible-queries-chirho.ts** - D1 query helper module with:
+  - All 66 books metadata (OT + NT)
+  - Chapter verse queries
+  - Specific verse queries
+  - Available chapters/books queries
+  - Verse search function
+- [x] **Updated /api-chirho/bible-chirho** - Now queries D1 for book list and verse count
+- [x] **Updated /api-chirho/bible-chirho/:book/:chapter** - Now queries D1 for verses
+- [x] **Fallback for local dev** - Uses TypeScript data file when D1 not available
+- [x] **API response includes source_chirho** - 'd1' or 'file' to indicate data source
+- [x] **Verified live API** - All 66 books, 31,102 verses served from D1
+- [x] **Deployed to bible.systems**
+
 ### Ralph Loop Quality Verification (Session 2)
 - [x] **UX/UI Verification** - Screenshots captured via MCP Playwright:
   - Homepage desktop: Consistent color scheme, gold accents
@@ -234,11 +248,11 @@ bun run scripts/sword-importer-chirho.ts
 
 ## Next Priorities
 
-**Foundation Work (Completed!):**
+**Foundation Work (All Complete!):**
 1. ~~**Create D1 Databases**~~ ✅ - Deployed catalog + 16 resource shards + app database
 2. ~~**Import Full KJV from SWORD**~~ ✅ - 31,102 verses + 348,259 words in D1
-3. **Update Bible API** - Switch from TypeScript file to D1 queries (NEXT!)
-4. **Import Strong's Lexicons** - Hebrew H1-H8674, Greek G1-G5624
+3. ~~**Update Bible API**~~ ✅ - API now queries from D1 (with file fallback for local dev)
+4. **Import Strong's Lexicons** - Hebrew H1-H8674, Greek G1-G5624 (NEXT!)
 
 **Then Feature Work:**
 5. **Import TSK Cross-References** - 340,000+ references with provenance
@@ -255,6 +269,7 @@ bun run scripts/sword-importer-chirho.ts
 - ~~D1 Databases Created~~ ✅ (19 total)
 - ~~Full KJV Imported~~ ✅ (31,102 verses)
 - ~~Spanish Module~~ ✅ (installed, not imported)
+- ~~Bible API D1 Integration~~ ✅ (queries from D1, 66 books served)
 
 ## Blockers
 
