@@ -117,9 +117,44 @@
   - John 3:16 sample data with 7 Greek words
   - Greek text, transliteration, Strong's, morphology, English/Spanish
 
+## Session Completions (2026-01-10 - Session 3)
+
+### D1 Database Infrastructure (COMPLETE)
+- [x] **Catalog Database** - Created and migrated `catalog-chirho`
+- [x] **16 Resource Shards** - Created all 16 D1 databases (`bible-res-00-chirho` through `bible-res-0f-chirho`)
+- [x] **App Database** - Created and migrated `app-chirho` with user/session/bookmark tables
+- [x] **Shard Router** - `src/lib/db_chirho/router-chirho.ts` with:
+  - Dynamic resource allocation to least-full shard
+  - Resource lookup by ID
+  - Shard database binding resolution
+- [x] **Type Definitions** - `src/app.d.ts` updated with all 19 D1 bindings
+
+### KJV Bible Import (COMPLETE)
+- [x] **Import Script** - `scripts/import-kjv-to-d1-chirho.ts`:
+  - Fixed SWORD Roman numeral parsing ("I Samuel" not "1 Samuel")
+  - Fixed "Revelation of John" naming
+  - Uses `execFileSync` for shell injection prevention
+  - Extracts Strong's numbers and maps to Louw-Nida domains
+- [x] **Full KJV Imported**:
+  - **31,102 verses** (exact KJV count)
+  - **348,259 words** with Strong's numbers
+  - Stored in shard `bible-res-00-chirho`
+  - Registered in catalog database
+- [x] **Verified Data**:
+  - John 3:16 query returns correct text
+  - All 66 books from Genesis to Revelation
+
+### Deployment
+- [x] **Deployed** to Cloudflare Workers (bible.systems)
+- [x] **19 D1 Databases** bound to worker:
+  - FEEDBACK_DB_CHIRHO
+  - CATALOG_DB_CHIRHO
+  - APP_DB_CHIRHO
+  - RES_00_CHIRHO through RES_0F_CHIRHO
+
 ## In Progress
 
-Logos-level data architecture with interlinear alignment and semantic domains.
+API endpoint updates to use D1 instead of TypeScript data files.
 
 ### SWORD Modules Installed (22 total)
 
@@ -199,10 +234,10 @@ bun run scripts/sword-importer-chirho.ts
 
 ## Next Priorities
 
-**Foundation Work (Must Do First):**
-1. **Create D1 Databases** - Deploy catalog + 16 resource shards to Cloudflare
-2. **Import Full KJV from SWORD** - 31,102 verses into D1 (not TypeScript)
-3. **Update Bible API** - Switch from TypeScript file to D1 queries
+**Foundation Work (Completed!):**
+1. ~~**Create D1 Databases**~~ ✅ - Deployed catalog + 16 resource shards + app database
+2. ~~**Import Full KJV from SWORD**~~ ✅ - 31,102 verses + 348,259 words in D1
+3. **Update Bible API** - Switch from TypeScript file to D1 queries (NEXT!)
 4. **Import Strong's Lexicons** - Hebrew H1-H8674, Greek G1-G5624
 
 **Then Feature Work:**
@@ -211,12 +246,14 @@ bun run scripts/sword-importer-chirho.ts
 7. **Morphological Search** - Implement search DSL parser
 8. **Publisher Portal** - Stripe Connect integration
 
-**Completed in Previous Sessions:**
+**Completed:**
 - ~~Louw-Nida Domain Mapping~~ ✅
 - ~~Word-Level Data Model~~ ✅
 - ~~SWORD Module Importer~~ ✅
 - ~~Interlinear UI Component~~ ✅
-- ~~D1 Schema Design~~ ✅ (not deployed)
+- ~~D1 Schema Design~~ ✅
+- ~~D1 Databases Created~~ ✅ (19 total)
+- ~~Full KJV Imported~~ ✅ (31,102 verses)
 - ~~Spanish Module~~ ✅ (installed, not imported)
 
 ## Blockers
