@@ -2,19 +2,19 @@
      that all who believe in Him should not perish but have everlasting life. — John 3:16 -->
 
 <svelte:head>
-	<title>Bible.Systems - Professional Bible Study Platform | Open Source</title>
-	<meta name="description" content="Free, open-source Bible study platform rivaling Logos. Deep cross-references, Hebrew/Greek morphology, Louw-Nida semantics, commentaries, and full REST/MCP API access for developers and AI." />
-	<meta name="keywords" content="Bible study, cross-references, Strong's concordance, Hebrew, Greek, Louw-Nida, morphology, Bible API, MCP, Treasury of Scripture Knowledge, commentaries, interlinear, Logos alternative" />
+	<title>Bible.Systems - Open Source Bible Study Platform (In Development)</title>
+	<meta name="description" content="Free, open-source Bible study platform in active development. Building cross-references, Hebrew/Greek tools, and API access. Join us in creating accessible Bible study tools." />
+	<meta name="keywords" content="Bible study, cross-references, Strong's concordance, Hebrew, Greek, open source, Bible API, free Bible tools" />
 
 	<!-- Open Graph -->
-	<meta property="og:title" content="Bible.Systems - Professional Bible Study Platform" />
-	<meta property="og:description" content="Open-source Bible study tools with Logos-level depth. Cross-references, original languages, morphology, semantic domains, and full API access." />
+	<meta property="og:title" content="Bible.Systems - Open Source Bible Study (In Development)" />
+	<meta property="og:description" content="Open-source Bible study tools in active development. Help us build free, accessible Scripture study resources." />
 	<meta property="og:url" content="https://bible.systems" />
 	<meta property="og:image" content="https://bible.systems/og-image.png" />
 
 	<!-- Twitter -->
-	<meta name="twitter:title" content="Bible.Systems - Professional Bible Study Platform" />
-	<meta name="twitter:description" content="Open-source Bible study with Logos-level depth. Original languages, morphology, and API access." />
+	<meta name="twitter:title" content="Bible.Systems - Open Source Bible Study" />
+	<meta name="twitter:description" content="Open-source Bible study platform in development. Free Scripture tools for everyone." />
 
 	<!-- Canonical -->
 	<link rel="canonical" href="https://bible.systems" />
@@ -27,23 +27,23 @@
 			<span class="inline-block bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-1.5 text-amber-400 text-sm font-medium">
 				Open Source
 			</span>
-			<span class="inline-block bg-green-500/10 border border-green-500/30 rounded-full px-4 py-1.5 text-green-400 text-sm font-medium">
-				REST & MCP API
+			<span class="inline-block bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-1.5 text-amber-400 text-sm font-medium">
+				In Development
 			</span>
-			<span class="inline-block bg-sky-500/10 border border-sky-500/30 rounded-full px-4 py-1.5 text-sky-400 text-sm font-medium">
-				Publisher Portal
+			<span class="inline-block bg-amber-500/10 border border-amber-500/30 rounded-full px-4 py-1.5 text-amber-400 text-sm font-medium">
+				MIT License
 			</span>
 		</div>
 
 		<h1 class="text-5xl md:text-7xl font-black mb-6 leading-tight">
-			<span class="text-gradient-gold">Logos-Level</span><br />
+			<span class="text-gradient-gold">Open Source</span><br />
 			<span class="text-white">Bible Study</span><br />
-			<span class="text-slate-400 text-4xl md:text-5xl">Open & Free</span>
+			<span class="text-slate-400 text-4xl md:text-5xl">In Development</span>
 		</h1>
 
 		<p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-6">
-			Professional Bible study tools with deep morphology, semantic domains,
-			cross-reference provenance, and full API access for developers and AI assistants.
+			Building free Bible study tools with cross-references, original language support,
+			and API access. We're just getting started — join us on the journey.
 		</p>
 
 		<blockquote class="text-amber-400 text-lg italic mb-10 max-w-2xl mx-auto">
@@ -77,25 +77,14 @@
 		</div>
 	</section>
 
-	<!-- Stats Bar -->
+	<!-- Current Status Bar -->
 	<section class="max-w-5xl mx-auto px-4 py-8">
-		<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-			<div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 text-center">
-				<div class="text-3xl font-bold text-amber-400">20</div>
-				<div class="text-slate-400 text-sm">Books Available</div>
-			</div>
-			<div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 text-center">
-				<div class="text-3xl font-bold text-green-400">340K+</div>
-				<div class="text-slate-400 text-sm">Cross-References</div>
-			</div>
-			<div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 text-center">
-				<div class="text-3xl font-bold text-sky-400">16</div>
-				<div class="text-slate-400 text-sm">D1 Shards Ready</div>
-			</div>
-			<div class="bg-slate-900/70 border border-slate-800 rounded-xl p-4 text-center">
-				<div class="text-3xl font-bold text-purple-400">100%</div>
-				<div class="text-slate-400 text-sm">Open Source</div>
-			</div>
+		<div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 text-center">
+			<h2 class="text-amber-400 font-bold mb-2">Early Development</h2>
+			<p class="text-slate-300 text-sm max-w-2xl mx-auto">
+				We have sample KJV chapters, basic cross-references, and a working interlinear prototype.
+				Full Bible content, lexicons, and advanced features are being built.
+			</p>
 		</div>
 	</section>
 
@@ -150,26 +139,26 @@
 		</div>
 	</section>
 
-	<!-- Deep Features Grid -->
+	<!-- Features In Development -->
 	<section class="max-w-7xl mx-auto px-4 py-16">
 		<div class="text-center mb-12">
-			<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Logos-Level Depth</h2>
-			<p class="text-slate-400 text-lg max-w-2xl mx-auto">Professional Bible study tools that rival expensive software — free and open source</p>
+			<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">What We're Building</h2>
+			<p class="text-slate-400 text-lg max-w-2xl mx-auto">Our roadmap toward comprehensive Bible study tools — open source and free</p>
 		</div>
 
 		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 			<!-- Cross-References with Provenance -->
-			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-green-500/30 hover:border-green-500/50 transition-all duration-300">
+			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-amber-500/30 hover:border-amber-500/50 transition-all duration-300">
 				<div class="flex items-start justify-between mb-4">
-					<div class="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
-						<svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<div class="w-12 h-12 bg-amber-500/10 rounded-lg flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
+						<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
 						</svg>
 					</div>
-					<span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full">Available</span>
+					<span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">Partial</span>
 				</div>
-				<h3 class="text-xl font-bold text-white mb-2">Cross-References + Provenance</h3>
-				<p class="text-slate-400">Treasury of Scripture Knowledge data with source attribution. Know <em>who</em> says passages connect and <em>why</em>.</p>
+				<h3 class="text-xl font-bold text-white mb-2">Cross-References</h3>
+				<p class="text-slate-400">Sample cross-references available. Full TSK import (340K+ refs) with provenance tracking is in progress.</p>
 			</div>
 
 			<!-- Morphological Search -->
@@ -229,23 +218,23 @@
 			</div>
 
 			<!-- REST & MCP API -->
-			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-green-500/30 hover:border-green-500/50 transition-all duration-300">
+			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-amber-500/30 hover:border-amber-500/50 transition-all duration-300">
 				<div class="flex items-start justify-between mb-4">
-					<div class="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center group-hover:bg-green-500/20 transition-colors">
-						<svg class="w-6 h-6 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<div class="w-12 h-12 bg-amber-500/10 rounded-lg flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
+						<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
 						</svg>
 					</div>
-					<span class="px-2 py-1 bg-green-500/20 text-green-400 text-xs font-medium rounded-full">Available</span>
+					<span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">Planned</span>
 				</div>
 				<h3 class="text-xl font-bold text-white mb-2">REST & MCP API</h3>
-				<p class="text-slate-400">Full API access for developers and AI assistants. Claude, ChatGPT, and custom apps can query Bible data.</p>
+				<p class="text-slate-400">API access for developers and AI assistants is planned. Currently basic endpoints only.</p>
 			</div>
 		</div>
 
 		<div class="text-center mt-8">
 			<a href="/features-fe" class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium transition-colors">
-				See all 100+ planned features
+				View full roadmap
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 				</svg>
@@ -256,22 +245,23 @@
 	<!-- Architecture Preview -->
 	<section class="max-w-5xl mx-auto px-4 py-16">
 		<div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-8 md:p-10">
-			<h2 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Built for Scale</h2>
+			<h2 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Architecture Planned</h2>
+			<p class="text-slate-400 text-center mb-6 text-sm">These systems are designed and ready for implementation</p>
 			<div class="grid md:grid-cols-3 gap-6 text-center">
 				<div>
 					<div class="text-4xl mb-2">🗄️</div>
-					<h3 class="text-lg font-bold text-white mb-1">16 D1 Shards</h3>
-					<p class="text-slate-400 text-sm">Dynamic allocation with catalog DB. Expandable to unlimited capacity.</p>
+					<h3 class="text-lg font-bold text-white mb-1">D1 Database Sharding</h3>
+					<p class="text-slate-400 text-sm">Schemas designed for 16 shards. Currently using temporary storage while we build.</p>
 				</div>
 				<div>
 					<div class="text-4xl mb-2">⚔️</div>
-					<h3 class="text-lg font-bold text-white mb-1">SWORD Integration</h3>
-					<p class="text-slate-400 text-sm">Import from diatheke/installmgr. Access to CrossWire's module library.</p>
+					<h3 class="text-lg font-bold text-white mb-1">SWORD Modules Installed</h3>
+					<p class="text-slate-400 text-sm">22 modules including KJV, ASV, lexicons, and commentaries. Import scripts ready.</p>
 				</div>
 				<div>
 					<div class="text-4xl mb-2">🌍</div>
-					<h3 class="text-lg font-bold text-white mb-1">Multi-Language</h3>
-					<p class="text-slate-400 text-sm">English, Spanish, Chinese, Arabic, Korean, Hebrew, Greek, and more.</p>
+					<h3 class="text-lg font-bold text-white mb-1">Multi-Language (Planned)</h3>
+					<p class="text-slate-400 text-sm">Spanish (SpaRV1909) installed. More languages coming as we build out.</p>
 				</div>
 			</div>
 		</div>
@@ -282,13 +272,16 @@
 		<div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-8 md:p-10 text-center">
 			<h2 class="text-2xl md:text-3xl font-bold text-white mb-4">Our Mission</h2>
 			<p class="text-slate-300 text-lg leading-relaxed mb-6">
-				To provide freely accessible, professional-grade Bible study tools that help believers
-				and seekers explore God's Word with the depth it deserves. We believe Scripture
-				should be studied diligently and shared openly.
+				To build freely accessible Bible study tools that help believers
+				explore God's Word. We're a small project with big aspirations —
+				working toward features that rival professional software, completely free.
 			</p>
-			<p class="text-slate-400">
+			<p class="text-slate-400 mb-4">
+				We're building in the open. Check our <a href="https://github.com/loveJesus/bible.systems-chirho" class="text-amber-400 hover:underline">GitHub</a> to see progress and contribute.
+			</p>
+			<p class="text-slate-500 text-sm">
 				Part of <a href="https://stack.faith" class="text-amber-400 hover:underline">FaithStack</a> —
-				building Christ-centered technology for the glory of God.
+				Christ-centered technology for the glory of God.
 			</p>
 		</div>
 	</section>
