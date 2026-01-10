@@ -12,6 +12,25 @@ declare global {
 		interface Platform {
 			env: {
 				FEEDBACK_DB_CHIRHO: D1Database;
+				CATALOG_DB_CHIRHO: D1Database;
+				APP_DB_CHIRHO: D1Database;
+				// Resource shards (16 initial)
+				RES_00_CHIRHO: D1Database;
+				RES_01_CHIRHO: D1Database;
+				RES_02_CHIRHO: D1Database;
+				RES_03_CHIRHO: D1Database;
+				RES_04_CHIRHO: D1Database;
+				RES_05_CHIRHO: D1Database;
+				RES_06_CHIRHO: D1Database;
+				RES_07_CHIRHO: D1Database;
+				RES_08_CHIRHO: D1Database;
+				RES_09_CHIRHO: D1Database;
+				RES_0A_CHIRHO: D1Database;
+				RES_0B_CHIRHO: D1Database;
+				RES_0C_CHIRHO: D1Database;
+				RES_0D_CHIRHO: D1Database;
+				RES_0E_CHIRHO: D1Database;
+				RES_0F_CHIRHO: D1Database;
 			};
 			context: {
 				waitUntil(promise: Promise<unknown>): void;

@@ -27,8 +27,100 @@ command = "bun run build"
 port = 5180
 local_protocol = "http"
 
-# D1 Database
+# D1 Databases
 [[d1_databases]]
 binding = "FEEDBACK_DB_CHIRHO"
 database_name = "feedback-db-chirho"
 database_id = "c7a9c2a1-b5f9-4a30-86b3-85196427e294"
+
+[[d1_databases]]
+binding = "CATALOG_DB_CHIRHO"
+database_name = "catalog-chirho"
+database_id = "a4006858-da5a-4b08-87a5-4d0602aefe41"
+
+# Resource Shards (16 initial for Bible content)
+[[d1_databases]]
+binding = "RES_00_CHIRHO"
+database_name = "bible-res-00-chirho"
+database_id = "5eee042c-1f72-4bd5-8065-1516b3053794"
+
+[[d1_databases]]
+binding = "RES_01_CHIRHO"
+database_name = "bible-res-01-chirho"
+database_id = "518450c2-19b0-48e2-b216-1b1862468086"
+
+[[d1_databases]]
+binding = "RES_02_CHIRHO"
+database_name = "bible-res-02-chirho"
+database_id = "62caa8d2-c782-49f0-b925-d1b2815dc38f"
+
+[[d1_databases]]
+binding = "RES_03_CHIRHO"
+database_name = "bible-res-03-chirho"
+database_id = "a776aa64-c4cb-468b-921a-604ce4c2d7d1"
+
+[[d1_databases]]
+binding = "RES_04_CHIRHO"
+database_name = "bible-res-04-chirho"
+database_id = "92b5790a-34b9-4412-85f4-d75c45b536dd"
+
+[[d1_databases]]
+binding = "RES_05_CHIRHO"
+database_name = "bible-res-05-chirho"
+database_id = "92407ac7-3bd1-45a2-a0ae-cb03fedcada1"
+
+[[d1_databases]]
+binding = "RES_06_CHIRHO"
+database_name = "bible-res-06-chirho"
+database_id = "d5ff8ee4-c774-4cd8-8ed7-faf45279926b"
+
+[[d1_databases]]
+binding = "RES_07_CHIRHO"
+database_name = "bible-res-07-chirho"
+database_id = "61190efe-12d8-421a-9275-35f01ef6bf39"
+
+[[d1_databases]]
+binding = "RES_08_CHIRHO"
+database_name = "bible-res-08-chirho"
+database_id = "a2760867-88e9-432a-8add-8a919788f1ee"
+
+[[d1_databases]]
+binding = "RES_09_CHIRHO"
+database_name = "bible-res-09-chirho"
+database_id = "3cba76f7-341c-4396-95a5-71cb8e6d426a"
+
+[[d1_databases]]
+binding = "RES_0A_CHIRHO"
+database_name = "bible-res-0a-chirho"
+database_id = "33aef53c-d3d7-43d0-9eab-74bb8ebf50fc"
+
+[[d1_databases]]
+binding = "RES_0B_CHIRHO"
+database_name = "bible-res-0b-chirho"
+database_id = "57d666a4-22bf-4040-a711-a4cf3c90ac07"
+
+[[d1_databases]]
+binding = "RES_0C_CHIRHO"
+database_name = "bible-res-0c-chirho"
+database_id = "e45ef42d-55b0-4255-9f66-0bd31df1ce87"
+
+[[d1_databases]]
+binding = "RES_0D_CHIRHO"
+database_name = "bible-res-0d-chirho"
+database_id = "0c910727-03c5-4087-a0f8-5ea454e8ae76"
+
+[[d1_databases]]
+binding = "RES_0E_CHIRHO"
+database_name = "bible-res-0e-chirho"
+database_id = "6e6e4c50-a3a7-44f3-8efa-6ac51c855289"
+
+[[d1_databases]]
+binding = "RES_0F_CHIRHO"
+database_name = "bible-res-0f-chirho"
+database_id = "c04c2f41-299c-46a3-a258-48f0c2dd09e6"
+
+# App Database (users, sessions, bookmarks, notes)
+[[d1_databases]]
+binding = "APP_DB_CHIRHO"
+database_name = "app-chirho"
+database_id = "65ad10f0-1cdc-4042-9d05-1f1e443175ec"
