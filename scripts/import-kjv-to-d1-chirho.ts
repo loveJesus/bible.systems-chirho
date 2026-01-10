@@ -29,75 +29,76 @@ import { getLouwNidaForStrongsChirho } from '../src/lib/data_chirho/strongs-louw
 // BIBLE STRUCTURE
 // ============================================================================
 
+// SWORD uses Roman numerals for numbered books - swordNameChirho is what diatheke returns
 const BOOKS_CHIRHO = [
 	// Old Testament
-	{ idChirho: 'gen', nameChirho: 'Genesis', chaptersChirho: 50 },
-	{ idChirho: 'exo', nameChirho: 'Exodus', chaptersChirho: 40 },
-	{ idChirho: 'lev', nameChirho: 'Leviticus', chaptersChirho: 27 },
-	{ idChirho: 'num', nameChirho: 'Numbers', chaptersChirho: 36 },
-	{ idChirho: 'deu', nameChirho: 'Deuteronomy', chaptersChirho: 34 },
-	{ idChirho: 'jos', nameChirho: 'Joshua', chaptersChirho: 24 },
-	{ idChirho: 'jdg', nameChirho: 'Judges', chaptersChirho: 21 },
-	{ idChirho: 'rut', nameChirho: 'Ruth', chaptersChirho: 4 },
-	{ idChirho: '1sa', nameChirho: '1 Samuel', chaptersChirho: 31 },
-	{ idChirho: '2sa', nameChirho: '2 Samuel', chaptersChirho: 24 },
-	{ idChirho: '1ki', nameChirho: '1 Kings', chaptersChirho: 22 },
-	{ idChirho: '2ki', nameChirho: '2 Kings', chaptersChirho: 25 },
-	{ idChirho: '1ch', nameChirho: '1 Chronicles', chaptersChirho: 29 },
-	{ idChirho: '2ch', nameChirho: '2 Chronicles', chaptersChirho: 36 },
-	{ idChirho: 'ezr', nameChirho: 'Ezra', chaptersChirho: 10 },
-	{ idChirho: 'neh', nameChirho: 'Nehemiah', chaptersChirho: 13 },
-	{ idChirho: 'est', nameChirho: 'Esther', chaptersChirho: 10 },
-	{ idChirho: 'job', nameChirho: 'Job', chaptersChirho: 42 },
-	{ idChirho: 'psa', nameChirho: 'Psalms', chaptersChirho: 150 },
-	{ idChirho: 'pro', nameChirho: 'Proverbs', chaptersChirho: 31 },
-	{ idChirho: 'ecc', nameChirho: 'Ecclesiastes', chaptersChirho: 12 },
-	{ idChirho: 'sng', nameChirho: 'Song of Solomon', chaptersChirho: 8 },
-	{ idChirho: 'isa', nameChirho: 'Isaiah', chaptersChirho: 66 },
-	{ idChirho: 'jer', nameChirho: 'Jeremiah', chaptersChirho: 52 },
-	{ idChirho: 'lam', nameChirho: 'Lamentations', chaptersChirho: 5 },
-	{ idChirho: 'ezk', nameChirho: 'Ezekiel', chaptersChirho: 48 },
-	{ idChirho: 'dan', nameChirho: 'Daniel', chaptersChirho: 12 },
-	{ idChirho: 'hos', nameChirho: 'Hosea', chaptersChirho: 14 },
-	{ idChirho: 'jol', nameChirho: 'Joel', chaptersChirho: 3 },
-	{ idChirho: 'amo', nameChirho: 'Amos', chaptersChirho: 9 },
-	{ idChirho: 'oba', nameChirho: 'Obadiah', chaptersChirho: 1 },
-	{ idChirho: 'jon', nameChirho: 'Jonah', chaptersChirho: 4 },
-	{ idChirho: 'mic', nameChirho: 'Micah', chaptersChirho: 7 },
-	{ idChirho: 'nam', nameChirho: 'Nahum', chaptersChirho: 3 },
-	{ idChirho: 'hab', nameChirho: 'Habakkuk', chaptersChirho: 3 },
-	{ idChirho: 'zep', nameChirho: 'Zephaniah', chaptersChirho: 3 },
-	{ idChirho: 'hag', nameChirho: 'Haggai', chaptersChirho: 2 },
-	{ idChirho: 'zec', nameChirho: 'Zechariah', chaptersChirho: 14 },
-	{ idChirho: 'mal', nameChirho: 'Malachi', chaptersChirho: 4 },
+	{ idChirho: 'gen', nameChirho: 'Genesis', swordNameChirho: 'Genesis', chaptersChirho: 50 },
+	{ idChirho: 'exo', nameChirho: 'Exodus', swordNameChirho: 'Exodus', chaptersChirho: 40 },
+	{ idChirho: 'lev', nameChirho: 'Leviticus', swordNameChirho: 'Leviticus', chaptersChirho: 27 },
+	{ idChirho: 'num', nameChirho: 'Numbers', swordNameChirho: 'Numbers', chaptersChirho: 36 },
+	{ idChirho: 'deu', nameChirho: 'Deuteronomy', swordNameChirho: 'Deuteronomy', chaptersChirho: 34 },
+	{ idChirho: 'jos', nameChirho: 'Joshua', swordNameChirho: 'Joshua', chaptersChirho: 24 },
+	{ idChirho: 'jdg', nameChirho: 'Judges', swordNameChirho: 'Judges', chaptersChirho: 21 },
+	{ idChirho: 'rut', nameChirho: 'Ruth', swordNameChirho: 'Ruth', chaptersChirho: 4 },
+	{ idChirho: '1sa', nameChirho: '1 Samuel', swordNameChirho: 'I Samuel', chaptersChirho: 31 },
+	{ idChirho: '2sa', nameChirho: '2 Samuel', swordNameChirho: 'II Samuel', chaptersChirho: 24 },
+	{ idChirho: '1ki', nameChirho: '1 Kings', swordNameChirho: 'I Kings', chaptersChirho: 22 },
+	{ idChirho: '2ki', nameChirho: '2 Kings', swordNameChirho: 'II Kings', chaptersChirho: 25 },
+	{ idChirho: '1ch', nameChirho: '1 Chronicles', swordNameChirho: 'I Chronicles', chaptersChirho: 29 },
+	{ idChirho: '2ch', nameChirho: '2 Chronicles', swordNameChirho: 'II Chronicles', chaptersChirho: 36 },
+	{ idChirho: 'ezr', nameChirho: 'Ezra', swordNameChirho: 'Ezra', chaptersChirho: 10 },
+	{ idChirho: 'neh', nameChirho: 'Nehemiah', swordNameChirho: 'Nehemiah', chaptersChirho: 13 },
+	{ idChirho: 'est', nameChirho: 'Esther', swordNameChirho: 'Esther', chaptersChirho: 10 },
+	{ idChirho: 'job', nameChirho: 'Job', swordNameChirho: 'Job', chaptersChirho: 42 },
+	{ idChirho: 'psa', nameChirho: 'Psalms', swordNameChirho: 'Psalms', chaptersChirho: 150 },
+	{ idChirho: 'pro', nameChirho: 'Proverbs', swordNameChirho: 'Proverbs', chaptersChirho: 31 },
+	{ idChirho: 'ecc', nameChirho: 'Ecclesiastes', swordNameChirho: 'Ecclesiastes', chaptersChirho: 12 },
+	{ idChirho: 'sng', nameChirho: 'Song of Solomon', swordNameChirho: 'Song of Solomon', chaptersChirho: 8 },
+	{ idChirho: 'isa', nameChirho: 'Isaiah', swordNameChirho: 'Isaiah', chaptersChirho: 66 },
+	{ idChirho: 'jer', nameChirho: 'Jeremiah', swordNameChirho: 'Jeremiah', chaptersChirho: 52 },
+	{ idChirho: 'lam', nameChirho: 'Lamentations', swordNameChirho: 'Lamentations', chaptersChirho: 5 },
+	{ idChirho: 'ezk', nameChirho: 'Ezekiel', swordNameChirho: 'Ezekiel', chaptersChirho: 48 },
+	{ idChirho: 'dan', nameChirho: 'Daniel', swordNameChirho: 'Daniel', chaptersChirho: 12 },
+	{ idChirho: 'hos', nameChirho: 'Hosea', swordNameChirho: 'Hosea', chaptersChirho: 14 },
+	{ idChirho: 'jol', nameChirho: 'Joel', swordNameChirho: 'Joel', chaptersChirho: 3 },
+	{ idChirho: 'amo', nameChirho: 'Amos', swordNameChirho: 'Amos', chaptersChirho: 9 },
+	{ idChirho: 'oba', nameChirho: 'Obadiah', swordNameChirho: 'Obadiah', chaptersChirho: 1 },
+	{ idChirho: 'jon', nameChirho: 'Jonah', swordNameChirho: 'Jonah', chaptersChirho: 4 },
+	{ idChirho: 'mic', nameChirho: 'Micah', swordNameChirho: 'Micah', chaptersChirho: 7 },
+	{ idChirho: 'nam', nameChirho: 'Nahum', swordNameChirho: 'Nahum', chaptersChirho: 3 },
+	{ idChirho: 'hab', nameChirho: 'Habakkuk', swordNameChirho: 'Habakkuk', chaptersChirho: 3 },
+	{ idChirho: 'zep', nameChirho: 'Zephaniah', swordNameChirho: 'Zephaniah', chaptersChirho: 3 },
+	{ idChirho: 'hag', nameChirho: 'Haggai', swordNameChirho: 'Haggai', chaptersChirho: 2 },
+	{ idChirho: 'zec', nameChirho: 'Zechariah', swordNameChirho: 'Zechariah', chaptersChirho: 14 },
+	{ idChirho: 'mal', nameChirho: 'Malachi', swordNameChirho: 'Malachi', chaptersChirho: 4 },
 	// New Testament
-	{ idChirho: 'mat', nameChirho: 'Matthew', chaptersChirho: 28 },
-	{ idChirho: 'mrk', nameChirho: 'Mark', chaptersChirho: 16 },
-	{ idChirho: 'luk', nameChirho: 'Luke', chaptersChirho: 24 },
-	{ idChirho: 'jhn', nameChirho: 'John', chaptersChirho: 21 },
-	{ idChirho: 'act', nameChirho: 'Acts', chaptersChirho: 28 },
-	{ idChirho: 'rom', nameChirho: 'Romans', chaptersChirho: 16 },
-	{ idChirho: '1co', nameChirho: '1 Corinthians', chaptersChirho: 16 },
-	{ idChirho: '2co', nameChirho: '2 Corinthians', chaptersChirho: 13 },
-	{ idChirho: 'gal', nameChirho: 'Galatians', chaptersChirho: 6 },
-	{ idChirho: 'eph', nameChirho: 'Ephesians', chaptersChirho: 6 },
-	{ idChirho: 'php', nameChirho: 'Philippians', chaptersChirho: 4 },
-	{ idChirho: 'col', nameChirho: 'Colossians', chaptersChirho: 4 },
-	{ idChirho: '1th', nameChirho: '1 Thessalonians', chaptersChirho: 5 },
-	{ idChirho: '2th', nameChirho: '2 Thessalonians', chaptersChirho: 3 },
-	{ idChirho: '1ti', nameChirho: '1 Timothy', chaptersChirho: 6 },
-	{ idChirho: '2ti', nameChirho: '2 Timothy', chaptersChirho: 4 },
-	{ idChirho: 'tit', nameChirho: 'Titus', chaptersChirho: 3 },
-	{ idChirho: 'phm', nameChirho: 'Philemon', chaptersChirho: 1 },
-	{ idChirho: 'heb', nameChirho: 'Hebrews', chaptersChirho: 13 },
-	{ idChirho: 'jas', nameChirho: 'James', chaptersChirho: 5 },
-	{ idChirho: '1pe', nameChirho: '1 Peter', chaptersChirho: 5 },
-	{ idChirho: '2pe', nameChirho: '2 Peter', chaptersChirho: 3 },
-	{ idChirho: '1jn', nameChirho: '1 John', chaptersChirho: 5 },
-	{ idChirho: '2jn', nameChirho: '2 John', chaptersChirho: 1 },
-	{ idChirho: '3jn', nameChirho: '3 John', chaptersChirho: 1 },
-	{ idChirho: 'jud', nameChirho: 'Jude', chaptersChirho: 1 },
-	{ idChirho: 'rev', nameChirho: 'Revelation', chaptersChirho: 22 },
+	{ idChirho: 'mat', nameChirho: 'Matthew', swordNameChirho: 'Matthew', chaptersChirho: 28 },
+	{ idChirho: 'mrk', nameChirho: 'Mark', swordNameChirho: 'Mark', chaptersChirho: 16 },
+	{ idChirho: 'luk', nameChirho: 'Luke', swordNameChirho: 'Luke', chaptersChirho: 24 },
+	{ idChirho: 'jhn', nameChirho: 'John', swordNameChirho: 'John', chaptersChirho: 21 },
+	{ idChirho: 'act', nameChirho: 'Acts', swordNameChirho: 'Acts', chaptersChirho: 28 },
+	{ idChirho: 'rom', nameChirho: 'Romans', swordNameChirho: 'Romans', chaptersChirho: 16 },
+	{ idChirho: '1co', nameChirho: '1 Corinthians', swordNameChirho: 'I Corinthians', chaptersChirho: 16 },
+	{ idChirho: '2co', nameChirho: '2 Corinthians', swordNameChirho: 'II Corinthians', chaptersChirho: 13 },
+	{ idChirho: 'gal', nameChirho: 'Galatians', swordNameChirho: 'Galatians', chaptersChirho: 6 },
+	{ idChirho: 'eph', nameChirho: 'Ephesians', swordNameChirho: 'Ephesians', chaptersChirho: 6 },
+	{ idChirho: 'php', nameChirho: 'Philippians', swordNameChirho: 'Philippians', chaptersChirho: 4 },
+	{ idChirho: 'col', nameChirho: 'Colossians', swordNameChirho: 'Colossians', chaptersChirho: 4 },
+	{ idChirho: '1th', nameChirho: '1 Thessalonians', swordNameChirho: 'I Thessalonians', chaptersChirho: 5 },
+	{ idChirho: '2th', nameChirho: '2 Thessalonians', swordNameChirho: 'II Thessalonians', chaptersChirho: 3 },
+	{ idChirho: '1ti', nameChirho: '1 Timothy', swordNameChirho: 'I Timothy', chaptersChirho: 6 },
+	{ idChirho: '2ti', nameChirho: '2 Timothy', swordNameChirho: 'II Timothy', chaptersChirho: 4 },
+	{ idChirho: 'tit', nameChirho: 'Titus', swordNameChirho: 'Titus', chaptersChirho: 3 },
+	{ idChirho: 'phm', nameChirho: 'Philemon', swordNameChirho: 'Philemon', chaptersChirho: 1 },
+	{ idChirho: 'heb', nameChirho: 'Hebrews', swordNameChirho: 'Hebrews', chaptersChirho: 13 },
+	{ idChirho: 'jas', nameChirho: 'James', swordNameChirho: 'James', chaptersChirho: 5 },
+	{ idChirho: '1pe', nameChirho: '1 Peter', swordNameChirho: 'I Peter', chaptersChirho: 5 },
+	{ idChirho: '2pe', nameChirho: '2 Peter', swordNameChirho: 'II Peter', chaptersChirho: 3 },
+	{ idChirho: '1jn', nameChirho: '1 John', swordNameChirho: 'I John', chaptersChirho: 5 },
+	{ idChirho: '2jn', nameChirho: '2 John', swordNameChirho: 'II John', chaptersChirho: 1 },
+	{ idChirho: '3jn', nameChirho: '3 John', swordNameChirho: 'III John', chaptersChirho: 1 },
+	{ idChirho: 'jud', nameChirho: 'Jude', swordNameChirho: 'Jude', chaptersChirho: 1 },
+	{ idChirho: 'rev', nameChirho: 'Revelation', swordNameChirho: 'Revelation of John', chaptersChirho: 22 },
 ];
 
 // ============================================================================
@@ -157,7 +158,7 @@ function normalizeStrongsChirho(strongsChirho: string): string {
 // ============================================================================
 
 function parseChapterChirho(
-	bookNameChirho: string,
+	swordNameChirho: string,
 	bookIdChirho: string,
 	chapterChirho: number
 ): { versesChirho: VerseChirho[]; wordsChirho: WordInstanceChirho[] } {
@@ -165,11 +166,12 @@ function parseChapterChirho(
 	const wordsChirho: WordInstanceChirho[] = [];
 
 	// Get the entire chapter with morphology output
-	const rawChirho = runDiathekeChirho('KJV', `${bookNameChirho} ${chapterChirho}`, ['-o', 'm']);
+	// Use swordNameChirho for diatheke (e.g., "I Samuel" not "1 Samuel")
+	const rawChirho = runDiathekeChirho('KJV', `${swordNameChirho} ${chapterChirho}`, ['-o', 'm']);
 	if (!rawChirho) return { versesChirho, wordsChirho };
 
-	// Split into verses - handle various book name formats
-	const escapedBookChirho = bookNameChirho.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+	// Split into verses - use swordNameChirho to match diatheke output format
+	const escapedBookChirho = swordNameChirho.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 	const versePatternChirho = new RegExp(
 		`${escapedBookChirho} ${chapterChirho}:(\\d+):\\s*([\\s\\S]*?)(?=${escapedBookChirho} ${chapterChirho}:\\d+:|\\(KJV\\)|$)`,
 		'g'
@@ -312,7 +314,7 @@ async function mainChirho() {
 			if (limitChirho > 0 && chapterCountChirho >= limitChirho) break;
 
 			const { versesChirho, wordsChirho } = parseChapterChirho(
-				bookChirho.nameChirho,
+				bookChirho.swordNameChirho,
 				bookChirho.idChirho,
 				chChirho
 			);
