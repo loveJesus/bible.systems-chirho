@@ -1,0 +1,2463 @@
+{
+  "_comment": "For God so loved the world, that He gave His only begotten Son, that all who believe in Him should not perish but have everlasting life. — John 3:16",
+  "metadata": {
+    "title": "Bible.Systems Product Requirements Document",
+    "version": "1.1.0",
+    "created": "2026-01-10",
+    "lastUpdated": "2026-01-10",
+    "owner": "FaithStack",
+    "repository": "https://github.com/loveJesus/bible.systems-chirho",
+    "liveUrl": "https://bible.systems",
+    "license": "MIT",
+    "changelog": [
+      {
+        "version": "1.1.0",
+        "date": "2026-01-10",
+        "changes": [
+          "Added comprehensive 'architecture' section explaining D1 sharding",
+          "Added detailed sharding algorithm documentation",
+          "Added 'relatedFiles' arrays to key tasks pointing to implementation files",
+          "Documented catalog database tables and resource shard structure",
+          "Added import pipeline documentation with SWORD module details"
+        ]
+      },
+      {
+        "version": "1.0.0",
+        "date": "2026-01-10",
+        "changes": ["Initial PRD with 117 tasks across 9 phases"]
+      }
+    ]
+  },
+  "vision": {
+    "mission": "To build freely accessible, professional-grade Bible study tools that help believers explore God's Word with the depth it deserves.",
+    "targetUsers": [
+      "Bible students seeking deeper study tools",
+      "Pastors and ministry leaders preparing sermons",
+      "Developers building Bible-related applications",
+      "AI assistants needing Scripture access",
+      "Publishers wanting to distribute biblical resources"
+    ],
+    "differentiators": [
+      "100% open source (MIT license)",
+      "Full REST API access",
+      "MCP server for AI integration",
+      "Publisher portal with flexible licensing",
+      "Professional-grade features rivaling Logos/Accordance"
+    ]
+  },
+  "currentState": {
+    "status": "early_development",
+    "completedFeatures": [
+      "SvelteKit web application",
+      "Basic Bible reader with sample KJV chapters",
+      "Feedback system with Turnstile CAPTCHA",
+      "Cross-reference display (sample data)",
+      "Interlinear view component (prototype)",
+      "Security headers",
+      "Legal pages (Privacy, Terms, Accessibility)",
+      "Unit tests (68 passing)",
+      "E2E tests (Playwright)"
+    ],
+    "scaffoldedButNotDeployed": [
+      "D1 database schemas (Drizzle ORM)",
+      "SQL migrations for catalog and resource shards",
+      "Type definitions for comprehensive data model",
+      "SWORD module importer script"
+    ],
+    "installedButNotImported": [
+      "22 SWORD modules including KJV, ASV, lexicons, commentaries"
+    ]
+  },
+  "techStack": {
+    "frontend": {
+      "framework": "SvelteKit 2",
+      "uiLibrary": "Svelte 5 (runes)",
+      "styling": "Tailwind CSS v4",
+      "testing": "Vitest (unit), Playwright (E2E)"
+    },
+    "backend": {
+      "runtime": "Cloudflare Workers",
+      "database": "Cloudflare D1 (SQLite)",
+      "storage": "Cloudflare KV, R2",
+      "orm": "Drizzle ORM"
+    },
+    "tools": {
+      "packageManager": "Bun",
+      "bibleModules": "SWORD/diatheke",
+      "deployment": "Wrangler CLI"
+    },
+    "desktop": {
+      "framework": "Tauri (planned)",
+      "localDb": "SQLite"
+    }
+  },
+  "architecture": {
+    "description": "Bible.Systems uses a dynamic D1 sharding architecture to scale beyond D1's 10GB limit per database while maintaining efficient queries.",
+    "keyFiles": {
+      "schemaDefinitions": [
+        "drizzle-chirho/schema-catalog-chirho.ts",
+        "drizzle-chirho/schema-resource-chirho.ts"
+      ],
+      "migrations": [
+        "migrations-chirho/0001_catalog_schema_chirho.sql",
+        "migrations-chirho/0002_resource_schema_chirho.sql"
+      ],
+      "typeDefinitions": [
+        "src/lib/types_chirho/comprehensive-schema-chirho.ts",
+        "src/lib/types_chirho/interlinear-chirho.ts",
+        "src/lib/types_chirho/louw-nida-chirho.ts"
+      ],
+      "dataFiles": [
+        "src/lib/data_chirho/strongs-louw-nida-mapping-chirho.ts"
+      ],
+      "specDocuments": [
+        "spec_chirho/04-architecture-chirho.md",
+        "spec_chirho/05-publisher-licensing-chirho.md"
+      ]
+    },
+    "d1Sharding": {
+      "overview": "Instead of a single D1 database, Bible resources are distributed across multiple shard databases. A catalog database tracks which resource lives in which shard.",
+      "databases": {
+        "catalogDb": {
+          "name": "catalog-chirho",
+          "binding": "CATALOG_DB_CHIRHO",
+          "purpose": "Master registry that tracks resource locations, shard status, and publisher info",
+          "tables": [
+            {
+              "name": "shards_chirho",
+              "purpose": "Registry of all shard databases",
+              "columns": ["shard_index_chirho", "database_name_chirho", "binding_name_chirho", "status_chirho", "created_at_chirho"]
+            },
+            {
+              "name": "resource_locations_chirho",
+              "purpose": "Maps each resource to its shard",
+              "columns": ["resource_id_chirho", "shard_index_chirho", "size_estimate_chirho", "resource_type_chirho", "created_at_chirho"]
+            },
+            {
+              "name": "publishers_chirho",
+              "purpose": "Publisher accounts and Stripe Connect info",
+              "columns": ["id_chirho", "name_chirho", "email_chirho", "stripe_account_id_chirho", "status_chirho"]
+            }
+          ]
+        },
+        "resourceShards": {
+          "naming": "bible-res-{00-0f}-chirho (hex indexed, starting with 16 shards)",
+          "bindings": "RES_00_CHIRHO through RES_0F_CHIRHO",
+          "purpose": "Store actual Bible content - verses, words, cross-refs, lexicons",
+          "tables": [
+            {
+              "name": "verses_chirho",
+              "purpose": "Bible verse text",
+              "columns": ["id_chirho", "resource_id_chirho", "book_chirho", "chapter_chirho", "verse_chirho", "text_chirho"]
+            },
+            {
+              "name": "word_instances_chirho",
+              "purpose": "Every word occurrence with morphology, Strong's, Louw-Nida domains",
+              "columns": ["id_chirho", "verse_id_chirho", "position_chirho", "text_chirho", "lemma_chirho", "original_chirho", "transliteration_chirho", "strongs_chirho", "morphology_chirho", "louw_nida_chirho"]
+            },
+            {
+              "name": "cross_refs_chirho",
+              "purpose": "Cross-references with provenance tracking",
+              "columns": ["id_chirho", "from_verse_chirho", "to_verse_chirho", "source_chirho", "type_chirho", "confidence_chirho", "attribution_chirho"]
+            },
+            {
+              "name": "lexicon_entries_chirho",
+              "purpose": "Strong's, BDB, Thayer, Louw-Nida entries",
+              "columns": ["id_chirho", "strongs_chirho", "original_chirho", "transliteration_chirho", "definition_chirho", "usage_count_chirho", "louw_nida_domains_chirho"]
+            }
+          ]
+        },
+        "appDb": {
+          "name": "app-chirho",
+          "binding": "APP_DB_CHIRHO",
+          "purpose": "Application data - users, feedback, sessions (separate from Bible content)",
+          "tables": ["users_chirho", "feedback_chirho", "sessions_chirho", "api_keys_chirho"]
+        }
+      },
+      "allocationAlgorithm": {
+        "description": "When adding a new resource (Bible version, commentary, etc.), the system finds the least-full shard and places the resource there.",
+        "pseudocode": [
+          "1. Query catalog DB for current shard sizes: SELECT shard_index_chirho, SUM(size_estimate_chirho) FROM resource_locations_chirho GROUP BY shard_index_chirho",
+          "2. Find shard with minimum total size that won't exceed 8GB after adding new resource",
+          "3. If all shards would exceed 8GB, create a new shard (up to configured max)",
+          "4. Insert record in resource_locations_chirho mapping resource to chosen shard",
+          "5. Return shard binding so caller can insert actual data"
+        ],
+        "maxShardSize": "8GB (leaves 2GB buffer before D1's 10GB limit)",
+        "initialShards": 16,
+        "expansionStrategy": "Add new shards as needed when all existing shards approach capacity"
+      },
+      "queryRouting": {
+        "description": "When querying for a resource, the system first looks up its location in the catalog, then queries the appropriate shard.",
+        "flow": [
+          "1. API receives request for resource (e.g., GET /api-chirho/bible-chirho/kjv/gen/1)",
+          "2. Query catalog: SELECT shard_index_chirho FROM resource_locations_chirho WHERE resource_id_chirho = 'kjv'",
+          "3. Get D1 binding for that shard: env[`RES_${shardIndex.toString(16).padStart(2,'0')}_CHIRHO`]",
+          "4. Query the shard DB for actual data",
+          "5. Return result to client"
+        ],
+        "caching": "KV cache sits in front to avoid repeated catalog lookups for popular resources"
+      }
+    },
+    "dataModel": {
+      "description": "Logos-level word-by-word data model with morphology, semantic domains, and cross-reference provenance.",
+      "wordInstances": {
+        "description": "Every word in the Bible is indexed with deep metadata",
+        "fields": {
+          "idChirho": "Unique identifier: version:book:chapter:verse:position (e.g., kjv:gen:1:1:1)",
+          "positionChirho": "Word position in verse (1-indexed)",
+          "textChirho": "Surface form in translation (e.g., 'Beginning')",
+          "lemmaChirho": "Dictionary form (e.g., 'beginning')",
+          "originalTextChirho": "Hebrew/Greek text (e.g., 'בְּרֵאשִׁית')",
+          "transliterationChirho": "Romanized form (e.g., 'bereshith')",
+          "strongsChirho": "Strong's number (e.g., 'H7225')",
+          "morphologyChirho": "Full grammatical parsing (part of speech, person, number, gender, case, tense, voice, mood, stem)",
+          "louwNidaChirho": "Semantic domain codes (e.g., ['67.65'] for 'beginning' in time domain)"
+        }
+      },
+      "crossReferenceProvenance": {
+        "description": "Cross-references track WHERE they come from, not just what they connect",
+        "sources": ["tsk_chirho (Treasury of Scripture Knowledge)", "scripture_quotation_chirho", "allusion_chirho", "parallel_chirho", "typology_chirho", "commentary_chirho", "user_chirho"],
+        "types": ["direct_quote_chirho", "allusion_chirho", "parallel_chirho", "thematic_chirho", "typological_chirho", "contrast_chirho"],
+        "confidenceScore": "0.0-1.0 indicating reliability (TSK defaults to 0.9)"
+      },
+      "louwNidaSemanticDomains": {
+        "description": "93 semantic domains classifying Greek words by meaning, not just etymology",
+        "example": {
+          "domain": "25 Attitudes and Emotions",
+          "subdomain": "25.43 Love",
+          "words": ["G25 ἀγαπάω", "G5368 φιλέω"],
+          "benefit": "Find all words meaning 'love' across different Greek terms"
+        },
+        "file": "src/lib/types_chirho/louw-nida-chirho.ts"
+      }
+    },
+    "importPipeline": {
+      "description": "SWORD modules are the source data, extracted via diatheke CLI and imported to D1",
+      "swordModulesInstalled": {
+        "bibles": ["KJV", "ASV", "MorphGNT", "LXX", "WLC", "SpaRV1909"],
+        "lexicons": ["StrongsGreek", "StrongsHebrew", "AbbottSmithStrongs", "BDBGlosses_Strongs"],
+        "morphology": ["Robinson", "Packard", "OSHM"],
+        "commentaries": ["MHC", "JFB", "CalvinCommentaries", "Clarke", "KD"],
+        "crossRefs": ["TSK"]
+      },
+      "extractionCommands": {
+        "verse": "diatheke -b KJV -f plain -o n -k 'Gen 1:1'",
+        "withStrongs": "diatheke -b KJV -o n -k 'Gen 1:1' (includes Strong's numbers)",
+        "lexicon": "diatheke -b StrongsHebrew -k 'H7225'",
+        "crossRefs": "diatheke -b TSK -k 'Gen 1:1'"
+      },
+      "importScript": "scripts/sword-importer-chirho.ts",
+      "status": "Script exists, modules installed, but data NOT yet imported to D1"
+    }
+  },
+  "phases": [
+    {
+      "id": "phase_1",
+      "name": "Foundation",
+      "description": "Core infrastructure and data import - must complete before feature work",
+      "priority": "critical",
+      "status": "in_progress",
+      "categories": [
+        {
+          "id": "cat_1_1",
+          "name": "Database Infrastructure",
+          "tasks": [
+            {
+              "id": "task_1_1_1",
+              "title": "Create D1 Catalog Database",
+              "description": "Deploy the catalog database that tracks which resources live in which shard",
+              "status": "pending",
+              "priority": "critical",
+              "estimatedEffort": "1 hour",
+              "acceptanceCriteria": [
+                "Database created via `bunx wrangler d1 create catalog-chirho`",
+                "Migration 0001_catalog_schema_chirho.sql applied successfully",
+                "Binding added to wrangler.toml as CATALOG_DB_CHIRHO",
+                "Can query shards_chirho and resource_locations_chirho tables"
+              ],
+              "technicalDetails": {
+                "command": "bunx wrangler d1 create catalog-chirho",
+                "migrationFile": "migrations-chirho/0001_catalog_schema_chirho.sql",
+                "binding": "CATALOG_DB_CHIRHO",
+                "tables": ["shards_chirho", "resource_locations_chirho", "publishers_chirho"]
+              },
+              "relatedFiles": [
+                "drizzle-chirho/schema-catalog-chirho.ts",
+                "migrations-chirho/0001_catalog_schema_chirho.sql",
+                "spec_chirho/04-architecture-chirho.md"
+              ],
+              "dependencies": [],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_1_2",
+              "title": "Create D1 Resource Shards (16 initial)",
+              "description": "Deploy 16 resource shard databases for Bible content storage",
+              "status": "pending",
+              "priority": "critical",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "All 16 databases created (bible-res-00-chirho through bible-res-0f-chirho)",
+                "Migration 0002_resource_schema_chirho.sql applied to each",
+                "All 16 bindings added to wrangler.toml (RES_00_CHIRHO through RES_0F_CHIRHO)",
+                "Shard registry populated in catalog database"
+              ],
+              "technicalDetails": {
+                "databases": [
+                  "bible-res-00-chirho", "bible-res-01-chirho", "bible-res-02-chirho", "bible-res-03-chirho",
+                  "bible-res-04-chirho", "bible-res-05-chirho", "bible-res-06-chirho", "bible-res-07-chirho",
+                  "bible-res-08-chirho", "bible-res-09-chirho", "bible-res-0a-chirho", "bible-res-0b-chirho",
+                  "bible-res-0c-chirho", "bible-res-0d-chirho", "bible-res-0e-chirho", "bible-res-0f-chirho"
+                ],
+                "migrationFile": "migrations-chirho/0002_resource_schema_chirho.sql",
+                "tables": ["verses_chirho", "word_instances_chirho", "cross_refs_chirho", "lexicon_entries_chirho"]
+              },
+              "relatedFiles": [
+                "drizzle-chirho/schema-resource-chirho.ts",
+                "migrations-chirho/0002_resource_schema_chirho.sql",
+                "spec_chirho/04-architecture-chirho.md"
+              ],
+              "dependencies": ["task_1_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_1_3",
+              "title": "Implement Shard Router",
+              "description": "Create the routing logic that directs queries to the correct shard based on resource location",
+              "status": "pending",
+              "priority": "critical",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Router can look up resource location from catalog",
+                "Router returns correct D1 binding for any resource ID",
+                "New resources allocated to least-full shard",
+                "Handles case when all shards are full (error with instructions)"
+              ],
+              "technicalDetails": {
+                "file": "src/lib/db_chirho/router-chirho.ts",
+                "functions": [
+                  "getResourceDbChirho(env, resourceId) -> D1Database",
+                  "allocateResourceChirho(catalogDb, resourceId, sizeEstimate) -> shardIndex",
+                  "getShardSizesChirho(catalogDb) -> Map<number, number>"
+                ]
+              },
+              "relatedFiles": [
+                "src/lib/db_chirho/router-chirho.ts (to be created)",
+                "spec_chirho/04-architecture-chirho.md (see Dynamic Allocation Strategy section)",
+                "AGENTS.md (see section 14.4 Dynamic D1 Sharding)"
+              ],
+              "dependencies": ["task_1_1_1", "task_1_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_1_4",
+              "title": "Create App Database",
+              "description": "Deploy application database for user data, feedback, sessions",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "1 hour",
+              "acceptanceCriteria": [
+                "Database created as app-chirho",
+                "Feedback table migrated from KV to D1",
+                "Binding added as APP_DB_CHIRHO",
+                "Feedback API updated to use D1"
+              ],
+              "technicalDetails": {
+                "command": "bunx wrangler d1 create app-chirho",
+                "migrationFile": "migrations-chirho/0001_create_feedback_table_chirho.sql",
+                "binding": "APP_DB_CHIRHO"
+              },
+              "dependencies": [],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_1_2",
+          "name": "Bible Content Import",
+          "tasks": [
+            {
+              "id": "task_1_2_1",
+              "title": "Import Full KJV from SWORD",
+              "description": "Extract complete KJV Bible (31,102 verses) from SWORD module and import to D1",
+              "status": "pending",
+              "priority": "critical",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "All 66 books imported",
+                "All 31,102 verses present in D1",
+                "Strong's numbers preserved for each word",
+                "Morphology codes preserved where available",
+                "Data distributed across shards appropriately",
+                "TypeScript bible_kjv_chirho.ts file deprecated"
+              ],
+              "technicalDetails": {
+                "sourceModule": "KJV",
+                "extractCommand": "diatheke -b KJV -f plain -o n -k 'Gen-Rev'",
+                "importScript": "scripts/sword-importer-chirho.ts",
+                "targetTables": ["verses_chirho", "word_instances_chirho"],
+                "estimatedSize": "~50MB total"
+              },
+              "relatedFiles": [
+                "scripts/sword-importer-chirho.ts",
+                "src/lib/data_chirho/bible_kjv_chirho.ts (current temp file to be replaced)",
+                "drizzle-chirho/schema-resource-chirho.ts"
+              ],
+              "dependencies": ["task_1_1_2", "task_1_1_3"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_2_2",
+              "title": "Import ASV Bible",
+              "description": "Import American Standard Version (1901) - public domain",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "All 66 books imported",
+                "Verse alignment matches KJV references",
+                "Resource registered in catalog"
+              ],
+              "technicalDetails": {
+                "sourceModule": "ASV",
+                "estimatedSize": "~5MB"
+              },
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_2_3",
+              "title": "Import WEB Bible",
+              "description": "Import World English Bible - public domain modern translation",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "All 66 books imported",
+                "Includes deuterocanonical books if available",
+                "Resource registered in catalog"
+              ],
+              "technicalDetails": {
+                "sourceModule": "WEB",
+                "estimatedSize": "~5MB"
+              },
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_2_4",
+              "title": "Import Hebrew Old Testament (WLC)",
+              "description": "Import Westminster Leningrad Codex - Hebrew text with cantillation",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "All 39 OT books in Hebrew",
+                "Cantillation marks preserved",
+                "Word-level morphology included",
+                "Proper RTL text handling"
+              ],
+              "technicalDetails": {
+                "sourceModule": "WLC",
+                "estimatedSize": "~20MB with morphology"
+              },
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_2_5",
+              "title": "Import Greek New Testament (MorphGNT)",
+              "description": "Import Greek NT with full morphological tagging",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "All 27 NT books in Greek",
+                "Full morphological parsing for each word",
+                "Lemmas included",
+                "Accents and breathing marks preserved"
+              ],
+              "technicalDetails": {
+                "sourceModule": "MorphGNT",
+                "estimatedSize": "~15MB with morphology"
+              },
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_2_6",
+              "title": "Import Septuagint (LXX)",
+              "description": "Import Greek Old Testament translation",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Complete LXX text imported",
+                "Includes deuterocanonical books",
+                "Morphology where available"
+              ],
+              "technicalDetails": {
+                "sourceModule": "LXX",
+                "estimatedSize": "~25MB"
+              },
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_2_7",
+              "title": "Import Spanish Bible (SpaRV1909)",
+              "description": "Import Reina-Valera 1909 Spanish translation with Strong's",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "All 66 books imported",
+                "Strong's numbers aligned with KJV",
+                "Enables Spanish interlinear via shared Strong's"
+              ],
+              "technicalDetails": {
+                "sourceModule": "SpaRV1909",
+                "estimatedSize": "~5MB"
+              },
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_1_3",
+          "name": "API Migration",
+          "tasks": [
+            {
+              "id": "task_1_3_1",
+              "title": "Update Bible API to Use D1",
+              "description": "Migrate Bible API endpoints from TypeScript file to D1 database queries",
+              "status": "pending",
+              "priority": "critical",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/bible-chirho/:version/:book/:chapter returns D1 data",
+                "GET /api-chirho/bible-chirho/:version/:book/:chapter/:verse returns D1 data",
+                "Response format unchanged (backward compatible)",
+                "Response time < 200ms for chapter retrieval",
+                "Proper error handling for missing content"
+              ],
+              "technicalDetails": {
+                "files": [
+                  "src/routes/api-chirho/bible-chirho/[version_chirho]/[book_chirho]/[chapter_chirho]/+server.ts",
+                  "src/routes/api-chirho/bible-chirho/[version_chirho]/[book_chirho]/[chapter_chirho]/[verse_chirho]/+server.ts"
+                ],
+                "caching": "KV cache with 1 hour TTL"
+              },
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_3_2",
+              "title": "Add KV Caching Layer",
+              "description": "Implement KV-based caching for frequently accessed Bible content",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "Cache hit returns in < 50ms",
+                "Cache miss queries D1 and stores result",
+                "TTL configurable (default 1 hour)",
+                "Cache key format: bible-chirho:{version}:{book}:{chapter}"
+              ],
+              "technicalDetails": {
+                "kvNamespace": "BIBLE_CACHE_KV_CHIRHO",
+                "ttl": 3600
+              },
+              "dependencies": ["task_1_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_3_3",
+              "title": "Remove TypeScript Bible Data File",
+              "description": "Delete the temporary TypeScript Bible data file after D1 migration",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "30 minutes",
+              "acceptanceCriteria": [
+                "src/lib/data_chirho/bible_kjv_chirho.ts deleted",
+                "All imports updated to use API/D1",
+                "Build succeeds without the file",
+                "Tests updated to use API"
+              ],
+              "technicalDetails": {
+                "fileToDelete": "src/lib/data_chirho/bible_kjv_chirho.ts"
+              },
+              "dependencies": ["task_1_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_1_3_4",
+              "title": "Implement Rate Limiting",
+              "description": "Add rate limiting to Bible API endpoints",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Free tier: 100 requests/minute, 1000/day",
+                "Rate limit headers returned (X-RateLimit-*)",
+                "429 status when limit exceeded",
+                "IP-based limiting for anonymous users",
+                "API key-based limiting for authenticated users"
+              ],
+              "technicalDetails": {
+                "implementation": "Cloudflare Rate Limiting or KV-based counter",
+                "headers": ["X-RateLimit-Limit-Chirho", "X-RateLimit-Remaining-Chirho", "X-RateLimit-Reset-Chirho"]
+              },
+              "dependencies": ["task_1_3_1"],
+              "blockedBy": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_2",
+      "name": "Original Language Tools",
+      "description": "Lexicons, morphology parsing, and interlinear display",
+      "priority": "high",
+      "status": "pending",
+      "categories": [
+        {
+          "id": "cat_2_1",
+          "name": "Lexicon Data",
+          "tasks": [
+            {
+              "id": "task_2_1_1",
+              "title": "Import Strong's Hebrew Dictionary",
+              "description": "Import H1-H8674 Hebrew word definitions",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "All 8674 Hebrew entries imported",
+                "Hebrew text preserved correctly",
+                "Transliteration included",
+                "Definition/gloss included",
+                "Usage count calculated"
+              ],
+              "technicalDetails": {
+                "sourceModule": "StrongsHebrew",
+                "table": "lexicon_entries_chirho",
+                "fields": ["strongs_chirho", "original_chirho", "transliteration_chirho", "definition_chirho", "usage_count_chirho"]
+              },
+              "dependencies": ["task_1_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_1_2",
+              "title": "Import Strong's Greek Dictionary",
+              "description": "Import G1-G5624 Greek word definitions",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "All 5624 Greek entries imported",
+                "Greek text with accents preserved",
+                "Transliteration included",
+                "Definition/gloss included",
+                "Usage count calculated"
+              ],
+              "technicalDetails": {
+                "sourceModule": "StrongsGreek",
+                "table": "lexicon_entries_chirho"
+              },
+              "dependencies": ["task_1_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_1_3",
+              "title": "Import Brown-Driver-Briggs Hebrew Lexicon",
+              "description": "Import comprehensive BDB Hebrew lexicon",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Full BDB entries imported",
+                "Cross-referenced with Strong's numbers",
+                "Etymology information preserved",
+                "Usage examples included"
+              ],
+              "technicalDetails": {
+                "sourceModule": "BDBGlosses_Strongs"
+              },
+              "dependencies": ["task_2_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_1_4",
+              "title": "Import Louw-Nida Semantic Domains",
+              "description": "Import complete Louw-Nida Greek semantic domain data",
+              "status": "partial",
+              "priority": "high",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "All 93 domains imported",
+                "All subdomain entries included",
+                "Strong's number cross-references",
+                "Gloss and definition for each entry"
+              ],
+              "technicalDetails": {
+                "existingFile": "src/lib/types_chirho/louw-nida-chirho.ts",
+                "existingMappings": "src/lib/data_chirho/strongs-louw-nida-mapping-chirho.ts",
+                "note": "Types defined, need full data import"
+              },
+              "relatedFiles": [
+                "src/lib/types_chirho/louw-nida-chirho.ts (93 domain types already defined)",
+                "src/lib/data_chirho/strongs-louw-nida-mapping-chirho.ts (partial mappings)",
+                "spec_chirho/04-architecture-chirho.md (see Louw-Nida Semantic Domains section)"
+              ],
+              "dependencies": ["task_2_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_1_5",
+              "title": "Create Lexicon API Endpoint",
+              "description": "API endpoint to retrieve lexicon entries by Strong's number",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/lexicon-chirho/:strongs returns entry",
+                "Includes all lexicon data (BDB, Thayer, Louw-Nida)",
+                "Returns 404 for unknown Strong's numbers",
+                "Response time < 100ms"
+              ],
+              "technicalDetails": {
+                "endpoint": "/api-chirho/lexicon-chirho/[strongs_chirho]/+server.ts"
+              },
+              "dependencies": ["task_2_1_1", "task_2_1_2"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_2_2",
+          "name": "Morphology System",
+          "tasks": [
+            {
+              "id": "task_2_2_1",
+              "title": "Import Robinson Morphology Codes",
+              "description": "Import Greek morphology code definitions",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "All Robinson codes defined",
+                "Human-readable descriptions",
+                "Lookup by code returns full parsing"
+              ],
+              "technicalDetails": {
+                "sourceModule": "Robinson",
+                "codeFormat": "V-AAI-3S (Verb-Aorist Active Indicative-3rd Singular)"
+              },
+              "dependencies": ["task_1_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_2_2",
+              "title": "Import OSHM Hebrew Morphology",
+              "description": "Import Hebrew morphology codes and definitions",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "Hebrew morphology codes defined",
+                "Includes stem information (qal, niphal, piel, etc.)",
+                "Includes state (construct, absolute)",
+                "Human-readable descriptions"
+              ],
+              "technicalDetails": {
+                "sourceModule": "OSHM"
+              },
+              "dependencies": ["task_1_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_2_3",
+              "title": "Create Morphology Parser Service",
+              "description": "Service to parse morphology codes to human-readable form",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "parseMorphologyChirho(code) returns structured object",
+                "Handles both Greek (Robinson) and Hebrew (OSHM) codes",
+                "Returns part of speech, person, number, gender, case, tense, voice, mood, stem",
+                "Returns human-readable description string"
+              ],
+              "technicalDetails": {
+                "file": "src/lib/services_chirho/morphology-parser-chirho.ts",
+                "outputType": "MorphologyChirho from comprehensive-schema-chirho.ts"
+              },
+              "relatedFiles": [
+                "src/lib/types_chirho/comprehensive-schema-chirho.ts (MorphologyChirho type)",
+                "spec_chirho/04-architecture-chirho.md (see Morphology System section)"
+              ],
+              "dependencies": ["task_2_2_1", "task_2_2_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_2_4",
+              "title": "Create Morphology API Endpoint",
+              "description": "API endpoint to get morphology parsing",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/morphology-chirho/:code returns parsing",
+                "Supports both Greek and Hebrew codes",
+                "Returns structured JSON with all morphological details"
+              ],
+              "technicalDetails": {
+                "endpoint": "/api-chirho/morphology-chirho/[code_chirho]/+server.ts"
+              },
+              "dependencies": ["task_2_2_3"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_2_3",
+          "name": "Interlinear Display",
+          "tasks": [
+            {
+              "id": "task_2_3_1",
+              "title": "Build Word Instance Data for NT",
+              "description": "Create word-by-word alignment data for entire New Testament",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Every word in NT has word_instance record",
+                "Greek text, transliteration, Strong's, morphology linked",
+                "Position in verse tracked",
+                "Sentence boundaries marked where possible"
+              ],
+              "technicalDetails": {
+                "table": "word_instances_chirho",
+                "sourceModules": ["MorphGNT", "KJV"],
+                "estimatedRecords": "~140,000 words"
+              },
+              "dependencies": ["task_1_2_1", "task_1_2_5"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_3_2",
+              "title": "Build Word Instance Data for OT",
+              "description": "Create word-by-word alignment data for entire Old Testament",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "12 hours",
+              "acceptanceCriteria": [
+                "Every word in OT has word_instance record",
+                "Hebrew text, transliteration, Strong's, morphology linked",
+                "Handles Hebrew word order differences",
+                "Cantillation alignment where applicable"
+              ],
+              "technicalDetails": {
+                "table": "word_instances_chirho",
+                "sourceModules": ["WLC", "KJV"],
+                "estimatedRecords": "~300,000 words"
+              },
+              "dependencies": ["task_1_2_1", "task_1_2_4"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_3_3",
+              "title": "Create Interlinear API Endpoint",
+              "description": "API endpoint returning full interlinear data for a verse",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/interlinear-chirho/:book/:chapter/:verse returns word data",
+                "Includes original text, transliteration, Strong's, morphology, gloss",
+                "Includes Louw-Nida domain references",
+                "Response time < 200ms"
+              ],
+              "technicalDetails": {
+                "endpoint": "/api-chirho/interlinear-chirho/[book_chirho]/[chapter_chirho]/[verse_chirho]/+server.ts"
+              },
+              "dependencies": ["task_2_3_1", "task_2_3_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_3_4",
+              "title": "Enhance Interlinear UI Component",
+              "description": "Upgrade InterlinearViewChirho component with full features",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Fetches data from interlinear API",
+                "Click word to see full lexicon popup",
+                "Morphology displayed inline or on hover",
+                "Toggle between interlinear and reverse interlinear",
+                "Responsive layout for mobile"
+              ],
+              "technicalDetails": {
+                "component": "src/lib/components/InterlinearViewChirho.svelte",
+                "existingStatus": "Prototype working with sample data"
+              },
+              "relatedFiles": [
+                "src/lib/components/InterlinearViewChirho.svelte (existing prototype)",
+                "src/routes/interlinear-chirho/+page.svelte (demo page)",
+                "src/lib/types_chirho/interlinear-chirho.ts"
+              ],
+              "dependencies": ["task_2_3_3"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_2_3_5",
+              "title": "Add Reverse Interlinear Mode",
+              "description": "Show English text with original language below",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Toggle button switches between modes",
+                "English words aligned above corresponding Greek/Hebrew",
+                "Handles N:M word mappings gracefully",
+                "Maintains same click-for-details behavior"
+              ],
+              "dependencies": ["task_2_3_4"],
+              "blockedBy": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_3",
+      "name": "Cross-References & Study",
+      "description": "TSK import, commentary integration, word study tools",
+      "priority": "high",
+      "status": "pending",
+      "categories": [
+        {
+          "id": "cat_3_1",
+          "name": "Cross-Reference System",
+          "tasks": [
+            {
+              "id": "task_3_1_1",
+              "title": "Import Full TSK Database",
+              "description": "Import all 340,000+ Treasury of Scripture Knowledge cross-references",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "All TSK references imported to cross_refs_chirho table",
+                "Source attribution set to 'tsk_chirho'",
+                "From/to verse references normalized",
+                "Confidence scores set (default 0.9 for TSK)",
+                "Reference type categorized where determinable"
+              ],
+              "technicalDetails": {
+                "sourceModule": "TSK",
+                "table": "cross_refs_chirho",
+                "estimatedRecords": "340,000+"
+              },
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_1_2",
+              "title": "Import NT-OT Quotation Data",
+              "description": "Import data on NT passages quoting the OT",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "All direct quotations mapped",
+                "Source (UBS, NA28) attributed",
+                "Type set to 'direct_quote_chirho'",
+                "Confidence scores based on source"
+              ],
+              "technicalDetails": {
+                "sources": ["UBS Greek NT apparatus", "NA28 margin references"],
+                "crossRefType": "direct_quote_chirho"
+              },
+              "dependencies": ["task_3_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_1_3",
+              "title": "Create Cross-Reference API",
+              "description": "API endpoint for retrieving cross-references with provenance",
+              "status": "partial",
+              "priority": "high",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/crossref-chirho/:book/:chapter/:verse returns references",
+                "Includes source attribution",
+                "Includes confidence scores",
+                "Includes reference type",
+                "Can filter by source or type"
+              ],
+              "technicalDetails": {
+                "existingEndpoint": "/api-chirho/cross-references-chirho (sample data)",
+                "newEndpoint": "/api-chirho/crossref-chirho/[book_chirho]/[chapter_chirho]/[verse_chirho]/+server.ts"
+              },
+              "dependencies": ["task_3_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_1_4",
+              "title": "Build Cross-Reference Network Visualization",
+              "description": "Interactive graph showing verse connections",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "D3.js or similar graph visualization",
+                "Center verse with connected verses around it",
+                "Click to navigate to connected verse",
+                "Node size reflects reference count",
+                "Edge color/thickness reflects relationship type"
+              ],
+              "technicalDetails": {
+                "library": "D3.js or Cytoscape.js",
+                "component": "src/lib/components/CrossRefNetworkChirho.svelte"
+              },
+              "dependencies": ["task_3_1_3"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_3_2",
+          "name": "Commentary Integration",
+          "tasks": [
+            {
+              "id": "task_3_2_1",
+              "title": "Import Matthew Henry Complete Commentary",
+              "description": "Import full Matthew Henry commentary",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "All commentary text imported",
+                "Properly linked to verse references",
+                "Chapter-level and verse-level entries distinguished",
+                "Text formatting preserved"
+              ],
+              "technicalDetails": {
+                "sourceModule": "MHC",
+                "estimatedSize": "~30MB"
+              },
+              "dependencies": ["task_1_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_2_2",
+              "title": "Import Jamieson-Fausset-Brown Commentary",
+              "description": "Import JFB commentary",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "All commentary text imported",
+                "Verse-level granularity",
+                "Cross-references within commentary preserved"
+              ],
+              "technicalDetails": {
+                "sourceModule": "JFB"
+              },
+              "dependencies": ["task_1_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_2_3",
+              "title": "Import Adam Clarke Commentary",
+              "description": "Import Adam Clarke's commentary",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "3 hours",
+              "technicalDetails": {
+                "sourceModule": "Clarke"
+              },
+              "dependencies": ["task_1_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_2_4",
+              "title": "Create Commentary API Endpoint",
+              "description": "API for retrieving commentary text",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/commentary-chirho/:id/:book/:chapter returns text",
+                "Can filter by verse range",
+                "Returns metadata (author, date, etc.)"
+              ],
+              "technicalDetails": {
+                "endpoint": "/api-chirho/commentary-chirho/[commentary_chirho]/[book_chirho]/[chapter_chirho]/+server.ts"
+              },
+              "dependencies": ["task_3_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_2_5",
+              "title": "Build Commentary Display Component",
+              "description": "UI component for viewing commentary alongside Scripture",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Sidebar or panel layout",
+                "Syncs with current verse",
+                "Toggle between commentaries",
+                "Search within commentary"
+              ],
+              "dependencies": ["task_3_2_4"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_3_3",
+          "name": "Word Study Tools",
+          "tasks": [
+            {
+              "id": "task_3_3_1",
+              "title": "Create Word Occurrence Search",
+              "description": "Find all verses containing a Strong's number",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/word-chirho/strongs-chirho/:strongs returns all occurrences",
+                "Returns verse reference and surrounding context",
+                "Sorted by canonical order",
+                "Pagination supported"
+              ],
+              "technicalDetails": {
+                "endpoint": "/api-chirho/word-chirho/strongs-chirho/[strongs_chirho]/+server.ts",
+                "query": "SELECT * FROM word_instances_chirho WHERE strongs_chirho = ?"
+              },
+              "dependencies": ["task_2_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_3_2",
+              "title": "Create Lemma Search",
+              "description": "Search by dictionary form (lemma)",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/word-chirho/lemma-chirho/:lemma returns occurrences",
+                "Handles Greek and Hebrew lemmas",
+                "Normalized search (ignores accents optionally)"
+              ],
+              "technicalDetails": {
+                "endpoint": "/api-chirho/word-chirho/lemma-chirho/[lemma_chirho]/+server.ts"
+              },
+              "dependencies": ["task_2_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_3_3",
+              "title": "Create Semantic Domain Search",
+              "description": "Find words by Louw-Nida semantic domain",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/word-chirho/domain-chirho/:domain returns words and verses",
+                "Domain can be top-level (67) or specific (67.65)",
+                "Returns all Strong's numbers in domain",
+                "Returns sample verses for each"
+              ],
+              "technicalDetails": {
+                "endpoint": "/api-chirho/word-chirho/domain-chirho/[domain_chirho]/+server.ts"
+              },
+              "dependencies": ["task_2_1_4"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_3_4",
+              "title": "Build Word Frequency Statistics",
+              "description": "Calculate and display word usage statistics",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Total occurrences in Bible",
+                "Frequency by book",
+                "Frequency by testament",
+                "Frequency by author (where known)"
+              ],
+              "dependencies": ["task_3_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_3_3_5",
+              "title": "Build Word Study UI Component",
+              "description": "Comprehensive word study panel",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Shows lexicon entry (Strong's, BDB/Thayer)",
+                "Shows Louw-Nida domain",
+                "Shows all occurrences grouped by book",
+                "Shows frequency chart",
+                "Links to related words (cognates)"
+              ],
+              "dependencies": ["task_3_3_1", "task_3_3_4"],
+              "blockedBy": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_4",
+      "name": "Advanced Search",
+      "description": "Full-text and morphological search capabilities",
+      "priority": "medium",
+      "status": "pending",
+      "categories": [
+        {
+          "id": "cat_4_1",
+          "name": "Text Search",
+          "tasks": [
+            {
+              "id": "task_4_1_1",
+              "title": "Build Full-Text Search Index",
+              "description": "Create searchable index of all Bible text",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "All Bible versions indexed",
+                "Supports phrase search",
+                "Supports wildcard (*)",
+                "Supports boolean (AND, OR, NOT)"
+              ],
+              "technicalDetails": {
+                "options": ["D1 FTS5", "Cloudflare Workers AI", "External search service"],
+                "preferredApproach": "D1 FTS5 if supported, otherwise custom"
+              },
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_4_1_2",
+              "title": "Create Search API Endpoint",
+              "description": "API for searching Bible text",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "GET /api-chirho/search-chirho?q=query&version=kjv returns results",
+                "Supports phrase, wildcard, boolean queries",
+                "Returns verse text with highlighted matches",
+                "Pagination supported",
+                "Can filter by book/testament"
+              ],
+              "technicalDetails": {
+                "endpoint": "/api-chirho/search-chirho/+server.ts"
+              },
+              "dependencies": ["task_4_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_4_1_3",
+              "title": "Build Search UI",
+              "description": "Search interface with results display",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Search input with suggestions",
+                "Results list with context",
+                "Click to navigate to verse",
+                "Filter options (version, books)",
+                "Search history"
+              ],
+              "dependencies": ["task_4_1_2"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_4_2",
+          "name": "Morphological Search",
+          "tasks": [
+            {
+              "id": "task_4_2_1",
+              "title": "Design Morphological Query DSL",
+              "description": "Define query language for grammatical searches",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Syntax specification documented",
+                "Supports lemma, POS, case, gender, number, tense, voice, mood queries",
+                "Supports proximity constraints (within N words)",
+                "Supports ordered/unordered matching",
+                "Supports same verse/clause constraints"
+              ],
+              "technicalDetails": {
+                "exampleQueries": [
+                  "lemma:θεός case:genitive",
+                  "[lemma:θεός case:genitive] WITHIN 3 [pos:adjective]",
+                  "[pos:verb tense:aorist voice:passive] PRECEDES [pos:noun]"
+                ]
+              },
+              "dependencies": ["task_2_2_3"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_4_2_2",
+              "title": "Implement Morphological Query Parser",
+              "description": "Parse DSL into executable query plan",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Parses all DSL constructs",
+                "Validates query syntax",
+                "Generates efficient query plan",
+                "Returns meaningful error messages for invalid queries"
+              ],
+              "technicalDetails": {
+                "file": "src/lib/services_chirho/morph-query-parser-chirho.ts"
+              },
+              "dependencies": ["task_4_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_4_2_3",
+              "title": "Implement Morphological Query Executor",
+              "description": "Execute parsed queries against word instance data",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Executes all DSL query types",
+                "Handles proximity searches efficiently",
+                "Returns matched words with context",
+                "Performance < 2 seconds for complex queries"
+              ],
+              "technicalDetails": {
+                "file": "src/lib/services_chirho/morph-query-executor-chirho.ts"
+              },
+              "dependencies": ["task_4_2_2", "task_2_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_4_2_4",
+              "title": "Create Morphological Search API",
+              "description": "API endpoint for morphological queries",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "POST /api-chirho/search-chirho/morph-chirho accepts DSL query",
+                "Returns matched verses with highlighted words",
+                "Includes morphological details for each match"
+              ],
+              "technicalDetails": {
+                "endpoint": "/api-chirho/search-chirho/morph-chirho/+server.ts"
+              },
+              "dependencies": ["task_4_2_3"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_4_2_5",
+              "title": "Build Morphological Search UI",
+              "description": "Visual query builder for morphological searches",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Visual builder for query patterns",
+                "Dropdowns for POS, case, etc.",
+                "Preview of DSL query",
+                "Results display with morphology highlighting"
+              ],
+              "dependencies": ["task_4_2_4"],
+              "blockedBy": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_5",
+      "name": "Publisher Portal",
+      "description": "Platform for publishers to distribute biblical resources",
+      "priority": "medium",
+      "status": "pending",
+      "categories": [
+        {
+          "id": "cat_5_1",
+          "name": "Publisher Accounts",
+          "tasks": [
+            {
+              "id": "task_5_1_1",
+              "title": "Publisher Registration System",
+              "description": "Allow publishers to create accounts",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Registration form with organization details",
+                "Email verification",
+                "Publisher profile page",
+                "API key generation"
+              ],
+              "technicalDetails": {
+                "tables": ["publishers_chirho"],
+                "routes": ["/publisher-fe/register-chirho", "/api-chirho/publisher-chirho/register-chirho"]
+              },
+              "dependencies": ["task_1_1_4"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_5_1_2",
+              "title": "Publisher Authentication",
+              "description": "Login and session management for publishers",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Login with email/password",
+                "Session management with KV",
+                "Password reset flow",
+                "Secure cookie handling"
+              ],
+              "dependencies": ["task_5_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_5_1_3",
+              "title": "Publisher Dashboard",
+              "description": "Main dashboard for publisher management",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Overview of resources, revenue, usage",
+                "Quick links to management functions",
+                "Recent activity feed",
+                "Alerts and notifications"
+              ],
+              "technicalDetails": {
+                "route": "/publisher-fe/dashboard-chirho"
+              },
+              "dependencies": ["task_5_1_2"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_5_2",
+          "name": "Resource Management",
+          "tasks": [
+            {
+              "id": "task_5_2_1",
+              "title": "Resource Upload System",
+              "description": "Allow publishers to upload biblical resources",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Upload OSIS XML, USFM, USX, SWORD, Markdown, JSON",
+                "File validation and format detection",
+                "Progress indicator for large files",
+                "Preview before confirmation"
+              ],
+              "technicalDetails": {
+                "storage": "R2 for raw files, D1 for parsed data",
+                "maxFileSize": "100MB"
+              },
+              "dependencies": ["task_5_1_3"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_5_2_2",
+              "title": "Resource Validation Pipeline",
+              "description": "Automated validation of uploaded resources",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Format verification",
+                "Verse reference validation",
+                "Character encoding check",
+                "Malware scanning (R2 scan)",
+                "Validation report generated"
+              ],
+              "dependencies": ["task_5_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_5_2_3",
+              "title": "Resource Review Workflow",
+              "description": "Admin review process for new resources",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Pending review queue",
+                "Admin review interface",
+                "Approve/reject with feedback",
+                "Email notifications to publisher"
+              ],
+              "dependencies": ["task_5_2_2"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_5_3",
+          "name": "Licensing & Pricing",
+          "tasks": [
+            {
+              "id": "task_5_3_1",
+              "title": "License Configuration UI",
+              "description": "Interface for configuring resource licenses",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Select license type (public domain, CC, freemium, subscription, per-use)",
+                "Configure access permissions (web, API, MCP, download)",
+                "Set attribution requirements",
+                "Preview license terms"
+              ],
+              "technicalDetails": {
+                "tables": ["resource_licenses_chirho"],
+                "licenseTypes": ["public_domain_chirho", "creative_commons_chirho", "free_with_attribution_chirho", "freemium_chirho", "subscription_chirho", "per_use_chirho", "custom_chirho"]
+              },
+              "dependencies": ["task_5_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_5_3_2",
+              "title": "Pricing Tier Configuration",
+              "description": "Set up pricing tiers for resources",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Define free tier limits",
+                "Define paid tier pricing and limits",
+                "Configure billing period (monthly, yearly, per-call)",
+                "Set commercial use and AI training permissions"
+              ],
+              "technicalDetails": {
+                "tables": ["pricing_tiers_chirho"]
+              },
+              "dependencies": ["task_5_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_5_3_3",
+              "title": "Usage Limits Configuration",
+              "description": "Configure rate limits and usage caps",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Set requests per minute/day limits",
+                "Set verses per request limits",
+                "Configure bulk download permissions",
+                "Set AI-specific limits"
+              ],
+              "dependencies": ["task_5_3_2"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_5_4",
+          "name": "Payment Integration",
+          "tasks": [
+            {
+              "id": "task_5_4_1",
+              "title": "Stripe Connect Integration",
+              "description": "Enable publishers to receive payments via Stripe",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Publishers can connect Stripe account",
+                "OAuth flow for Stripe Connect",
+                "70/30 revenue split configured",
+                "Test mode for development"
+              ],
+              "technicalDetails": {
+                "stripeProduct": "Stripe Connect Standard",
+                "revenueSplit": "70% publisher, 30% platform"
+              },
+              "relatedFiles": [
+                "spec_chirho/05-publisher-licensing-chirho.md",
+                "AGENTS.md (see section 10 Stripe Integration)"
+              ],
+              "dependencies": ["task_5_3_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_5_4_2",
+              "title": "Usage Metering System",
+              "description": "Track API usage for billing",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Track API calls per resource per user",
+                "Track verse retrievals",
+                "Aggregate usage by billing period",
+                "Store usage in api_usage_chirho table"
+              ],
+              "technicalDetails": {
+                "tables": ["api_usage_chirho"],
+                "aggregation": "Cloudflare Analytics Engine or D1"
+              },
+              "dependencies": ["task_5_4_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_5_4_3",
+              "title": "Payout System",
+              "description": "Calculate and process publisher payouts",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Monthly payout calculation",
+                "Usage-based revenue allocation",
+                "Stripe Transfer API integration",
+                "Payout history and reports"
+              ],
+              "technicalDetails": {
+                "tables": ["revenue_chirho"],
+                "payoutSchedule": "Monthly, minimum $25"
+              },
+              "dependencies": ["task_5_4_2"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_5_5",
+          "name": "Publisher Analytics",
+          "tasks": [
+            {
+              "id": "task_5_5_1",
+              "title": "Analytics Dashboard",
+              "description": "Usage and revenue analytics for publishers",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "API calls over time chart",
+                "Revenue over time chart",
+                "Top verses/chapters accessed",
+                "Top users (anonymized)",
+                "Geographic distribution"
+              ],
+              "dependencies": ["task_5_4_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_5_5_2",
+              "title": "Usage Reports Export",
+              "description": "Downloadable usage and revenue reports",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Export to CSV",
+                "Date range selection",
+                "Filter by resource"
+              ],
+              "dependencies": ["task_5_5_1"],
+              "blockedBy": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_6",
+      "name": "API & Integration",
+      "description": "REST API, MCP server, webhooks",
+      "priority": "high",
+      "status": "partial",
+      "categories": [
+        {
+          "id": "cat_6_1",
+          "name": "REST API",
+          "tasks": [
+            {
+              "id": "task_6_1_1",
+              "title": "API Documentation (OpenAPI)",
+              "description": "Create OpenAPI/Swagger specification",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "OpenAPI 3.0 spec file",
+                "All endpoints documented",
+                "Request/response schemas defined",
+                "Authentication documented"
+              ],
+              "technicalDetails": {
+                "file": "openapi-chirho.yaml"
+              },
+              "dependencies": ["task_1_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_6_1_2",
+              "title": "Interactive API Documentation Page",
+              "description": "Web page for exploring API",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Swagger UI or similar",
+                "Try-it-out functionality",
+                "Code examples in multiple languages"
+              ],
+              "technicalDetails": {
+                "route": "/docs-fe/api-chirho"
+              },
+              "dependencies": ["task_6_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_6_1_3",
+              "title": "API Key Management",
+              "description": "System for managing API keys",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Generate API keys",
+                "Revoke API keys",
+                "View usage per key",
+                "Set key permissions"
+              ],
+              "dependencies": ["task_1_3_4"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_6_2",
+          "name": "MCP Server",
+          "tasks": [
+            {
+              "id": "task_6_2_1",
+              "title": "MCP Server Setup",
+              "description": "Create Model Context Protocol server for AI access",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "MCP server running on Cloudflare Workers",
+                "Implements MCP specification",
+                "Handles authentication",
+                "Rate limiting for AI requests"
+              ],
+              "technicalDetails": {
+                "specification": "https://modelcontextprotocol.io/",
+                "deployment": "Separate Worker or same as main app"
+              },
+              "dependencies": ["task_1_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_6_2_2",
+              "title": "MCP Tool: bible_lookup",
+              "description": "Tool for looking up Bible passages",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Accepts verse reference (e.g., 'John 3:16')",
+                "Returns verse text and metadata",
+                "Supports version parameter"
+              ],
+              "dependencies": ["task_6_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_6_2_3",
+              "title": "MCP Tool: bible_search",
+              "description": "Tool for searching Bible text",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Accepts search query",
+                "Returns matching verses",
+                "Supports version and book filters"
+              ],
+              "dependencies": ["task_6_2_1", "task_4_1_2"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_6_2_4",
+              "title": "MCP Tool: cross_reference",
+              "description": "Tool for finding related verses",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "Accepts verse reference",
+                "Returns cross-references with types",
+                "Can filter by reference type"
+              ],
+              "dependencies": ["task_6_2_1", "task_3_1_3"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_6_2_5",
+              "title": "MCP Tool: word_study",
+              "description": "Tool for studying original language words",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Accepts Strong's number or word",
+                "Returns lexicon entry",
+                "Returns usage statistics",
+                "Returns sample verses"
+              ],
+              "dependencies": ["task_6_2_1", "task_3_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_6_2_6",
+              "title": "MCP Tool: commentary_lookup",
+              "description": "Tool for retrieving commentary",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "Accepts verse reference and commentary ID",
+                "Returns commentary text"
+              ],
+              "dependencies": ["task_6_2_1", "task_3_2_4"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_6_3",
+          "name": "Webhooks",
+          "tasks": [
+            {
+              "id": "task_6_3_1",
+              "title": "Webhook System",
+              "description": "Allow users to receive event notifications",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Register webhook URLs",
+                "Select events to subscribe to",
+                "Webhook signature verification",
+                "Retry logic for failed deliveries"
+              ],
+              "dependencies": ["task_6_1_3"],
+              "blockedBy": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_7",
+      "name": "User Interface",
+      "description": "Bible reader, study tools, visualizations",
+      "priority": "high",
+      "status": "partial",
+      "categories": [
+        {
+          "id": "cat_7_1",
+          "name": "Bible Reader",
+          "tasks": [
+            {
+              "id": "task_7_1_1",
+              "title": "Multiple Version Display",
+              "description": "Show 2-4 versions side by side",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Select 2-4 versions to compare",
+                "Synchronized scrolling",
+                "Verse alignment across versions",
+                "Responsive layout"
+              ],
+              "dependencies": ["task_1_2_2", "task_1_2_3"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_1_2",
+              "title": "Red Letter Display",
+              "description": "Highlight words of Christ in red",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Toggle red letter mode",
+                "Properly identifies Christ's words",
+                "Works across all supported versions"
+              ],
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_1_3",
+              "title": "Paragraph vs Verse Mode Toggle",
+              "description": "Switch between paragraph and verse-by-verse display",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Toggle button switches mode",
+                "Paragraph mode groups verses naturally",
+                "Verse numbers still visible in paragraph mode"
+              ],
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_1_4",
+              "title": "Poetry/Prose Formatting",
+              "description": "Detect and format poetry appropriately",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Psalms, Proverbs, etc. formatted as poetry",
+                "Proper indentation for parallelism",
+                "Can toggle to prose mode"
+              ],
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_1_5",
+              "title": "Section Headings",
+              "description": "Display section/pericope headings",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Section headings displayed between passages",
+                "Can toggle headings on/off",
+                "Clear visual distinction from Bible text"
+              ],
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_1_6",
+              "title": "Audio Bible Integration",
+              "description": "Play audio for Bible passages",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Play/pause button for each chapter",
+                "Synchronized highlighting during playback",
+                "Speed control",
+                "Works with available public domain recordings"
+              ],
+              "dependencies": ["task_1_2_1"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_7_2",
+          "name": "Study Tool UI",
+          "tasks": [
+            {
+              "id": "task_7_2_1",
+              "title": "Lexicon Popup",
+              "description": "Click word to see definition",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Click any word to see Strong's entry",
+                "Shows original language, transliteration, definition",
+                "Link to full word study",
+                "Keyboard accessible"
+              ],
+              "dependencies": ["task_2_1_5"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_2_2",
+              "title": "Morphology Popup",
+              "description": "Show grammatical parsing on hover/click",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Hover or click shows morphology",
+                "Human-readable parsing",
+                "Part of speech, case, gender, number, etc."
+              ],
+              "dependencies": ["task_2_2_4"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_2_3",
+              "title": "Cross-Reference Panel",
+              "description": "Sidebar showing related verses",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Panel shows cross-references for current verse",
+                "Click to navigate to reference",
+                "Shows reference type and source",
+                "Can expand/collapse"
+              ],
+              "dependencies": ["task_3_1_3"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_2_4",
+              "title": "Commentary Sidebar",
+              "description": "Show commentary alongside Scripture",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Sidebar or bottom panel",
+                "Syncs with current verse/chapter",
+                "Can switch between commentaries",
+                "Collapsible"
+              ],
+              "dependencies": ["task_3_2_5"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_7_3",
+          "name": "Visualizations",
+          "tasks": [
+            {
+              "id": "task_7_3_1",
+              "title": "Word Frequency Heatmap",
+              "description": "Visual heatmap of word usage across Bible",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Grid of books with color intensity",
+                "Darker = more occurrences",
+                "Click book to see verses"
+              ],
+              "dependencies": ["task_3_3_4"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_3_2",
+              "title": "Translation Comparison Chart",
+              "description": "Chart showing how word is translated",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Bar chart of translation frequencies",
+                "For a given Strong's number",
+                "Shows percentage and count"
+              ],
+              "dependencies": ["task_3_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_3_3",
+              "title": "Bible Timeline",
+              "description": "Interactive timeline of biblical events",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Timeline of major events",
+                "Click event to see related verses",
+                "Zoom in/out for detail",
+                "Links to relevant passages"
+              ],
+              "dependencies": [],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_3_4",
+              "title": "Bible Maps",
+              "description": "Interactive maps of biblical locations",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "12 hours",
+              "acceptanceCriteria": [
+                "Map of ancient Israel and surrounding regions",
+                "Clickable locations",
+                "Link locations to verses mentioning them",
+                "Different maps for different periods"
+              ],
+              "dependencies": [],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_7_4",
+          "name": "User Accounts",
+          "tasks": [
+            {
+              "id": "task_7_4_1",
+              "title": "User Registration/Login",
+              "description": "Basic user authentication",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Email/password registration",
+                "Email verification",
+                "Login/logout",
+                "Password reset"
+              ],
+              "dependencies": ["task_1_1_4"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_4_2",
+              "title": "Personal Notes",
+              "description": "User can save notes on verses",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Add note to any verse",
+                "Rich text editing",
+                "Notes visible in reader",
+                "Search notes"
+              ],
+              "dependencies": ["task_7_4_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_4_3",
+              "title": "Highlights",
+              "description": "Highlight verses with colors",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "3 hours",
+              "acceptanceCriteria": [
+                "Select verse and highlight",
+                "Multiple colors available",
+                "Can tag highlights",
+                "View all highlights"
+              ],
+              "dependencies": ["task_7_4_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_4_4",
+              "title": "Bookmarks",
+              "description": "Save verses for quick access",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "2 hours",
+              "acceptanceCriteria": [
+                "Bookmark any verse",
+                "View bookmarks list",
+                "Organize into folders"
+              ],
+              "dependencies": ["task_7_4_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_7_4_5",
+              "title": "Reading Plans",
+              "description": "Guided reading schedules",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "Select from available plans",
+                "Track daily progress",
+                "Reminders",
+                "Mark days complete"
+              ],
+              "dependencies": ["task_7_4_1"],
+              "blockedBy": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_8",
+      "name": "Desktop App",
+      "description": "Tauri-based desktop application",
+      "priority": "low",
+      "status": "pending",
+      "categories": [
+        {
+          "id": "cat_8_1",
+          "name": "Tauri Setup",
+          "tasks": [
+            {
+              "id": "task_8_1_1",
+              "title": "Tauri Project Initialization",
+              "description": "Set up Tauri with SvelteKit",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Tauri initialized in project",
+                "SvelteKit app runs in Tauri window",
+                "Development workflow documented"
+              ],
+              "dependencies": [],
+              "blockedBy": []
+            },
+            {
+              "id": "task_8_1_2",
+              "title": "Offline Bible Storage",
+              "description": "Local SQLite for Bible data",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "SQLite database with Bible text",
+                "Same schema as D1",
+                "Can read offline",
+                "Sync with server when online"
+              ],
+              "dependencies": ["task_8_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_8_1_3",
+              "title": "Desktop-Specific Features",
+              "description": "Features unique to desktop",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "System tray with quick verse lookup",
+                "Global keyboard shortcuts",
+                "Multi-window support",
+                "Native file dialogs for export"
+              ],
+              "dependencies": ["task_8_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_8_1_4",
+              "title": "Auto-Updates",
+              "description": "Automatic app updates",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Check for updates on startup",
+                "Download and install updates",
+                "User notification of updates"
+              ],
+              "dependencies": ["task_8_1_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_8_1_5",
+              "title": "Platform Builds",
+              "description": "Build installers for all platforms",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Windows installer (MSI or EXE)",
+                "macOS DMG",
+                "Linux AppImage",
+                "CI/CD pipeline for builds"
+              ],
+              "dependencies": ["task_8_1_4"],
+              "blockedBy": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phase_9",
+      "name": "Testing & Quality",
+      "description": "Testing, documentation, compliance",
+      "priority": "high",
+      "status": "partial",
+      "categories": [
+        {
+          "id": "cat_9_1",
+          "name": "Testing",
+          "tasks": [
+            {
+              "id": "task_9_1_1",
+              "title": "API Integration Tests",
+              "description": "Comprehensive API test suite",
+              "status": "pending",
+              "priority": "high",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "All API endpoints tested",
+                "Happy path and error cases",
+                "Rate limiting tested",
+                "Authentication tested"
+              ],
+              "dependencies": ["task_1_3_1"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_9_1_2",
+              "title": "Database Tests",
+              "description": "D1 query and migration tests",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Schema validation tests",
+                "Query performance tests",
+                "Shard routing tests"
+              ],
+              "dependencies": ["task_1_1_3"],
+              "blockedBy": []
+            },
+            {
+              "id": "task_9_1_3",
+              "title": "Load Testing",
+              "description": "Performance under load",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "API benchmarks documented",
+                "Concurrent user simulation",
+                "Identify bottlenecks",
+                "< 500ms response for 95th percentile"
+              ],
+              "dependencies": ["task_1_3_1"],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_9_2",
+          "name": "Documentation",
+          "tasks": [
+            {
+              "id": "task_9_2_1",
+              "title": "Developer Guide",
+              "description": "Guide for contributors",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "4 hours",
+              "acceptanceCriteria": [
+                "Setup instructions",
+                "Architecture overview",
+                "Contributing guidelines",
+                "Code style guide"
+              ],
+              "dependencies": [],
+              "blockedBy": []
+            },
+            {
+              "id": "task_9_2_2",
+              "title": "User Documentation",
+              "description": "End-user help documentation",
+              "status": "pending",
+              "priority": "low",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Feature guides",
+                "FAQ",
+                "Tutorials",
+                "Video walkthroughs"
+              ],
+              "dependencies": [],
+              "blockedBy": []
+            }
+          ]
+        },
+        {
+          "id": "cat_9_3",
+          "name": "Compliance",
+          "tasks": [
+            {
+              "id": "task_9_3_1",
+              "title": "WCAG 2.1 AA Audit",
+              "description": "Full accessibility review",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "6 hours",
+              "acceptanceCriteria": [
+                "Automated accessibility tests pass",
+                "Manual testing with screen reader",
+                "Keyboard navigation complete",
+                "Color contrast verified"
+              ],
+              "dependencies": [],
+              "blockedBy": []
+            },
+            {
+              "id": "task_9_3_2",
+              "title": "Security Audit",
+              "description": "Security review and penetration testing",
+              "status": "pending",
+              "priority": "medium",
+              "estimatedEffort": "8 hours",
+              "acceptanceCriteria": [
+                "OWASP top 10 checklist reviewed",
+                "Input validation tested",
+                "Authentication tested",
+                "No sensitive data exposure"
+              ],
+              "dependencies": [],
+              "blockedBy": []
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "totalTasks": 117,
+    "byStatus": {
+      "completed": 0,
+      "partial": 4,
+      "pending": 113
+    },
+    "byPriority": {
+      "critical": 8,
+      "high": 42,
+      "medium": 45,
+      "low": 22
+    },
+    "estimatedTotalEffort": "~400 hours"
+  },
+  "_footer": "JESUS CHRIST IS LORD"
+}
