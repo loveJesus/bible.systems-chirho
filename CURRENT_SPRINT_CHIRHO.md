@@ -10,7 +10,27 @@
 
 ## Active Task
 
-Building Logos-level Bible study architecture with deep features.
+**Honest Development Phase** - Building proper infrastructure before advertising features.
+
+## Session Completions (2026-01-10)
+
+### Ralph Loop Quality Verification (Session 2)
+- [x] **UX/UI Verification** - Screenshots captured via MCP Playwright:
+  - Homepage desktop: Consistent color scheme, gold accents
+  - Bible reader desktop: Clean verse display with verse actions
+  - Homepage mobile (375x812): Responsive layout working
+  - Bible reader mobile: Proper text scaling and navigation
+- [x] **Tests** - All 68 tests passing (Vitest)
+- [x] **Build** - Production build succeeds (Vite + adapter-cloudflare)
+- [x] **TypeScript** - No type errors (`tsc --noEmit`)
+- [x] **John 3:16 Headers** - All source files verified
+- [x] **Suffix Consistency** - _chirho naming convention followed
+
+### Session 1
+- [x] **ROADMAP-CHIRHO.md** - Comprehensive 117-task roadmap across 9 phases
+- [x] **Homepage honesty update** - Removed "Logos-Level" claims, now says "In Development"
+- [x] **Feature status badges** - Changed "Available" to "Partial" or "Planned" where appropriate
+- [x] **Architecture section** - Clarified what's designed vs implemented
 
 ## Recent Completions
 
@@ -179,16 +199,25 @@ bun run scripts/sword-importer-chirho.ts
 
 ## Next Priorities
 
-1. ~~**Louw-Nida Domain Mapping** - 93 semantic domains~~ ✅ Complete
-2. ~~**Word-Level Data Model** - Morphology at every position~~ ✅ Complete
-3. ~~**SWORD Module Importer** - diatheke integration for Bible texts~~ ✅ Enhanced
-4. ~~**Interlinear UI Component** - Display aligned Greek/Hebrew/English~~ ✅ Complete (2026-01-09)
-5. ~~**D1 Catalog Database** - Create catalog for shard allocation~~ ✅ Complete (2026-01-09)
-6. ~~**Spanish Interlinear** - SpaRV1909 aligned via Strong's~~ ✅ Module installed (2026-01-09)
-7. **Morphological Search Engine** - Implement search DSL parser
+**Foundation Work (Must Do First):**
+1. **Create D1 Databases** - Deploy catalog + 16 resource shards to Cloudflare
+2. **Import Full KJV from SWORD** - 31,102 verses into D1 (not TypeScript)
+3. **Update Bible API** - Switch from TypeScript file to D1 queries
+4. **Import Strong's Lexicons** - Hebrew H1-H8674, Greek G1-G5624
+
+**Then Feature Work:**
+5. **Import TSK Cross-References** - 340,000+ references with provenance
+6. **Build Interlinear Data** - Full word-level Greek/Hebrew alignment
+7. **Morphological Search** - Implement search DSL parser
 8. **Publisher Portal** - Stripe Connect integration
-9. **D1 Database Deployment** - Deploy catalog + resource shards to Cloudflare
-10. **Full John 3:16 Interlinear** - Complete verse with all Greek words
+
+**Completed in Previous Sessions:**
+- ~~Louw-Nida Domain Mapping~~ ✅
+- ~~Word-Level Data Model~~ ✅
+- ~~SWORD Module Importer~~ ✅
+- ~~Interlinear UI Component~~ ✅
+- ~~D1 Schema Design~~ ✅ (not deployed)
+- ~~Spanish Module~~ ✅ (installed, not imported)
 
 ## Blockers
 
