@@ -113,83 +113,102 @@
 			</div>
 		</a>
 
-		<!-- Interlinear PDF Downloads -->
-		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-			<a
-				href="https://global-tools.bible.systems/bibles-chirho/interlinear-eng-kjv-chirho.pdf"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="group bg-gradient-to-br from-slate-900 to-slate-800 border border-amber-500/30 hover:border-amber-500/60 rounded-xl p-5 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10"
-			>
-				<div class="flex items-center gap-3 mb-3">
-					<div class="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center group-hover:bg-amber-500/30 transition-colors">
-						<svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-						</svg>
-					</div>
-					<span class="text-xs text-slate-500">137 MB PDF</span>
+		<!-- Interlinear PDF Downloads — 19 Languages -->
+		<div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8 mb-6">
+			<div class="flex items-center gap-3 mb-6">
+				<div class="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center">
+					<svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+					</svg>
 				</div>
-				<h3 class="text-lg font-bold text-white mb-1">English KJV</h3>
-				<p class="text-slate-400 text-sm">Interlinear Bible</p>
-				<p class="text-amber-400 text-xs mt-2 group-hover:text-amber-300">Download →</p>
-			</a>
+				<div>
+					<h3 class="text-xl font-bold text-white">Interlinear PDF Bibles</h3>
+					<p class="text-slate-400 text-sm">Hebrew/Greek text with Strong's numbers &mdash; 31,102 verses each</p>
+				</div>
+			</div>
 
-			<a
-				href="https://global-tools.bible.systems/bibles-chirho/interlinear-spa-rv1909-chirho.pdf"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="group bg-gradient-to-br from-slate-900 to-slate-800 border border-rose-500/30 hover:border-rose-500/60 rounded-xl p-5 transition-all duration-300 hover:shadow-lg hover:shadow-rose-500/10"
-			>
-				<div class="flex items-center gap-3 mb-3">
-					<div class="w-10 h-10 bg-rose-500/20 rounded-lg flex items-center justify-center group-hover:bg-rose-500/30 transition-colors">
-						<svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-						</svg>
-					</div>
-					<span class="text-xs text-slate-500">134 MB PDF</span>
-				</div>
-				<h3 class="text-lg font-bold text-white mb-1">Español RV1909</h3>
-				<p class="text-slate-400 text-sm">Biblia Interlineal</p>
-				<p class="text-rose-400 text-xs mt-2 group-hover:text-rose-300">Descargar →</p>
-			</a>
-
-			<a
-				href="https://global-tools.bible.systems/bibles-chirho/interlinear-hin-hinerv-chirho.pdf"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="group bg-gradient-to-br from-slate-900 to-slate-800 border border-orange-500/30 hover:border-orange-500/60 rounded-xl p-5 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10"
-			>
-				<div class="flex items-center gap-3 mb-3">
-					<div class="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
-						<svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-						</svg>
-					</div>
-					<span class="text-xs text-slate-500">139 MB PDF</span>
-				</div>
-				<h3 class="text-lg font-bold text-white mb-1">हिंदी ERV</h3>
-				<p class="text-slate-400 text-sm">इंटरलिनियर बाइबिल</p>
-				<p class="text-orange-400 text-xs mt-2 group-hover:text-orange-300">डाउनलोड →</p>
-			</a>
-
-			<a
-				href="https://global-tools.bible.systems/bibles-chirho/interlinear-eng-web-chirho.pdf"
-				target="_blank"
-				rel="noopener noreferrer"
-				class="group bg-gradient-to-br from-slate-900 to-slate-800 border border-sky-500/30 hover:border-sky-500/60 rounded-xl p-5 transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/10"
-			>
-				<div class="flex items-center gap-3 mb-3">
-					<div class="w-10 h-10 bg-sky-500/20 rounded-lg flex items-center justify-center group-hover:bg-sky-500/30 transition-colors">
-						<svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-						</svg>
-					</div>
-					<span class="text-xs text-slate-500">137 MB PDF</span>
-				</div>
-				<h3 class="text-lg font-bold text-white mb-1">English WEB</h3>
-				<p class="text-slate-400 text-sm">World English Bible</p>
-				<p class="text-sky-400 text-xs mt-2 group-hover:text-sky-300">Download →</p>
-			</a>
+			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-eng-kjv-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">English KJV</span>
+					<span class="block text-slate-500 text-xs">137 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-eng-web-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">English WEB</span>
+					<span class="block text-slate-500 text-xs">136 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-spa-rv1909-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Español RV1909</span>
+					<span class="block text-slate-500 text-xs">134 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-por-almeida1911-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Português Almeida</span>
+					<span class="block text-slate-500 text-xs">136 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-fra-frejnd-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Français Darby</span>
+					<span class="block text-slate-500 text-xs">137 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-deu-gerelb1905-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Deutsch Elberfelder</span>
+					<span class="block text-slate-500 text-xs">137 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-ita-itarive-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Italiano Riveduta</span>
+					<span class="block text-slate-500 text-xs">137 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-rus-synodal-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Русский Synodal</span>
+					<span class="block text-slate-500 text-xs">137 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-kor-korrv-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">한국어 KorRV</span>
+					<span class="block text-slate-500 text-xs">135 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-arb-arasvd-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">العربية SVD</span>
+					<span class="block text-slate-500 text-xs">174 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-heb-hebmodern-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">עברית Modern</span>
+					<span class="block text-slate-500 text-xs">137 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-hin-hinerv-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">हिंदी ERV</span>
+					<span class="block text-slate-500 text-xs">139 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-hin-large-hinfbi-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">हिंदी FBI (Large)</span>
+					<span class="block text-slate-500 text-xs">141 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-ben-ben2006eb-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">বাংলা 2006EB</span>
+					<span class="block text-slate-500 text-xs">140 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-urd-urdugeo-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">اردو Geo (Large)</span>
+					<span class="block text-slate-500 text-xs">164 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-ind-indtb-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Indonesia TB</span>
+					<span class="block text-slate-500 text-xs">137 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-jav-javsabda-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Basa Jawa SABDA</span>
+					<span class="block text-slate-500 text-xs">139 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-tur-turhadi-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Türkçe HADI</span>
+					<span class="block text-slate-500 text-xs">137 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/bibles-chirho/interlinear-swa-swhulb-chirho.pdf" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-white text-sm font-medium">Kiswahili ULB</span>
+					<span class="block text-slate-500 text-xs">137 MB</span>
+				</a>
+				<a href="https://global-tools.bible.systems/downloads-chirho" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="text-amber-400 text-sm font-medium">All Downloads</span>
+					<span class="block text-amber-400/70 text-xs">Page →</span>
+				</a>
+			</div>
 		</div>
 
 		<!-- Online Interlinear Readers by Language -->
@@ -272,6 +291,58 @@
 			<p class="text-center text-slate-500 text-sm mt-6">
 				Powered by <a href="https://global-tools.bible.systems" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Global Bible Tools</a> — Community translations with Strong's numbers
 			</p>
+		</div>
+	</section>
+
+	<!-- Bible Software & Tools -->
+	<section class="max-w-6xl mx-auto px-4 py-8">
+		<div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8">
+			<div class="flex items-center gap-3 mb-6">
+				<div class="w-10 h-10 bg-violet-500/20 rounded-lg flex items-center justify-center">
+					<svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+					</svg>
+				</div>
+				<div>
+					<h3 class="text-xl font-bold text-white">Bible Software &amp; Tools</h3>
+					<p class="text-slate-400 text-sm">Open-source projects for Scripture study and development</p>
+				</div>
+			</div>
+
+			<div class="grid md:grid-cols-3 gap-4">
+				<a
+					href="https://codex-lux-chirho.bible.systems/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group bg-slate-800 hover:bg-violet-500/10 border border-slate-700 hover:border-violet-500/50 rounded-xl p-5 transition-all"
+				>
+					<h4 class="text-white font-bold mb-1">Codex Lux</h4>
+					<p class="text-slate-400 text-sm mb-2">Cross-platform Bible study app built in Rust. Multiple translations, interlinear Hebrew/Greek, search, commentary, and personal study tools.</p>
+					<span class="text-violet-400 text-xs font-medium group-hover:text-violet-300">Visit →</span>
+				</a>
+
+				<a
+					href="https://sword-modules-chirho.bible.systems/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group bg-slate-800 hover:bg-violet-500/10 border border-slate-700 hover:border-violet-500/50 rounded-xl p-5 transition-all"
+				>
+					<h4 class="text-white font-bold mb-1">SWORD Module Repository</h4>
+					<p class="text-slate-400 text-sm mb-2">Machine-translated interlinear Bible modules for the SWORD project. 16 languages with glosses, Strong's numbers, and morphology.</p>
+					<span class="text-violet-400 text-xs font-medium group-hover:text-violet-300">Browse Modules →</span>
+				</a>
+
+				<a
+					href="https://rsword-chirho.bible.systems/"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="group bg-slate-800 hover:bg-violet-500/10 border border-slate-700 hover:border-violet-500/50 rounded-xl p-5 transition-all"
+				>
+					<h4 class="text-white font-bold mb-1">RSword</h4>
+					<p class="text-slate-400 text-sm mb-2">Pure Rust port of the SWORD Bible software library. Read and work with SWORD modules programmatically from Rust.</p>
+					<span class="text-violet-400 text-xs font-medium group-hover:text-violet-300">View Project →</span>
+				</a>
+			</div>
 		</div>
 	</section>
 
