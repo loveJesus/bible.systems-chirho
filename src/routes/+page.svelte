@@ -42,8 +42,8 @@
 		</h1>
 
 		<p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-6">
-			Building free Bible study tools with cross-references, original language support,
-			and API access. We're just getting started — join us on the journey.
+			Free Bible study tools: interlinear readers in 43 languages, cantillated Hebrew Bible,
+			SWORD modules, and more — all open source.
 		</p>
 
 		<blockquote class="text-amber-400 text-lg italic mb-10 max-w-2xl mx-auto">
@@ -54,31 +54,27 @@
 		<!-- CTA Buttons -->
 		<div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
 			<a
-				href="/read-chirho"
+				href="https://global-tools.bible.systems/read-chirho/eng"
+				target="_blank"
+				rel="noopener noreferrer"
 				class="inline-flex items-center gap-2 bg-amber-500 hover:bg-amber-600 rounded-full px-8 py-3 text-white font-bold transition-colors"
 			>
-				Start Reading
+				Read Interlinear Bible
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 				</svg>
 			</a>
 			<a
-				href="/features-fe"
+				href="#resources-chirho"
 				class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-full px-8 py-3 text-slate-300 font-medium transition-colors"
 			>
-				View All Features
+				Browse All Resources
 			</a>
-		</div>
-
-		<!-- Status -->
-		<div class="inline-flex items-center gap-2 bg-slate-800/70 border border-slate-700 rounded-full px-5 py-2">
-			<span class="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
-			<span class="text-slate-400 text-sm">Building Phase 1: KJV + Cross-References + API</span>
 		</div>
 	</section>
 
 	<!-- Global Resources - Front and Center -->
-	<section class="max-w-6xl mx-auto px-4 py-12">
+	<section id="resources-chirho" class="max-w-6xl mx-auto px-4 py-12">
 		<div class="text-center mb-8">
 			<span class="inline-block bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-1.5 text-emerald-400 text-sm font-medium mb-4">
 				Available Now
@@ -289,220 +285,112 @@
 			</div>
 
 			<p class="text-center text-slate-500 text-sm mt-6">
-				Powered by <a href="https://global-tools.bible.systems" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Global Bible Tools</a> — Community translations with Strong's numbers
+				<a href="https://global-tools.bible.systems" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">global-tools.bible.systems</a> is our lab for developing interlinear resources, built on community translations from <a href="https://globalbibletools.com" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">GlobalBibleTools.com</a> with Strong's numbers and morphology data.
 			</p>
 		</div>
 	</section>
 
 	<!-- Bible Software & Tools -->
-	<section class="max-w-6xl mx-auto px-4 py-8">
-		<div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8">
-			<div class="flex items-center gap-3 mb-6">
-				<div class="w-10 h-10 bg-violet-500/20 rounded-lg flex items-center justify-center">
-					<svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-					</svg>
-				</div>
-				<div>
-					<h3 class="text-xl font-bold text-white">Bible Software &amp; Tools</h3>
-					<p class="text-slate-400 text-sm">Open-source projects for Scripture study and development</p>
-				</div>
-			</div>
-
-			<div class="grid md:grid-cols-3 gap-4">
-				<a
-					href="https://codex-lux-chirho.bible.systems/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="group bg-slate-800 hover:bg-violet-500/10 border border-slate-700 hover:border-violet-500/50 rounded-xl p-5 transition-all"
-				>
-					<h4 class="text-white font-bold mb-1">Codex Lux</h4>
-					<p class="text-slate-400 text-sm mb-2">Cross-platform Bible study app built in Rust. Multiple translations, interlinear Hebrew/Greek, search, commentary, and personal study tools.</p>
-					<span class="text-violet-400 text-xs font-medium group-hover:text-violet-300">Visit →</span>
-				</a>
-
-				<a
-					href="https://sword-modules-chirho.bible.systems/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="group bg-slate-800 hover:bg-violet-500/10 border border-slate-700 hover:border-violet-500/50 rounded-xl p-5 transition-all"
-				>
-					<h4 class="text-white font-bold mb-1">SWORD Module Repository</h4>
-					<p class="text-slate-400 text-sm mb-2">Machine-translated interlinear Bible modules for the SWORD project. 16 languages with glosses, Strong's numbers, and morphology.</p>
-					<span class="text-violet-400 text-xs font-medium group-hover:text-violet-300">Browse Modules →</span>
-				</a>
-
-				<a
-					href="https://rsword-chirho.bible.systems/"
-					target="_blank"
-					rel="noopener noreferrer"
-					class="group bg-slate-800 hover:bg-violet-500/10 border border-slate-700 hover:border-violet-500/50 rounded-xl p-5 transition-all"
-				>
-					<h4 class="text-white font-bold mb-1">RSword</h4>
-					<p class="text-slate-400 text-sm mb-2">Pure Rust port of the SWORD Bible software library. Read and work with SWORD modules programmatically from Rust.</p>
-					<span class="text-violet-400 text-xs font-medium group-hover:text-violet-300">View Project →</span>
-				</a>
-			</div>
-		</div>
-	</section>
-
-	<!-- Current Status Bar -->
-	<section class="max-w-5xl mx-auto px-4 py-8">
-		<div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 text-center">
-			<h2 class="text-amber-400 font-bold mb-2">Building More Features</h2>
-			<p class="text-slate-300 text-sm max-w-2xl mx-auto">
-				Full KJV Bible with 31,102 verses available. Cross-references, lexicons, and advanced features are being built.
+	<section class="max-w-6xl mx-auto px-4 py-12">
+		<div class="text-center mb-8">
+			<span class="inline-block bg-violet-500/10 border border-violet-500/30 rounded-full px-4 py-1.5 text-violet-400 text-sm font-medium mb-4">
+				Open Source Software
+			</span>
+			<h2 class="text-3xl md:text-4xl font-bold text-white mb-3">Bible Software &amp; Tools</h2>
+			<p class="text-slate-400 max-w-2xl mx-auto">
+				Desktop apps, libraries, and module repositories for Scripture study and development
 			</p>
 		</div>
+
+		<div class="space-y-5">
+			<!-- Codex Lux -->
+			<a
+				href="https://codex-lux-chirho.bible.systems/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group block relative overflow-hidden rounded-2xl border border-violet-500/20 hover:border-violet-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
+			>
+				<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/codex-lux-bg-chirho.webp');"></div>
+				<div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/85 to-slate-950/70"></div>
+				<div class="relative flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-6 md:p-8">
+					<div class="flex-1">
+						<div class="flex items-center gap-3 mb-2">
+							<div class="w-12 h-12 bg-violet-500/20 rounded-xl flex items-center justify-center group-hover:bg-violet-500/30 transition-colors flex-shrink-0">
+								<svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+								</svg>
+							</div>
+							<h3 class="text-2xl font-bold text-white">Codex Lux</h3>
+						</div>
+						<p class="text-slate-300 md:text-lg mb-1">Cross-platform Bible study application built in Rust.</p>
+						<p class="text-slate-400 text-sm">Multiple translations, full-text search, interlinear Hebrew/Greek displays, commentary integration, notes, highlights, and reading plans.</p>
+					</div>
+					<span class="text-violet-400 font-medium group-hover:text-violet-300 flex-shrink-0">Visit →</span>
+				</div>
+			</a>
+
+			<!-- SWORD Module Repository -->
+			<a
+				href="https://sword-modules-chirho.bible.systems/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group block relative overflow-hidden rounded-2xl border border-violet-500/20 hover:border-violet-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
+			>
+				<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/sword-modules-bg-chirho.webp');"></div>
+				<div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/85 to-slate-950/70"></div>
+				<div class="relative flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-6 md:p-8">
+					<div class="flex-1">
+						<div class="flex items-center gap-3 mb-2">
+							<div class="w-12 h-12 bg-violet-500/20 rounded-xl flex items-center justify-center group-hover:bg-violet-500/30 transition-colors flex-shrink-0">
+								<svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+								</svg>
+							</div>
+							<h3 class="text-2xl font-bold text-white">SWORD Module Repository</h3>
+						</div>
+						<p class="text-slate-300 md:text-lg mb-1">Interlinear Bible modules for SWORD-compatible apps.</p>
+						<p class="text-slate-400 text-sm">16 languages with AI-assisted glosses, Strong's numbers, and morphology data. Compatible with any SWORD project reader.</p>
+					</div>
+					<span class="text-violet-400 font-medium group-hover:text-violet-300 flex-shrink-0">Browse Modules →</span>
+				</div>
+			</a>
+
+			<!-- RSword -->
+			<a
+				href="https://rsword-chirho.bible.systems/"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group block relative overflow-hidden rounded-2xl border border-violet-500/20 hover:border-violet-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
+			>
+				<div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/rsword-bg-chirho.webp');"></div>
+				<div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-950/85 to-slate-950/70"></div>
+				<div class="relative flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-6 md:p-8">
+					<div class="flex-1">
+						<div class="flex items-center gap-3 mb-2">
+							<div class="w-12 h-12 bg-violet-500/20 rounded-xl flex items-center justify-center group-hover:bg-violet-500/30 transition-colors flex-shrink-0">
+								<svg class="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+								</svg>
+							</div>
+							<h3 class="text-2xl font-bold text-white">RSword</h3>
+						</div>
+						<p class="text-slate-300 md:text-lg mb-1">Pure Rust port of the SWORD Bible software library.</p>
+						<p class="text-slate-400 text-sm">Read and process SWORD modules programmatically. Powers Codex Lux and the module build pipeline.</p>
+					</div>
+					<span class="text-violet-400 font-medium group-hover:text-violet-300 flex-shrink-0">View Project →</span>
+				</div>
+			</a>
+		</div>
 	</section>
 
-	<!-- Featured Verse & Quick Access -->
+	<!-- Featured Verse -->
 	<section class="max-w-5xl mx-auto px-4 py-8">
-		<div class="grid md:grid-cols-2 gap-6">
-			<!-- Featured Verse -->
-			<div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 md:p-8">
-				<div class="flex items-center gap-2 mb-4">
-					<div class="w-8 h-8 bg-amber-500/20 rounded-lg flex items-center justify-center">
-						<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-						</svg>
-					</div>
-					<span class="text-amber-400 text-sm font-medium">Featured Verse</span>
-				</div>
-				<blockquote class="text-lg md:text-xl text-slate-200 leading-relaxed mb-4 font-serif italic">
-					"For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
-				</blockquote>
-				<a href="/read-chirho/kjv/jhn/3" class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium transition-colors">
-					John 3:16 — Read Chapter
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-					</svg>
-				</a>
-			</div>
-
-			<!-- Quick Access -->
-			<div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 md:p-8">
-				<div class="flex items-center gap-2 mb-4">
-					<div class="w-8 h-8 bg-amber-500/20 rounded-lg flex items-center justify-center">
-						<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-						</svg>
-					</div>
-					<span class="text-amber-400 text-sm font-medium">Start Reading</span>
-				</div>
-				<p class="text-slate-300 mb-4">Jump to these popular passages:</p>
-				<div class="grid grid-cols-2 gap-2">
-					<a href="/read-chirho/kjv/gen/1" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Genesis 1</a>
-					<a href="/read-chirho/kjv/psa/23" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Psalm 23</a>
-					<a href="/read-chirho/kjv/rom/8" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Romans 8</a>
-					<a href="/read-chirho/kjv/heb/11" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Hebrews 11</a>
-				</div>
-				<a href="/read-chirho" class="mt-4 flex items-center justify-center gap-2 w-full py-2.5 bg-amber-500 hover:bg-amber-600 rounded-lg text-white font-medium transition-colors">
-					Browse All Books
-					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-					</svg>
-				</a>
-			</div>
-		</div>
-	</section>
-
-	<!-- Features In Development -->
-	<section class="max-w-7xl mx-auto px-4 py-16">
-		<div class="text-center mb-12">
-			<h2 class="text-3xl md:text-4xl font-bold text-white mb-4">What We're Building</h2>
-			<p class="text-slate-400 text-lg max-w-2xl mx-auto">Our roadmap toward comprehensive Bible study tools — open source and free</p>
-		</div>
-
-		<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-			<!-- Cross-References with Provenance -->
-			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-amber-500/30 hover:border-amber-500/50 transition-all duration-300">
-				<div class="flex items-start justify-between mb-4">
-					<div class="w-12 h-12 bg-amber-500/10 rounded-lg flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
-						<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-						</svg>
-					</div>
-					<span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">Partial</span>
-				</div>
-				<h3 class="text-xl font-bold text-white mb-2">Cross-References</h3>
-				<p class="text-slate-400">Sample cross-references available. Full TSK import (340K+ refs) with provenance tracking is in progress.</p>
-			</div>
-
-			<!-- Morphological Search -->
-			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-sky-500/30 hover:border-sky-500/50 transition-all duration-300">
-				<div class="flex items-start justify-between mb-4">
-					<div class="w-12 h-12 bg-sky-500/10 rounded-lg flex items-center justify-center group-hover:bg-sky-500/20 transition-colors">
-						<svg class="w-6 h-6 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-						</svg>
-					</div>
-					<span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">Building</span>
-				</div>
-				<h3 class="text-xl font-bold text-white mb-2">Morphological Search</h3>
-				<p class="text-slate-400">"Find θεός in genitive case followed by adjective within 3 words" — Logos-level grammatical queries.</p>
-			</div>
-
-			<!-- Louw-Nida Semantic Domains -->
-			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-purple-500/30 hover:border-purple-500/50 transition-all duration-300">
-				<div class="flex items-start justify-between mb-4">
-					<div class="w-12 h-12 bg-purple-500/10 rounded-lg flex items-center justify-center group-hover:bg-purple-500/20 transition-colors">
-						<svg class="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-						</svg>
-					</div>
-					<span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">Building</span>
-				</div>
-				<h3 class="text-xl font-bold text-white mb-2">Semantic Domains</h3>
-				<p class="text-slate-400">Louw-Nida domains beyond Strong's numbers. Search by meaning, not just word form.</p>
-			</div>
-
-			<!-- Interlinear + Morphology -->
-			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-amber-500/30 hover:border-amber-500/50 transition-all duration-300">
-				<div class="flex items-start justify-between mb-4">
-					<div class="w-12 h-12 bg-amber-500/10 rounded-lg flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
-						<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
-						</svg>
-					</div>
-					<span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">Building</span>
-				</div>
-				<h3 class="text-xl font-bold text-white mb-2">Interlinear + Full Parsing</h3>
-				<p class="text-slate-400">Hebrew/Greek/Aramaic with person, number, gender, case, tense, voice, mood, and Hebrew stems.</p>
-			</div>
-
-			<!-- Publisher Portal -->
-			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-rose-500/30 hover:border-rose-500/50 transition-all duration-300">
-				<div class="flex items-start justify-between mb-4">
-					<div class="w-12 h-12 bg-rose-500/10 rounded-lg flex items-center justify-center group-hover:bg-rose-500/20 transition-colors">
-						<svg class="w-6 h-6 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-						</svg>
-					</div>
-					<span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">Building</span>
-				</div>
-				<h3 class="text-xl font-bold text-white mb-2">Publisher Portal</h3>
-				<p class="text-slate-400">Publishers can upload resources with flexible licensing — free, subscription, or per-API-call pricing.</p>
-			</div>
-
-			<!-- REST & MCP API -->
-			<div class="group bg-slate-900/50 hover:bg-slate-900/70 rounded-xl p-6 border border-amber-500/30 hover:border-amber-500/50 transition-all duration-300">
-				<div class="flex items-start justify-between mb-4">
-					<div class="w-12 h-12 bg-amber-500/10 rounded-lg flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
-						<svg class="w-6 h-6 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
-						</svg>
-					</div>
-					<span class="px-2 py-1 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">Planned</span>
-				</div>
-				<h3 class="text-xl font-bold text-white mb-2">REST & MCP API</h3>
-				<p class="text-slate-400">API access for developers and AI assistants is planned. Currently basic endpoints only.</p>
-			</div>
-		</div>
-
-		<div class="text-center mt-8">
-			<a href="/features-fe" class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium transition-colors">
-				View full roadmap
+		<div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-6 md:p-8 text-center">
+			<blockquote class="text-lg md:text-xl text-slate-200 leading-relaxed mb-4 font-serif italic max-w-3xl mx-auto">
+				"For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
+			</blockquote>
+			<a href="https://global-tools.bible.systems/read-chirho/eng/jhn/3" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium transition-colors">
+				John 3:16 — Read Interlinear
 				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 				</svg>
@@ -510,27 +398,36 @@
 		</div>
 	</section>
 
-	<!-- Architecture Preview -->
-	<section class="max-w-5xl mx-auto px-4 py-16">
-		<div class="bg-slate-900/70 border border-slate-800 rounded-2xl p-8 md:p-10">
-			<h2 class="text-2xl md:text-3xl font-bold text-white mb-6 text-center">Architecture Planned</h2>
-			<p class="text-slate-400 text-center mb-6 text-sm">These systems are designed and ready for implementation</p>
-			<div class="grid md:grid-cols-3 gap-6 text-center">
-				<div>
-					<div class="text-4xl mb-2">🗄️</div>
-					<h3 class="text-lg font-bold text-white mb-1">D1 Database Sharding</h3>
-					<p class="text-slate-400 text-sm">Schemas designed for 16 shards. Currently using temporary storage while we build.</p>
+	<!-- What's Next -->
+	<section class="max-w-5xl mx-auto px-4 py-12">
+		<div class="text-center mb-8">
+			<h2 class="text-2xl md:text-3xl font-bold text-white mb-3">What's Next</h2>
+			<p class="text-slate-400 max-w-2xl mx-auto text-sm">Upcoming features for the Bible.Systems platform</p>
+		</div>
+
+		<div class="grid md:grid-cols-3 gap-4">
+			<div class="bg-slate-900/50 rounded-xl p-5 border border-slate-800">
+				<div class="flex items-center gap-2 mb-2">
+					<span class="px-2 py-0.5 bg-amber-500/20 text-amber-400 text-xs font-medium rounded-full">In Progress</span>
 				</div>
-				<div>
-					<div class="text-4xl mb-2">⚔️</div>
-					<h3 class="text-lg font-bold text-white mb-1">SWORD Modules Installed</h3>
-					<p class="text-slate-400 text-sm">22 modules including KJV, ASV, lexicons, and commentaries. Import scripts ready.</p>
+				<h3 class="text-white font-bold mb-1">Cross-References</h3>
+				<p class="text-slate-400 text-sm">TSK import (340K+ refs) with provenance tracking.</p>
+			</div>
+
+			<div class="bg-slate-900/50 rounded-xl p-5 border border-slate-800">
+				<div class="flex items-center gap-2 mb-2">
+					<span class="px-2 py-0.5 bg-slate-700 text-slate-400 text-xs font-medium rounded-full">Planned</span>
 				</div>
-				<div>
-					<div class="text-4xl mb-2">🌍</div>
-					<h3 class="text-lg font-bold text-white mb-1">Multi-Language (Planned)</h3>
-					<p class="text-slate-400 text-sm">Spanish (SpaRV1909) installed. More languages coming as we build out.</p>
+				<h3 class="text-white font-bold mb-1">Morphological Search</h3>
+				<p class="text-slate-400 text-sm">Grammatical queries across Hebrew and Greek texts.</p>
+			</div>
+
+			<div class="bg-slate-900/50 rounded-xl p-5 border border-slate-800">
+				<div class="flex items-center gap-2 mb-2">
+					<span class="px-2 py-0.5 bg-slate-700 text-slate-400 text-xs font-medium rounded-full">Planned</span>
 				</div>
+				<h3 class="text-white font-bold mb-1">REST &amp; MCP API</h3>
+				<p class="text-slate-400 text-sm">API access for developers and AI assistants.</p>
 			</div>
 		</div>
 	</section>
