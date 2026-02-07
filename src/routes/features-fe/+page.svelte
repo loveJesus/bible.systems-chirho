@@ -12,7 +12,7 @@
 		},
 		{
 			title: 'Hebrew Bible with Cantillation',
-			description: 'Complete Leningrad Codex with cantillation accents transposed from the Aleppo Codex (MapM). 305,000+ words color-coded by match quality.',
+			description: 'Mikra according to the Masora accents mapped onto the Solid Rock Hebrew Bible. 305,000+ words color-coded by match quality.',
 			status: 'completed',
 			icon: '🕎',
 			link: 'https://solid-rock-accents-chirho.bible.systems/'

@@ -102,7 +102,7 @@
 							<h3 class="text-xl font-bold text-white">Solid Rock Hebrew Bible</h3>
 							<span class="px-2 py-0.5 bg-indigo-500/20 text-indigo-400 text-xs font-medium rounded-full">Online Reader</span>
 						</div>
-						<p class="text-slate-400 text-sm">Complete Hebrew Bible (Leningrad Codex) with cantillation accents transposed from the Aleppo Codex (MapM). 305,000+ words color-coded by match quality.</p>
+						<p class="text-slate-400 text-sm">Mikra according to the Masora accents mapped onto the Solid Rock Hebrew Bible. 305,000+ words color-coded by match quality.</p>
 					</div>
 				</div>
 				<p class="text-indigo-400 text-sm font-medium group-hover:text-indigo-300 md:ml-auto flex-shrink-0">Read Online →</p>
