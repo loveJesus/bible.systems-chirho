@@ -77,13 +77,210 @@
 		</div>
 	</section>
 
+	<!-- Global Resources - Front and Center -->
+	<section class="max-w-6xl mx-auto px-4 py-12">
+		<div class="text-center mb-8">
+			<span class="inline-block bg-emerald-500/10 border border-emerald-500/30 rounded-full px-4 py-1.5 text-emerald-400 text-sm font-medium mb-4">
+				Available Now
+			</span>
+			<h2 class="text-3xl md:text-4xl font-bold text-white mb-3">Global Bible Resources</h2>
+			<p class="text-slate-400 max-w-2xl mx-auto">
+				Free interlinear PDFs with original Hebrew & Greek text, Strong's numbers, and translations in multiple languages
+			</p>
+		</div>
+
+		<!-- Featured: Solid Rock Hebrew Bible with Cantillation -->
+		<a
+			href="https://solid-rock-accents-chirho.bible.systems/"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="group block bg-gradient-to-br from-slate-900 via-indigo-950/50 to-slate-900 border border-indigo-500/30 hover:border-indigo-500/60 rounded-2xl p-6 md:p-8 mb-6 transition-all duration-300 hover:shadow-lg hover:shadow-indigo-500/10"
+		>
+			<div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+				<div class="flex items-center gap-4">
+					<div class="w-14 h-14 bg-indigo-500/20 rounded-xl flex items-center justify-center group-hover:bg-indigo-500/30 transition-colors flex-shrink-0">
+						<span class="text-3xl" style="font-family: serif;">&#x05D0;</span>
+					</div>
+					<div>
+						<div class="flex items-center gap-2 mb-1">
+							<h3 class="text-xl font-bold text-white">Solid Rock Hebrew Bible</h3>
+							<span class="px-2 py-0.5 bg-indigo-500/20 text-indigo-400 text-xs font-medium rounded-full">Online Reader</span>
+						</div>
+						<p class="text-slate-400 text-sm">Complete Hebrew Bible (Leningrad Codex) with cantillation accents transposed from the Aleppo Codex (MapM). 305,000+ words color-coded by match quality.</p>
+					</div>
+				</div>
+				<p class="text-indigo-400 text-sm font-medium group-hover:text-indigo-300 md:ml-auto flex-shrink-0">Read Online →</p>
+			</div>
+		</a>
+
+		<!-- Interlinear PDF Downloads -->
+		<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
+			<a
+				href="https://global-tools.bible.systems/bibles-chirho/interlinear-eng-kjv-chirho.pdf"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group bg-gradient-to-br from-slate-900 to-slate-800 border border-amber-500/30 hover:border-amber-500/60 rounded-xl p-5 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10"
+			>
+				<div class="flex items-center gap-3 mb-3">
+					<div class="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center group-hover:bg-amber-500/30 transition-colors">
+						<svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+						</svg>
+					</div>
+					<span class="text-xs text-slate-500">137 MB PDF</span>
+				</div>
+				<h3 class="text-lg font-bold text-white mb-1">English KJV</h3>
+				<p class="text-slate-400 text-sm">Interlinear Bible</p>
+				<p class="text-amber-400 text-xs mt-2 group-hover:text-amber-300">Download →</p>
+			</a>
+
+			<a
+				href="https://global-tools.bible.systems/bibles-chirho/interlinear-spa-rv1909-chirho.pdf"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group bg-gradient-to-br from-slate-900 to-slate-800 border border-rose-500/30 hover:border-rose-500/60 rounded-xl p-5 transition-all duration-300 hover:shadow-lg hover:shadow-rose-500/10"
+			>
+				<div class="flex items-center gap-3 mb-3">
+					<div class="w-10 h-10 bg-rose-500/20 rounded-lg flex items-center justify-center group-hover:bg-rose-500/30 transition-colors">
+						<svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+						</svg>
+					</div>
+					<span class="text-xs text-slate-500">134 MB PDF</span>
+				</div>
+				<h3 class="text-lg font-bold text-white mb-1">Español RV1909</h3>
+				<p class="text-slate-400 text-sm">Biblia Interlineal</p>
+				<p class="text-rose-400 text-xs mt-2 group-hover:text-rose-300">Descargar →</p>
+			</a>
+
+			<a
+				href="https://global-tools.bible.systems/bibles-chirho/interlinear-hin-hinerv-chirho.pdf"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group bg-gradient-to-br from-slate-900 to-slate-800 border border-orange-500/30 hover:border-orange-500/60 rounded-xl p-5 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10"
+			>
+				<div class="flex items-center gap-3 mb-3">
+					<div class="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center group-hover:bg-orange-500/30 transition-colors">
+						<svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+						</svg>
+					</div>
+					<span class="text-xs text-slate-500">139 MB PDF</span>
+				</div>
+				<h3 class="text-lg font-bold text-white mb-1">हिंदी ERV</h3>
+				<p class="text-slate-400 text-sm">इंटरलिनियर बाइबिल</p>
+				<p class="text-orange-400 text-xs mt-2 group-hover:text-orange-300">डाउनलोड →</p>
+			</a>
+
+			<a
+				href="https://global-tools.bible.systems/bibles-chirho/interlinear-eng-web-chirho.pdf"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group bg-gradient-to-br from-slate-900 to-slate-800 border border-sky-500/30 hover:border-sky-500/60 rounded-xl p-5 transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/10"
+			>
+				<div class="flex items-center gap-3 mb-3">
+					<div class="w-10 h-10 bg-sky-500/20 rounded-lg flex items-center justify-center group-hover:bg-sky-500/30 transition-colors">
+						<svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+						</svg>
+					</div>
+					<span class="text-xs text-slate-500">137 MB PDF</span>
+				</div>
+				<h3 class="text-lg font-bold text-white mb-1">English WEB</h3>
+				<p class="text-slate-400 text-sm">World English Bible</p>
+				<p class="text-sky-400 text-xs mt-2 group-hover:text-sky-300">Download →</p>
+			</a>
+		</div>
+
+		<!-- Online Interlinear Readers by Language -->
+		<div class="bg-slate-900/50 border border-slate-800 rounded-2xl p-6 md:p-8">
+			<div class="flex items-center gap-3 mb-6">
+				<div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center">
+					<svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+					</svg>
+				</div>
+				<div>
+					<h3 class="text-xl font-bold text-white">Read Online in 43 Languages</h3>
+					<p class="text-slate-400 text-sm">Interlinear readers with Hebrew/Greek and glosses</p>
+				</div>
+			</div>
+
+			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+				<a href="https://global-tools.bible.systems/read-chirho/eng" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇺🇸</span>
+					<span class="text-white text-sm font-medium">English</span>
+					<span class="block text-emerald-400 text-xs">66 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/spa" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇪🇸</span>
+					<span class="text-white text-sm font-medium">Español</span>
+					<span class="block text-emerald-400 text-xs">66 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/hin" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇮🇳</span>
+					<span class="text-white text-sm font-medium">हिंदी</span>
+					<span class="block text-emerald-400 text-xs">66 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/rus" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇷🇺</span>
+					<span class="text-white text-sm font-medium">Русский</span>
+					<span class="block text-amber-400 text-xs">6 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/ben" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇧🇩</span>
+					<span class="text-white text-sm font-medium">বাংলা</span>
+					<span class="block text-amber-400 text-xs">6 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/swa" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇰🇪</span>
+					<span class="text-white text-sm font-medium">Kiswahili</span>
+					<span class="block text-amber-400 text-xs">7 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/tur" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇹🇷</span>
+					<span class="text-white text-sm font-medium">Türkçe</span>
+					<span class="block text-amber-400 text-xs">7 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/arb" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇸🇦</span>
+					<span class="text-white text-sm font-medium">العربية</span>
+					<span class="block text-slate-400 text-xs">2 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/cmn" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇨🇳</span>
+					<span class="text-white text-sm font-medium">中文</span>
+					<span class="block text-slate-400 text-xs">2 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/amh" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇪🇹</span>
+					<span class="text-white text-sm font-medium">አማርኛ</span>
+					<span class="block text-slate-400 text-xs">2 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho/mya" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🇲🇲</span>
+					<span class="text-white text-sm font-medium">မြန်မာ</span>
+					<span class="block text-slate-400 text-xs">2 books</span>
+				</a>
+				<a href="https://global-tools.bible.systems/read-chirho" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-500/50 rounded-lg text-center transition-all">
+					<span class="block text-lg mb-1">🌍</span>
+					<span class="text-amber-400 text-sm font-medium">All 43</span>
+					<span class="block text-amber-400/70 text-xs">Languages →</span>
+				</a>
+			</div>
+
+			<p class="text-center text-slate-500 text-sm mt-6">
+				Powered by <a href="https://global-tools.bible.systems" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">Global Bible Tools</a> — Community translations with Strong's numbers
+			</p>
+		</div>
+	</section>
+
 	<!-- Current Status Bar -->
 	<section class="max-w-5xl mx-auto px-4 py-8">
 		<div class="bg-amber-500/10 border border-amber-500/30 rounded-xl p-6 text-center">
-			<h2 class="text-amber-400 font-bold mb-2">Early Development</h2>
+			<h2 class="text-amber-400 font-bold mb-2">Building More Features</h2>
 			<p class="text-slate-300 text-sm max-w-2xl mx-auto">
-				We have sample KJV chapters, basic cross-references, and a working interlinear prototype.
-				Full Bible content, lexicons, and advanced features are being built.
+				Full KJV Bible with 31,102 verses available. Cross-references, lexicons, and advanced features are being built.
 			</p>
 		</div>
 	</section>
@@ -104,7 +301,7 @@
 				<blockquote class="text-lg md:text-xl text-slate-200 leading-relaxed mb-4 font-serif italic">
 					"For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."
 				</blockquote>
-				<a href="/read-chirho/jhn/3" class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium transition-colors">
+				<a href="/read-chirho/kjv/jhn/3" class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium transition-colors">
 					John 3:16 — Read Chapter
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
@@ -124,10 +321,10 @@
 				</div>
 				<p class="text-slate-300 mb-4">Jump to these popular passages:</p>
 				<div class="grid grid-cols-2 gap-2">
-					<a href="/read-chirho/gen/1" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Genesis 1</a>
-					<a href="/read-chirho/psa/23" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Psalm 23</a>
-					<a href="/read-chirho/rom/8" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Romans 8</a>
-					<a href="/read-chirho/heb/11" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Hebrews 11</a>
+					<a href="/read-chirho/kjv/gen/1" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Genesis 1</a>
+					<a href="/read-chirho/kjv/psa/23" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Psalm 23</a>
+					<a href="/read-chirho/kjv/rom/8" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Romans 8</a>
+					<a href="/read-chirho/kjv/heb/11" class="px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white text-sm transition-colors text-center">Hebrews 11</a>
 				</div>
 				<a href="/read-chirho" class="mt-4 flex items-center justify-center gap-2 w-full py-2.5 bg-amber-500 hover:bg-amber-600 rounded-lg text-white font-medium transition-colors">
 					Browse All Books
