@@ -2,132 +2,102 @@
      that all who believe in Him should not perish but have everlasting life. — John 3:16 -->
 
 <script lang="ts">
-	// Core features - Logos-level deep Bible study
-	const coreFeaturesChirho = [
+	const completedFeaturesChirho = [
 		{
-			id: 1,
-			title: 'Morphological Search DSL',
-			description: 'Query like Logos: "genitive nouns within 3 words of this verb in Pauline epistles"',
-			status: 'in-progress',
-			votes: 89,
-			icon: '🔬'
+			title: 'Interlinear Bible — 43 Languages',
+			description: 'Online readers with Hebrew/Greek text, Strong\'s numbers, and glosses. Plus 19 downloadable interlinear PDFs.',
+			status: 'completed',
+			icon: '📜',
+			link: 'https://global-tools.bible.systems/read-chirho/eng'
 		},
 		{
-			id: 2,
-			title: 'Louw-Nida Semantic Domains',
-			description: 'Find words by meaning across 93 domains. Connect ἀγάπη to all love-related concepts',
-			status: 'in-progress',
-			votes: 76,
-			icon: '🧠'
+			title: 'Hebrew Bible with Cantillation',
+			description: 'Complete Leningrad Codex with cantillation accents transposed from the Aleppo Codex (MapM). 305,000+ words color-coded by match quality.',
+			status: 'completed',
+			icon: '🕎',
+			link: 'https://solid-rock-accents-chirho.bible.systems/'
 		},
 		{
-			id: 3,
+			title: 'SWORD Module Repository',
+			description: 'Interlinear Bible modules for SWORD-compatible apps. 16 languages with AI-assisted glosses, Strong\'s numbers, and morphology.',
+			status: 'completed',
+			icon: '⚔️',
+			link: 'https://sword-modules-chirho.bible.systems/'
+		},
+		{
+			title: 'RSword — Rust SWORD Library',
+			description: 'Pure Rust port of the SWORD Bible software library. Read and process SWORD modules programmatically.',
+			status: 'completed',
+			icon: '🦀',
+			link: 'https://rsword-chirho.bible.systems/'
+		},
+		{
+			title: 'Codex Lux Desktop App',
+			description: 'Cross-platform Bible study application built in Rust. Multiple translations, search, interlinear, commentary, and personal study tools.',
+			status: 'completed',
+			icon: '💻',
+			link: 'https://codex-lux-chirho.bible.systems/'
+		},
+		{
+			title: 'KJV Full Bible on D1',
+			description: 'All 31,102 KJV verses stored in Cloudflare D1 with 16-shard architecture. Online reader at bible.systems.',
+			status: 'completed',
+			icon: '🗄️',
+			link: '/read-chirho'
+		}
+	];
+
+	const inProgressFeaturesChirho = [
+		{
 			title: 'Cross-Reference Provenance',
-			description: 'Know WHO linked passages and WHY. TSK, Nestle-Aland, theological traditions tracked separately',
+			description: 'TSK import (340K+ refs) with tracking of WHO linked passages and WHY. Theological traditions tracked separately.',
 			status: 'in-progress',
-			votes: 72,
 			icon: '🔗'
 		},
 		{
-			id: 4,
-			title: 'Publisher Portal',
-			description: 'Publishers upload content, set licensing & API pricing. Stripe Connect, 70/30 revenue split',
-			status: 'planned',
-			votes: 65,
-			icon: '📤'
-		},
-		{
-			id: 5,
-			title: 'Interlinear Display',
-			description: 'Hebrew/Greek/Aramaic with full morphological parsing. Hover for detailed analysis',
-			status: 'planned',
-			votes: 58,
-			icon: '📜'
-		},
-		{
-			id: 6,
 			title: 'REST & MCP APIs',
-			description: 'Full API for apps + MCP server for Claude, ChatGPT, and AI assistants',
+			description: 'Full API for apps and an MCP server for Claude, ChatGPT, and AI assistants. Basic Bible endpoints working.',
 			status: 'in-progress',
-			votes: 54,
 			icon: '🔌'
 		}
 	];
 
-	// Architecture features
-	const architectureFeaturesChirho = [
+	const plannedFeaturesChirho = [
 		{
-			id: 7,
-			title: 'Dynamic D1 Sharding',
-			description: '16 databases with catalog-based allocation. Add more as we grow. 10GB per shard',
-			status: 'in-progress',
-			votes: 45,
-			icon: '🗄️'
-		},
-		{
-			id: 8,
-			title: 'SWORD/Diatheke Integration',
-			description: 'Import CrossWire Bible Society modules. Free access to hundreds of resources',
+			title: 'Morphological Search',
+			description: 'Query like Logos: "genitive nouns within 3 words of this verb in Pauline epistles." Grammatical search across Hebrew and Greek.',
 			status: 'planned',
-			votes: 42,
-			icon: '⚔️'
+			icon: '🔬'
 		},
 		{
-			id: 9,
-			title: 'Word-Level Data Model',
-			description: 'Every word position tracked with morphology, syntax trees, semantic tags',
-			status: 'in-progress',
-			votes: 38,
-			icon: '📊'
-		},
-		{
-			id: 10,
-			title: 'Multi-Language Support',
-			description: 'Not just English - Spanish, Portuguese, Chinese, Arabic interfaces',
+			title: 'Louw-Nida Semantic Domains',
+			description: 'Find words by meaning across 93 domains. Go beyond Strong\'s numbers to search by concept.',
 			status: 'planned',
-			votes: 35,
-			icon: '🌍'
-		}
-	];
-
-	// Study tools
-	const studyToolsChirho = [
-		{
-			id: 11,
-			title: 'Sermon Preparation',
-			description: 'Outline builder, illustration finder, cross-reference chains for preaching',
-			status: 'planned',
-			votes: 48,
-			icon: '🎤'
+			icon: '🧠'
 		},
 		{
-			id: 12,
-			title: 'Word Usage Graphs',
-			description: 'Visualize word frequency across books, authors, time periods',
+			title: 'Publisher Portal',
+			description: 'Publishers upload content with flexible licensing — free, subscription, or per-API-call pricing.',
 			status: 'planned',
-			votes: 41,
-			icon: '📈'
+			icon: '📤'
 		},
 		{
-			id: 13,
 			title: 'Commentaries',
-			description: 'Matthew Henry, Gill, Calvin, and public domain scholarly works',
+			description: 'Matthew Henry, Gill, Calvin, and other public domain scholarly works integrated with verse display.',
 			status: 'planned',
-			votes: 39,
 			icon: '💬'
 		},
 		{
-			id: 14,
-			title: 'Desktop App (Tauri)',
-			description: 'Offline-capable native application for Windows, Mac, Linux',
+			title: 'Word Usage Graphs',
+			description: 'Visualize word frequency across books, authors, and time periods.',
 			status: 'planned',
-			votes: 32,
-			icon: '💻'
+			icon: '📈'
 		}
 	];
 
-	// Combine all for stats
-	const allFeaturesChirho = [...coreFeaturesChirho, ...architectureFeaturesChirho, ...studyToolsChirho];
+	const completedCountChirho = completedFeaturesChirho.length;
+	const inProgressCountChirho = inProgressFeaturesChirho.length;
+	const plannedCountChirho = plannedFeaturesChirho.length;
 
 	const statusColorsChirho = {
 		'planned': 'bg-blue-500/20 text-blue-400 border-blue-500/50',
@@ -138,37 +108,32 @@
 	const statusLabelsChirho = {
 		'planned': 'Planned',
 		'in-progress': 'In Progress',
-		'completed': 'Completed'
+		'completed': 'Shipped'
 	} as const;
-
-	// Computed counts for stats
-	const totalCountChirho = allFeaturesChirho.length;
-	const inProgressCountChirho = allFeaturesChirho.filter((f) => f.status === 'in-progress').length;
-	const plannedCountChirho = allFeaturesChirho.filter((f) => f.status === 'planned').length;
 </script>
 
 <svelte:head>
-	<title>Feature Roadmap - Bible.Systems</title>
-	<meta name="description" content="Bible.Systems roadmap: morphological search, Louw-Nida domains, cross-reference provenance, publisher portal, dynamic D1 sharding." />
+	<title>Features & Roadmap - Bible.Systems</title>
+	<meta name="description" content="Bible.Systems features: interlinear Bibles in 43 languages, Hebrew cantillation, SWORD modules, Codex Lux desktop app, and more. See what's shipped and what's next." />
 	<link rel="canonical" href="https://bible.systems/features-fe" />
 </svelte:head>
 
 <div class="max-w-6xl mx-auto px-4 py-16">
 	<div class="text-center mb-12">
-		<h1 class="text-4xl font-bold text-white mb-4">Logos-Level Features</h1>
+		<h1 class="text-4xl font-bold text-white mb-4">Features &amp; Roadmap</h1>
 		<p class="text-slate-400 text-lg max-w-2xl mx-auto">
-			Building the most powerful open Bible study platform. Deep morphological search, semantic domains, cross-reference provenance, and more.
+			What we've shipped and what's coming next — open-source Bible study tools for everyone.
 		</p>
 	</div>
 
 	<!-- Stats -->
 	<div class="grid grid-cols-3 gap-4 mb-12 max-w-lg mx-auto">
 		<div class="bg-slate-900/50 border border-slate-800 rounded-xl p-4 text-center">
-			<p class="text-3xl font-bold text-amber-400">{totalCountChirho}</p>
-			<p class="text-slate-400 text-sm">Total Features</p>
+			<p class="text-3xl font-bold text-green-400">{completedCountChirho}</p>
+			<p class="text-slate-400 text-sm">Shipped</p>
 		</div>
 		<div class="bg-slate-900/50 border border-slate-800 rounded-xl p-4 text-center">
-			<p class="text-3xl font-bold text-green-400">{inProgressCountChirho}</p>
+			<p class="text-3xl font-bold text-amber-400">{inProgressCountChirho}</p>
 			<p class="text-slate-400 text-sm">In Progress</p>
 		</div>
 		<div class="bg-slate-900/50 border border-slate-800 rounded-xl p-4 text-center">
@@ -177,14 +142,48 @@
 		</div>
 	</div>
 
-	<!-- Core Features -->
+	<!-- Completed Features -->
 	<div class="mb-12">
 		<h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-			<span class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center text-white">C</span>
-			Core Features
+			<span class="w-10 h-10 bg-gradient-to-br from-green-500 to-green-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">{completedCountChirho}</span>
+			Shipped
 		</h2>
 		<div class="space-y-4">
-			{#each coreFeaturesChirho as featureChirho}
+			{#each completedFeaturesChirho as featureChirho}
+				<a
+					href={featureChirho.link}
+					target={featureChirho.link.startsWith('http') ? '_blank' : undefined}
+					rel={featureChirho.link.startsWith('http') ? 'noopener noreferrer' : undefined}
+					class="block bg-slate-900/50 border border-green-500/20 hover:border-green-500/40 rounded-xl p-6 transition-colors group"
+				>
+					<div class="flex items-start gap-4">
+						<div class="w-12 h-12 bg-green-500/10 rounded-lg flex items-center justify-center text-2xl flex-shrink-0">
+							{featureChirho.icon}
+						</div>
+						<div class="flex-1 min-w-0">
+							<div class="flex items-center gap-3 mb-2 flex-wrap">
+								<h3 class="text-lg font-semibold text-white">{featureChirho.title}</h3>
+								<span class="px-2 py-1 rounded-full text-xs font-medium border {statusColorsChirho[featureChirho.status]}">
+									{statusLabelsChirho[featureChirho.status]}
+								</span>
+							</div>
+							<p class="text-slate-400">{featureChirho.description}</p>
+						</div>
+						<span class="text-green-400 group-hover:text-green-300 flex-shrink-0 text-sm font-medium">Visit →</span>
+					</div>
+				</a>
+			{/each}
+		</div>
+	</div>
+
+	<!-- In Progress -->
+	<div class="mb-12">
+		<h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
+			<span class="w-10 h-10 bg-gradient-to-br from-amber-500 to-amber-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">{inProgressCountChirho}</span>
+			In Progress
+		</h2>
+		<div class="space-y-4">
+			{#each inProgressFeaturesChirho as featureChirho}
 				<div class="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition-colors">
 					<div class="flex items-start gap-4">
 						<div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-2xl flex-shrink-0">
@@ -199,28 +198,20 @@
 							</div>
 							<p class="text-slate-400">{featureChirho.description}</p>
 						</div>
-						<div class="flex flex-col items-center gap-1 flex-shrink-0">
-							<button aria-label="Upvote this feature" class="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center text-slate-400 hover:text-amber-400 transition-colors">
-								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-								</svg>
-							</button>
-							<span class="text-lg font-semibold text-white">{featureChirho.votes}</span>
-						</div>
 					</div>
 				</div>
 			{/each}
 		</div>
 	</div>
 
-	<!-- Architecture Features -->
+	<!-- Planned -->
 	<div class="mb-12">
 		<h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-			<span class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white">A</span>
-			Architecture
+			<span class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center text-white text-sm font-bold">{plannedCountChirho}</span>
+			Planned
 		</h2>
 		<div class="space-y-4">
-			{#each architectureFeaturesChirho as featureChirho}
+			{#each plannedFeaturesChirho as featureChirho}
 				<div class="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition-colors">
 					<div class="flex items-start gap-4">
 						<div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-2xl flex-shrink-0">
@@ -235,57 +226,8 @@
 							</div>
 							<p class="text-slate-400">{featureChirho.description}</p>
 						</div>
-						<div class="flex flex-col items-center gap-1 flex-shrink-0">
-							<button aria-label="Upvote this feature" class="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center text-slate-400 hover:text-amber-400 transition-colors">
-								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-								</svg>
-							</button>
-							<span class="text-lg font-semibold text-white">{featureChirho.votes}</span>
-						</div>
 					</div>
 				</div>
-			{/each}
-		</div>
-	</div>
-
-	<!-- Study Tools -->
-	<div class="mb-12">
-		<h2 class="text-2xl font-bold text-white mb-6 flex items-center gap-3">
-			<span class="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center text-white">S</span>
-			Study Tools
-		</h2>
-		<div class="space-y-4">
-			{#each studyToolsChirho as featureChirho}
-			<div class="bg-slate-900/50 border border-slate-800 rounded-xl p-6 hover:border-slate-700 transition-colors">
-				<div class="flex items-start gap-4">
-					<!-- Icon -->
-					<div class="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center text-2xl flex-shrink-0">
-						{featureChirho.icon}
-					</div>
-
-					<!-- Content -->
-					<div class="flex-1 min-w-0">
-						<div class="flex items-center gap-3 mb-2 flex-wrap">
-							<h3 class="text-lg font-semibold text-white">{featureChirho.title}</h3>
-							<span class="px-2 py-1 rounded-full text-xs font-medium border {statusColorsChirho[featureChirho.status]}">
-								{statusLabelsChirho[featureChirho.status]}
-							</span>
-						</div>
-						<p class="text-slate-400">{featureChirho.description}</p>
-					</div>
-
-					<!-- Votes -->
-					<div class="flex flex-col items-center gap-1 flex-shrink-0">
-						<button aria-label="Upvote this feature" class="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center text-slate-400 hover:text-amber-400 transition-colors">
-							<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-							</svg>
-						</button>
-						<span class="text-lg font-semibold text-white">{featureChirho.votes}</span>
-					</div>
-				</div>
-			</div>
 			{/each}
 		</div>
 	</div>

@@ -285,7 +285,7 @@
 			</div>
 
 			<p class="text-center text-slate-500 text-sm mt-6">
-				<a href="https://global-tools.bible.systems" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">global-tools.bible.systems</a> is our lab for developing interlinear resources, built on community translations from <a href="https://globalbibletools.com" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">GlobalBibleTools.com</a> with Strong's numbers and morphology data.
+				<a href="https://global-tools.bible.systems" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">global-tools.bible.systems</a> is our lab for developing interlinear resources with Strong's numbers and morphology data, providing seed translations for <a href="https://globalbibletools.com" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:underline">GlobalBibleTools.com</a>.
 			</p>
 		</div>
 	</section>
