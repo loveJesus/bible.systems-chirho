@@ -27,8 +27,8 @@
 	};
 
 	function getBookAbbrevChirho() {
-		const lowerNameChirho = data.bookChirho.name.toLowerCase();
-		return bookAbbrevMapChirho[lowerNameChirho] || data.bookChirho.abbrev;
+		const lowerNameChirho = data.bookChirho.nameChirho.toLowerCase();
+		return bookAbbrevMapChirho[lowerNameChirho] || data.bookChirho.abbrevChirho;
 	}
 
 	function toggleBookSelectorChirho() {
@@ -42,15 +42,15 @@
 	}
 
 	function copyVerseChirho(verseChirho) {
-		const textChirho = `"${verseChirho.text}" — ${data.bookChirho.name} ${data.chapterChirho}:${verseChirho.verse} (KJV)`;
+		const textChirho = `"${verseChirho.textChirho}" — ${data.bookChirho.nameChirho} ${data.chapterChirho}:${verseChirho.verseChirho} (${data.versionChirho.abbrevChirho})`;
 		navigator.clipboard.writeText(textChirho);
-		copiedVerseChirho = verseChirho.verse;
+		copiedVerseChirho = verseChirho.verseChirho;
 		setTimeout(() => copiedVerseChirho = null, 2000);
 	}
 
 	function copyChapterChirho() {
-		const versesTextChirho = data.versesChirho.map(v => `${v.verse}. ${v.text}`).join('\n');
-		const textChirho = `${data.bookChirho.name} ${data.chapterChirho} (KJV)\n\n${versesTextChirho}`;
+		const versesTextChirho = data.versesChirho.map(v => `${v.verseChirho}. ${v.textChirho}`).join('\n');
+		const textChirho = `${data.bookChirho.nameChirho} ${data.chapterChirho} (${data.versionChirho.abbrevChirho})\n\n${versesTextChirho}`;
 		navigator.clipboard.writeText(textChirho);
 		copiedVerseChirho = 'chapter';
 		setTimeout(() => copiedVerseChirho = null, 2000);
@@ -61,13 +61,13 @@
 	}
 
 	function shareVerseChirho(verseChirho, platformChirho) {
-		const textChirho = `"${verseChirho.text}" — ${data.bookChirho.name} ${data.chapterChirho}:${verseChirho.verse}`;
-		const urlChirho = `https://bible.systems/read-chirho/${data.bookChirho.abbrev.toLowerCase()}/${data.chapterChirho}#v${verseChirho.verse}`;
+		const textChirho = `"${verseChirho.textChirho}" — ${data.bookChirho.nameChirho} ${data.chapterChirho}:${verseChirho.verseChirho}`;
+		const urlChirho = `https://bible.systems/read-chirho/${data.versionChirho.idChirho}/${data.bookChirho.idChirho}/${data.chapterChirho}#v${verseChirho.verseChirho}`;
 
 		const shareUrlsChirho = {
 			twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(textChirho)}&url=${encodeURIComponent(urlChirho)}`,
 			facebook: `https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(textChirho)}&u=${encodeURIComponent(urlChirho)}`,
-			email: `mailto:?subject=${encodeURIComponent(`${data.bookChirho.name} ${data.chapterChirho}:${verseChirho.verse}`)}&body=${encodeURIComponent(textChirho + '\n\n' + urlChirho)}`
+			email: `mailto:?subject=${encodeURIComponent(`${data.bookChirho.nameChirho} ${data.chapterChirho}:${verseChirho.verseChirho}`)}&body=${encodeURIComponent(textChirho + '\n\n' + urlChirho)}`
 		};
 
 		window.open(shareUrlsChirho[platformChirho], '_blank', 'width=600,height=400');
@@ -117,10 +117,10 @@
 		// Don't navigate if typing in an input
 		if (eventChirho.target.tagName === 'INPUT' || eventChirho.target.tagName === 'TEXTAREA') return;
 
-		if (eventChirho.key === 'ArrowLeft' && data.navigationChirho.prevChapter) {
-			window.location.href = `/read-chirho/${data.bookChirho.abbrev.toLowerCase()}/${data.navigationChirho.prevChapter}`;
-		} else if (eventChirho.key === 'ArrowRight' && data.navigationChirho.nextChapter) {
-			window.location.href = `/read-chirho/${data.bookChirho.abbrev.toLowerCase()}/${data.navigationChirho.nextChapter}`;
+		if (eventChirho.key === 'ArrowLeft' && data.navigationChirho.prevChapterChirho) {
+			window.location.href = `/read-chirho/${data.versionChirho.idChirho}/${data.bookChirho.idChirho}/${data.navigationChirho.prevChapterChirho}`;
+		} else if (eventChirho.key === 'ArrowRight' && data.navigationChirho.nextChapterChirho) {
+			window.location.href = `/read-chirho/${data.versionChirho.idChirho}/${data.bookChirho.idChirho}/${data.navigationChirho.nextChapterChirho}`;
 		} else if (eventChirho.key === 'Escape') {
 			selectedVerseChirho = null;
 			crossRefsChirho = null;
@@ -131,12 +131,12 @@
 <svelte:window onclick={handleClickOutsideChirho} onkeydown={handleKeydownChirho} />
 
 <svelte:head>
-	<title>{data.bookChirho.name} {data.chapterChirho} - Bible.Systems</title>
+	<title>{data.bookChirho.nameChirho} {data.chapterChirho} - Bible.Systems</title>
 	<meta
 		name="description"
-		content="Read {data.bookChirho.name} chapter {data.chapterChirho} in the King James Version (KJV) on Bible.Systems"
+		content="Read {data.bookChirho.nameChirho} chapter {data.chapterChirho} in the {data.versionChirho.nameChirho} ({data.versionChirho.abbrevChirho}) on Bible.Systems"
 	/>
-	<link rel="canonical" href="https://bible.systems/read-chirho/{data.bookChirho.abbrev.toLowerCase()}/{data.chapterChirho}" />
+	<link rel="canonical" href="https://bible.systems/read-chirho/{data.versionChirho.idChirho}/{data.bookChirho.idChirho}/{data.chapterChirho}" />
 </svelte:head>
 
 <div class="min-h-screen bg-slate-950">
@@ -147,24 +147,24 @@
 				<!-- Book/Chapter Selector -->
 				<div class="flex items-center gap-2">
 					<!-- Book Selector -->
-					<div class="relative">
+					<div class="relative selector-chirho">
 						<button
 							onclick={toggleBookSelectorChirho}
 							class="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-white font-medium transition-colors"
 						>
-							{data.bookChirho.name}
+							{data.bookChirho.nameChirho}
 							<svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
 							</svg>
 						</button>
 						{#if showBookSelectorChirho}
 							<div class="absolute top-full left-0 mt-2 w-48 bg-slate-800 border border-slate-700 rounded-lg shadow-xl z-50 max-h-64 overflow-y-auto">
-								{#each data.navigationChirho.allBooks as bookChirho}
+								{#each data.navigationChirho.allBooksChirho as bookItemChirho}
 									<a
-										href="/read-chirho/{bookChirho.abbrev.toLowerCase()}/{bookChirho.name === data.bookChirho.name ? data.chapterChirho : data.navigationChirho.availableChapters[0]}"
-										class="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-amber-400 transition-colors {bookChirho.name === data.bookChirho.name ? 'bg-amber-500/20 text-amber-400' : ''}"
+										href="/read-chirho/{data.versionChirho.idChirho}/{bookItemChirho.idChirho}/{bookItemChirho.nameChirho === data.bookChirho.nameChirho ? data.chapterChirho : 1}"
+										class="block px-4 py-2 text-slate-300 hover:bg-slate-700 hover:text-amber-400 transition-colors {bookItemChirho.nameChirho === data.bookChirho.nameChirho ? 'bg-amber-500/20 text-amber-400' : ''}"
 									>
-										{bookChirho.name}
+										{bookItemChirho.nameChirho}
 									</a>
 								{/each}
 							</div>
@@ -172,7 +172,7 @@
 					</div>
 
 					<!-- Chapter Selector -->
-					<div class="relative">
+					<div class="relative selector-chirho">
 						<button
 							onclick={toggleChapterSelectorChirho}
 							class="flex items-center gap-2 px-3 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-white font-medium transition-colors"
@@ -185,12 +185,12 @@
 						{#if showChapterSelectorChirho}
 							<div class="absolute top-full left-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg shadow-xl z-50 p-2">
 								<div class="grid grid-cols-5 gap-1">
-									{#each data.navigationChirho.availableChapters as chapChirho}
+									{#each data.navigationChirho.availableChaptersChirho as chapNumChirho}
 										<a
-											href="/read-chirho/{data.bookChirho.abbrev.toLowerCase()}/{chapChirho}"
-											class="w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors {chapChirho === data.chapterChirho ? 'bg-amber-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}"
+											href="/read-chirho/{data.versionChirho.idChirho}/{data.bookChirho.idChirho}/{chapNumChirho}"
+											class="w-10 h-10 flex items-center justify-center rounded-lg text-sm font-medium transition-colors {chapNumChirho === data.chapterChirho ? 'bg-amber-500 text-white' : 'bg-slate-700 text-slate-300 hover:bg-slate-600'}"
 										>
-											{chapChirho}
+											{chapNumChirho}
 										</a>
 									{/each}
 								</div>
@@ -201,7 +201,7 @@
 
 				<!-- Version Badge -->
 				<span class="px-3 py-1 bg-amber-500/20 text-amber-400 rounded-full text-sm font-medium">
-					KJV
+					{data.versionChirho.abbrevChirho}
 				</span>
 			</div>
 		</div>
@@ -212,7 +212,7 @@
 		<!-- Chapter Header -->
 		<header class="text-center mb-10">
 			<h1 class="text-3xl md:text-4xl font-bold text-white mb-2">
-				{data.bookChirho.name}
+				{data.bookChirho.nameChirho}
 			</h1>
 			<p class="text-xl text-amber-400 mb-4">Chapter {data.chapterChirho}</p>
 			<!-- Copy Chapter Button -->
@@ -236,18 +236,18 @@
 
 		<!-- Verses -->
 		<div class="space-y-4">
-			{#each data.versesChirho as verseChirho}
-				<div class="group relative" id="v{verseChirho.verse}">
+			{#each data.versesChirho as verseItemChirho}
+				<div class="group relative" id="v{verseItemChirho.verseChirho}">
 					<p class="text-lg md:text-xl text-slate-200 leading-relaxed pr-20">
-						<sup class="text-amber-500 font-semibold mr-2 text-base">{verseChirho.verse}</sup>
-						<span class="scripture-text">{verseChirho.text}</span>
+						<sup class="text-amber-500 font-semibold mr-2 text-base">{verseItemChirho.verseChirho}</sup>
+						<span class="scripture-text">{verseItemChirho.textChirho}</span>
 					</p>
 					<!-- Verse Actions -->
 					<div class="absolute right-0 top-0 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
 						<!-- Cross-Reference Button -->
 						<button
-							onclick={() => toggleCrossRefsChirho(verseChirho.verse)}
-							class="p-2 transition-colors {selectedVerseChirho === verseChirho.verse ? 'text-amber-400' : 'text-slate-500 hover:text-amber-400'}"
+							onclick={() => toggleCrossRefsChirho(verseItemChirho.verseChirho)}
+							class="p-2 transition-colors {selectedVerseChirho === verseItemChirho.verseChirho ? 'text-amber-400' : 'text-slate-500 hover:text-amber-400'}"
 							title="View cross-references"
 						>
 							<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -256,11 +256,11 @@
 						</button>
 						<!-- Copy Button -->
 						<button
-							onclick={() => copyVerseChirho(verseChirho)}
+							onclick={() => copyVerseChirho(verseItemChirho)}
 							class="p-2 text-slate-500 hover:text-amber-400 transition-colors"
 							title="Copy verse"
 						>
-							{#if copiedVerseChirho === verseChirho.verse}
+							{#if copiedVerseChirho === verseItemChirho.verseChirho}
 								<svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
 								</svg>
@@ -273,7 +273,7 @@
 						<!-- Share Button -->
 						<div class="relative">
 							<button
-								onclick={() => toggleShareMenuChirho(verseChirho.verse)}
+								onclick={() => toggleShareMenuChirho(verseItemChirho.verseChirho)}
 								class="share-btn-chirho p-2 text-slate-500 hover:text-amber-400 transition-colors"
 								title="Share verse"
 							>
@@ -282,24 +282,24 @@
 								</svg>
 							</button>
 							<!-- Share Menu -->
-							{#if showShareMenuChirho === verseChirho.verse}
+							{#if showShareMenuChirho === verseItemChirho.verseChirho}
 								<div class="share-menu-chirho absolute right-0 top-full mt-1 bg-slate-800 border border-slate-700 rounded-lg shadow-xl z-50 py-1 min-w-32">
 									<button
-										onclick={() => shareVerseChirho(verseChirho, 'twitter')}
+										onclick={() => shareVerseChirho(verseItemChirho, 'twitter')}
 										class="w-full px-3 py-2 text-left text-sm text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2"
 									>
 										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
 										Twitter
 									</button>
 									<button
-										onclick={() => shareVerseChirho(verseChirho, 'facebook')}
+										onclick={() => shareVerseChirho(verseItemChirho, 'facebook')}
 										class="w-full px-3 py-2 text-left text-sm text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2"
 									>
 										<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
 										Facebook
 									</button>
 									<button
-										onclick={() => shareVerseChirho(verseChirho, 'email')}
+										onclick={() => shareVerseChirho(verseItemChirho, 'email')}
 										class="w-full px-3 py-2 text-left text-sm text-slate-300 hover:bg-slate-700 hover:text-white flex items-center gap-2"
 									>
 										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
@@ -311,7 +311,7 @@
 					</div>
 
 					<!-- Cross-References Panel -->
-					{#if selectedVerseChirho === verseChirho.verse}
+					{#if selectedVerseChirho === verseItemChirho.verseChirho}
 						<div class="mt-3 p-4 bg-slate-800/50 border border-slate-700 rounded-lg">
 							{#if loadingRefsChirho}
 								<div class="flex items-center gap-2 text-slate-400">
@@ -370,33 +370,33 @@
 		<!-- Chapter Navigation -->
 		<nav class="mt-12 pt-8 border-t border-slate-800">
 			<div class="flex items-center justify-between">
-				{#if data.navigationChirho.prevChapter}
+				{#if data.navigationChirho.prevChapterChirho}
 					<a
-						href="/read-chirho/{data.bookChirho.abbrev.toLowerCase()}/{data.navigationChirho.prevChapter}"
+						href="/read-chirho/{data.versionChirho.idChirho}/{data.bookChirho.idChirho}/{data.navigationChirho.prevChapterChirho}"
 						class="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white transition-colors"
 					>
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
 						</svg>
-						Chapter {data.navigationChirho.prevChapter}
+						Chapter {data.navigationChirho.prevChapterChirho}
 					</a>
 				{:else}
 					<div></div>
 				{/if}
 
 				<a
-					href="/"
+					href="/read-chirho"
 					class="px-4 py-2 text-slate-400 hover:text-amber-400 transition-colors"
 				>
-					Home
+					All Books
 				</a>
 
-				{#if data.navigationChirho.nextChapter}
+				{#if data.navigationChirho.nextChapterChirho}
 					<a
-						href="/read-chirho/{data.bookChirho.abbrev.toLowerCase()}/{data.navigationChirho.nextChapter}"
+						href="/read-chirho/{data.versionChirho.idChirho}/{data.bookChirho.idChirho}/{data.navigationChirho.nextChapterChirho}"
 						class="flex items-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 rounded-lg text-slate-300 hover:text-white transition-colors"
 					>
-						Chapter {data.navigationChirho.nextChapter}
+						Chapter {data.navigationChirho.nextChapterChirho}
 						<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
 						</svg>

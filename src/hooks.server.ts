@@ -12,11 +12,12 @@ const securityHeadersChirho: Record<string, string> = {
 	'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
 	'Content-Security-Policy': [
 		"default-src 'self'",
-		"script-src 'self' 'unsafe-inline'",
+		"script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com",
 		"style-src 'self' 'unsafe-inline'",
 		"img-src 'self' data: https:",
 		"font-src 'self' data:",
 		"connect-src 'self' https:",
+		"frame-src 'self' https://challenges.cloudflare.com https://*.hf.space",
 		"frame-ancestors 'none'"
 	].join('; ')
 };

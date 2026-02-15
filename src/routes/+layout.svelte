@@ -27,6 +27,7 @@
 				</a>
 				<div class="flex items-center gap-6">
 					<a href="/read-chirho" class="text-amber-400 hover:text-amber-300 text-sm font-medium">Read Bible</a>
+					<a href="/models-chirho" class="text-slate-400 hover:text-amber-400 text-sm hidden sm:block">AI Models</a>
 					<a href="/features-fe" class="text-slate-400 hover:text-amber-400 text-sm hidden sm:block">Features</a>
 					<a href="/contact-fe" class="text-slate-400 hover:text-amber-400 text-sm hidden sm:block">Contact</a>
 					<a href="https://stack.faith" class="text-slate-400 hover:text-amber-400 text-sm hidden sm:block">FaithStack</a>
@@ -57,6 +58,7 @@
 				<div>
 					<h4 class="text-white font-semibold mb-4">Resources</h4>
 					<ul class="space-y-2">
+						<li><a href="/models-chirho" class="text-slate-400 hover:text-amber-400 text-sm">AI Models</a></li>
 						<li><a href="/features-fe" class="text-slate-400 hover:text-amber-400 text-sm">Feature Requests</a></li>
 						<li><a href="https://github.com/loveJesus/bible.systems-chirho" class="text-slate-400 hover:text-amber-400 text-sm">GitHub</a></li>
 						<li><a href="https://stack.faith" class="text-slate-400 hover:text-amber-400 text-sm">FaithStack</a></li>

@@ -1935,3 +1935,130 @@ Required in `.env` (git ignored):
 ---
 
 **JESUS CHRIST IS LORD**
+
+---
+
+## FaithStack Framework
+
+**CRITICAL: Apply patterns from the FaithStack Master Gist.**
+
+### Master Gist (Authoritative Source)
+**URL:** https://gist.github.com/loveJesus/c93fbd61bc1dd6d898ef89c4b6981694
+
+The gist contains 60+ sections covering authentication, Stripe, feedback, database patterns, i18n, error handling, compliance, and more. When asked to "refer to the gist" or "check the master gist", fetch and apply patterns from this URL.
+
+**Gist Files:**
+| File | Contents |
+|------|----------|
+| `00-README_CHIRHO.md` | Overview, quick start |
+| `01-AGENTS_MASTER_CHIRHO.md` | AI agent instructions, naming, setup |
+| `02-TESTING_CHIRHO.md` | Vitest + Playwright patterns |
+| `03-COMMUNITY_FEEDBACK_CHIRHO.md` | Feedback systems |
+| `04-DATABASE_AUDIT_CHIRHO.md` | D1 audit logging |
+| `05-BEST_PRACTICES_CHIRHO.md` | **60+ implementation patterns** |
+| `06-CURRENT_SPRINT_TEMPLATE_CHIRHO.md` | Sprint tracking |
+| `07-BASIC_WEBSITE_GIST_CHIRHO.md` | Simple site guide |
+
+### Local Skills Cache (65 Topics)
+
+Skills extracted from the gist are cached locally at:
+```
+/Volumes/ENC_4TB_WDB_CHIRHO/dev-aleluya/personal-aleluya/orchestrator-chirho/faithstack-chirho/skills/<skill-name>/skill.md
+```
+
+**Core Skills:**
+| Skill | When to Use |
+|-------|-------------|
+| `naming` | ALL code - `_chirho` suffix rules |
+| `passkeys` | User authentication |
+| `stripe-webhooks` | Payment processing |
+| `compliance-gdpr` | Privacy, data handling |
+| `accessibility` | All UI components |
+| `seo` | All public pages |
+| `error-handling` | API routes, try/catch |
+| `rate-limiting` | Public endpoints |
+| `feedback` | User feedback collection |
+| `testing` | Test patterns |
+
+**Full Local Gist Copy:**
+```
+/Volumes/ENC_4TB_WDB_CHIRHO/dev-aleluya/personal-aleluya/orchestrator-chirho/faithstack-chirho/gist-reference/
+```
+
+---
+
+## FaithStack Claude Code Plugin
+
+### Slash Commands
+| Command | Description |
+|---------|-------------|
+| `/init-chirho` | Initialize new FaithStack project |
+| `/stripe-chirho` | Set up Stripe integration |
+| `/legal-chirho` | Generate Privacy Policy, Terms of Service |
+| `/auth-chirho` | Add authentication (Passkeys, OAuth, 2FA) |
+| `/deploy-chirho` | Deploy to Cloudflare Workers |
+| `/test-chirho` | Run Vitest and Playwright tests |
+| `/audit-chirho` | Run gap analysis against FaithStack spec |
+| `/feedback-chirho` | Add feedback system |
+| `/media-chirho` | Generate images/video/audio |
+
+### Subagents (use via Task tool)
+| Agent | Description |
+|-------|-------------|
+| `faithstack-reviewer` | Code review for conventions |
+| `faithstack-security` | Security audit (OWASP) |
+| `faithstack-stripe` | Stripe integration |
+| `faithstack-d1` | D1 database expert |
+| `faithstack-gap-analyzer` | Audit against spec |
+
+### MCP Servers
+- `faithstack-health-chirho` - Health checks
+- `faithstack-d1-chirho` - D1 operations
+- `faithstack-stripe-chirho` - Stripe CLI
+- `faithstack-deploy-chirho` - Cloudflare deploy
+- `faithstack-orchestrator-chirho` - Tmux, tickets
+
+---
+
+## Self-Improvement Protocol
+
+**You are expected to proactively improve this project.**
+
+### Continuous Audit
+Periodically audit the project against FaithStack skills:
+1. **Gap Analysis** - What skills aren't implemented that should be?
+2. **Compliance Check** - Are implemented features following the spec?
+3. **Security Review** - Any vulnerabilities?
+
+### When You Identify Improvements
+
+**For beneficial features (clear value, low risk):**
+- Implement them directly
+- Commit with clear message explaining the improvement
+
+**For major features (significant scope, user-facing):**
+1. Create a ticket via MCP: `create_ticket_chirho`
+2. Set type: `feature`, priority based on impact
+3. Add description of what and why
+4. Wait for human review if blocking
+
+**For uncertain improvements:**
+1. Create ticket with type: `question`
+2. Explain the tradeoff
+3. Let human decide
+
+### Research & Learning
+- Use `faithstack-research-chirho` MCP for competitive intelligence
+- Check what similar projects implement
+- Reference skills to see best practices
+- Propose improvements based on findings
+
+### Ticket Creation Format
+```
+Title: [AREA] Brief description
+Type: feature | bug | task | question
+Priority: p0 (critical) | p1 (high) | p2 (medium) | p3 (low)
+Description: What, Why, How (proposed)
+```
+
+---

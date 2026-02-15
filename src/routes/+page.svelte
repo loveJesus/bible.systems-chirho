@@ -85,6 +85,32 @@
 			</p>
 		</div>
 
+		<!-- Featured: Biblical Semantic Lexicon -->
+		<a
+			href="https://lexicon-chirho.bible.systems/"
+			target="_blank"
+			rel="noopener noreferrer"
+			class="group block bg-gradient-to-br from-slate-900 via-violet-950/50 to-slate-900 border border-violet-500/30 hover:border-violet-500/60 rounded-2xl p-6 md:p-8 mb-6 transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
+		>
+			<div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+				<div class="flex items-center gap-4">
+					<div class="w-14 h-14 bg-violet-500/20 rounded-xl flex items-center justify-center group-hover:bg-violet-500/30 transition-colors flex-shrink-0">
+						<svg class="w-7 h-7 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+						</svg>
+					</div>
+					<div>
+						<div class="flex items-center gap-2 mb-1">
+							<h3 class="text-xl font-bold text-white">Biblical Semantic Lexicon</h3>
+							<span class="px-2 py-0.5 bg-violet-500/20 text-violet-400 text-xs font-medium rounded-full">Online</span>
+						</div>
+						<p class="text-slate-400 text-sm">14,884 Hebrew/Aramaic/Greek lemmas mapped to 20,143 senses across a 3-level domain hierarchy. Browse by concept, lemma, or scripture passage.</p>
+					</div>
+				</div>
+				<p class="text-violet-400 text-sm font-medium group-hover:text-violet-300 md:ml-auto flex-shrink-0">Browse Lexicon →</p>
+			</div>
+		</a>
+
 		<!-- Featured: Solid Rock Hebrew Bible with Cantillation -->
 		<a
 			href="https://solid-rock-accents-chirho.bible.systems/"
@@ -398,6 +424,238 @@
 		</div>
 	</section>
 
+	<!-- AI Models -->
+	<section class="max-w-6xl mx-auto px-4 py-12">
+		<div class="text-center mb-10">
+			<span class="inline-block bg-sky-500/10 border border-sky-500/30 rounded-full px-4 py-1.5 text-sky-400 text-sm font-medium mb-4">
+				AI / ML
+			</span>
+			<h2 class="text-3xl md:text-4xl font-bold text-white mb-3">8 AI Models for Scripture</h2>
+			<p class="text-slate-400 max-w-2xl mx-auto">
+				Open-source machine learning models for biblical scholarship — all live on HuggingFace with interactive demos
+			</p>
+		</div>
+
+		<!-- 2 Rows x 4 Columns Grid -->
+		<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+			<!-- 1. Theological Guardrails -->
+			<a
+				href="https://huggingface.co/spaces/LoveJesus/theological-guardrails-chirho"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group relative block overflow-hidden rounded-2xl border border-sky-500/20 hover:border-sky-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-sky-500/10 hover:-translate-y-1"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-sky-950/80 via-slate-900 to-indigo-950/60"></div>
+				<div class="absolute top-0 right-0 w-24 h-24 bg-sky-500/5 rounded-full -translate-y-8 translate-x-8"></div>
+				<div class="relative p-5">
+					<div class="w-10 h-10 bg-sky-500/20 rounded-lg flex items-center justify-center mb-3 group-hover:bg-sky-500/30 transition-colors">
+						<svg class="w-5 h-5 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+						</svg>
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<h3 class="text-sm font-bold text-white leading-tight">Theological Guardrails</h3>
+					</div>
+					<p class="text-slate-400 text-xs mb-3 line-clamp-2">Classifies theological statements as orthodox, heterodox, or distinctive.</p>
+					<div class="flex items-center justify-between">
+						<span class="text-sky-400/80 text-xs font-mono">F1: 0.997</span>
+						<span class="text-sky-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">Demo →</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- 2. Intertextual Reference Network -->
+			<a
+				href="https://huggingface.co/spaces/LoveJesus/intertextual-reference-network-chirho"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group relative block overflow-hidden rounded-2xl border border-emerald-500/20 hover:border-emerald-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10 hover:-translate-y-1"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-emerald-950/80 via-slate-900 to-teal-950/60"></div>
+				<div class="absolute top-0 right-0 w-24 h-24 bg-emerald-500/5 rounded-full -translate-y-8 translate-x-8"></div>
+				<div class="relative p-5">
+					<div class="w-10 h-10 bg-emerald-500/20 rounded-lg flex items-center justify-center mb-3 group-hover:bg-emerald-500/30 transition-colors">
+						<svg class="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+						</svg>
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<h3 class="text-sm font-bold text-white leading-tight">Intertextual References</h3>
+					</div>
+					<p class="text-slate-400 text-xs mb-3 line-clamp-2">Discovers cross-references and classifies connection types across 31,102 verses.</p>
+					<div class="flex items-center justify-between">
+						<span class="text-emerald-400/80 text-xs font-mono">Rank: 86.7%</span>
+						<span class="text-emerald-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">Demo →</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- 3. Biblical Language Tutor -->
+			<a
+				href="https://huggingface.co/spaces/LoveJesus/biblical-language-tutor-chirho"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group relative block overflow-hidden rounded-2xl border border-amber-500/20 hover:border-amber-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-amber-500/10 hover:-translate-y-1"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-amber-950/80 via-slate-900 to-orange-950/60"></div>
+				<div class="absolute top-0 right-0 w-24 h-24 bg-amber-500/5 rounded-full -translate-y-8 translate-x-8"></div>
+				<div class="relative p-5">
+					<div class="w-10 h-10 bg-amber-500/20 rounded-lg flex items-center justify-center mb-3 group-hover:bg-amber-500/30 transition-colors">
+						<span class="text-amber-400 text-lg font-serif font-bold">Ab</span>
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<h3 class="text-sm font-bold text-white leading-tight">Language Tutor</h3>
+					</div>
+					<p class="text-slate-400 text-xs mb-3 line-clamp-2">Morphological parsing and interlinear glossing for Hebrew and Greek.</p>
+					<div class="flex items-center justify-between">
+						<span class="text-amber-400/80 text-xs font-mono">2 models</span>
+						<span class="text-amber-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">Demo →</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- 4. Manuscript Variant Analyzer -->
+			<a
+				href="https://huggingface.co/spaces/LoveJesus/biblical-variant-analyzer-chirho"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group relative block overflow-hidden rounded-2xl border border-violet-500/20 hover:border-violet-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10 hover:-translate-y-1"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-violet-950/80 via-slate-900 to-purple-950/60"></div>
+				<div class="absolute top-0 right-0 w-24 h-24 bg-violet-500/5 rounded-full -translate-y-8 translate-x-8"></div>
+				<div class="relative p-5">
+					<div class="w-10 h-10 bg-violet-500/20 rounded-lg flex items-center justify-center mb-3 group-hover:bg-violet-500/30 transition-colors">
+						<svg class="w-5 h-5 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+						</svg>
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<h3 class="text-sm font-bold text-white leading-tight">Variant Analyzer</h3>
+					</div>
+					<p class="text-slate-400 text-xs mb-3 line-clamp-2">Classifies Greek NT manuscript variants across 6 critical editions.</p>
+					<div class="flex items-center justify-between">
+						<span class="text-violet-400/80 text-xs font-mono">Acc: 98.9%</span>
+						<span class="text-violet-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">Demo →</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- 5. Cross-Translation Semantic -->
+			<a
+				href="https://huggingface.co/spaces/LoveJesus/biblical-cross-translation-chirho"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group relative block overflow-hidden rounded-2xl border border-cyan-500/20 hover:border-cyan-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/10 hover:-translate-y-1"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-cyan-950/80 via-slate-900 to-sky-950/60"></div>
+				<div class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/5 rounded-full -translate-y-8 translate-x-8"></div>
+				<div class="relative p-5">
+					<div class="w-10 h-10 bg-cyan-500/20 rounded-lg flex items-center justify-center mb-3 group-hover:bg-cyan-500/30 transition-colors">
+						<svg class="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+						</svg>
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<h3 class="text-sm font-bold text-white leading-tight">Cross-Translation</h3>
+					</div>
+					<p class="text-slate-400 text-xs mb-3 line-clamp-2">Semantic similarity across Bible translations. Find equivalent passages in any version.</p>
+					<div class="flex items-center justify-between">
+						<span class="text-cyan-400/80 text-xs font-mono">Pearson: 0.986</span>
+						<span class="text-cyan-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">Demo →</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- 6. Entity Recognizer -->
+			<a
+				href="https://huggingface.co/spaces/LoveJesus/biblical-entity-recognizer-chirho"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group relative block overflow-hidden rounded-2xl border border-rose-500/20 hover:border-rose-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-rose-500/10 hover:-translate-y-1"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-rose-950/80 via-slate-900 to-pink-950/60"></div>
+				<div class="absolute top-0 right-0 w-24 h-24 bg-rose-500/5 rounded-full -translate-y-8 translate-x-8"></div>
+				<div class="relative p-5">
+					<div class="w-10 h-10 bg-rose-500/20 rounded-lg flex items-center justify-center mb-3 group-hover:bg-rose-500/30 transition-colors">
+						<svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+						</svg>
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<h3 class="text-sm font-bold text-white leading-tight">Entity Recognizer</h3>
+					</div>
+					<p class="text-slate-400 text-xs mb-3 line-clamp-2">Identifies people, places, divine names, and artifacts in biblical text.</p>
+					<div class="flex items-center justify-between">
+						<span class="text-rose-400/80 text-xs font-mono">F1: 0.981</span>
+						<span class="text-rose-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">Demo →</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- 7. Topical Classifier -->
+			<a
+				href="https://huggingface.co/spaces/LoveJesus/biblical-topical-search-chirho"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group relative block overflow-hidden rounded-2xl border border-lime-500/20 hover:border-lime-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-lime-500/10 hover:-translate-y-1"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-lime-950/80 via-slate-900 to-green-950/60"></div>
+				<div class="absolute top-0 right-0 w-24 h-24 bg-lime-500/5 rounded-full -translate-y-8 translate-x-8"></div>
+				<div class="relative p-5">
+					<div class="w-10 h-10 bg-lime-500/20 rounded-lg flex items-center justify-center mb-3 group-hover:bg-lime-500/30 transition-colors">
+						<svg class="w-5 h-5 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+						</svg>
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<h3 class="text-sm font-bold text-white leading-tight">Topical Search</h3>
+					</div>
+					<p class="text-slate-400 text-xs mb-3 line-clamp-2">Semantic Bible search by topic across all 31,102 verses using Nave's Topical Bible.</p>
+					<div class="flex items-center justify-between">
+						<span class="text-lime-400/80 text-xs font-mono">Acc: 0.83</span>
+						<span class="text-lime-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">Demo →</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- 8. Passage Simplifier -->
+			<a
+				href="https://huggingface.co/spaces/LoveJesus/passage-difficulty-simplifier-chirho"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group relative block overflow-hidden rounded-2xl border border-orange-500/20 hover:border-orange-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-orange-500/10 hover:-translate-y-1"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-orange-950/80 via-slate-900 to-red-950/60"></div>
+				<div class="absolute top-0 right-0 w-24 h-24 bg-orange-500/5 rounded-full -translate-y-8 translate-x-8"></div>
+				<div class="relative p-5">
+					<div class="w-10 h-10 bg-orange-500/20 rounded-lg flex items-center justify-center mb-3 group-hover:bg-orange-500/30 transition-colors">
+						<svg class="w-5 h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+						</svg>
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<h3 class="text-sm font-bold text-white leading-tight">Passage Simplifier</h3>
+					</div>
+					<p class="text-slate-400 text-xs mb-3 line-clamp-2">Scores passage difficulty and generates plain-language simplifications.</p>
+					<div class="flex items-center justify-between">
+						<span class="text-orange-400/80 text-xs font-mono">Acc: 91.7%</span>
+						<span class="text-orange-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">Demo →</span>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<!-- All Models Link -->
+		<div class="text-center mt-4">
+			<a href="/models-chirho" class="inline-flex items-center gap-2 text-sky-400 hover:text-sky-300 font-medium transition-colors">
+				View all models with full details
+				<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+				</svg>
+			</a>
+		</div>
+	</section>
+
 	<!-- What's Next -->
 	<section class="max-w-5xl mx-auto px-4 py-12">
 		<div class="text-center mb-8">
@@ -442,7 +700,7 @@
 				working toward features that rival professional software, completely free.
 			</p>
 			<p class="text-slate-400 mb-4">
-				We're building in the open. Check our <a href="https://github.com/loveJesus/bible.systems-chirho" class="text-amber-400 hover:underline">GitHub</a> to see progress and contribute.
+				We're building in the open. Check our <a href="https://github.com/loveJesus/gh_chirho" class="text-amber-400 hover:underline">GitHub</a> to see progress and contribute.
 			</p>
 			<p class="text-slate-500 text-sm">
 				Part of <a href="https://stack.faith" class="text-amber-400 hover:underline">FaithStack</a> —
@@ -469,7 +727,7 @@
 						God's Word should be freely accessible to all.
 					</p>
 					<a
-						href="https://github.com/loveJesus/bible.systems-chirho"
+						href="https://github.com/loveJesus/gh_chirho"
 						class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium transition-colors"
 						target="_blank"
 						rel="noopener noreferrer"

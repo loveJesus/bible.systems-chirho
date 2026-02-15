@@ -40,56 +40,56 @@
 			<h2 class="text-xl font-semibold text-white mb-4">Popular Passages</h2>
 			<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
 				<a
-					href="/read-chirho/gen/1"
+					href="/read-chirho/kjv/gen/1"
 					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
 				>
 					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Genesis 1</p>
 					<p class="text-slate-400 text-sm">In the beginning...</p>
 				</a>
 				<a
-					href="/read-chirho/jhn/3"
+					href="/read-chirho/kjv/jhn/3"
 					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
 				>
 					<p class="text-amber-400 font-semibold group-hover:text-amber-300">John 3</p>
 					<p class="text-slate-400 text-sm">For God so loved...</p>
 				</a>
 				<a
-					href="/read-chirho/psa/23"
+					href="/read-chirho/kjv/psa/23"
 					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
 				>
 					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Psalm 23</p>
 					<p class="text-slate-400 text-sm">The Lord is my shepherd</p>
 				</a>
 				<a
-					href="/read-chirho/rom/8"
+					href="/read-chirho/kjv/rom/8"
 					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
 				>
 					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Romans 8</p>
 					<p class="text-slate-400 text-sm">No condemnation</p>
 				</a>
 				<a
-					href="/read-chirho/mat/5"
+					href="/read-chirho/kjv/mat/5"
 					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
 				>
 					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Matthew 5</p>
 					<p class="text-slate-400 text-sm">The Beatitudes</p>
 				</a>
 				<a
-					href="/read-chirho/pro/3"
+					href="/read-chirho/kjv/pro/3"
 					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
 				>
 					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Proverbs 3</p>
 					<p class="text-slate-400 text-sm">Trust in the Lord</p>
 				</a>
 				<a
-					href="/read-chirho/isa/53"
+					href="/read-chirho/kjv/isa/53"
 					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
 				>
 					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Isaiah 53</p>
 					<p class="text-slate-400 text-sm">The Suffering Servant</p>
 				</a>
 				<a
-					href="/read-chirho/rev/21"
+					href="/read-chirho/kjv/rev/21"
 					class="p-4 bg-slate-900/50 border border-slate-800 rounded-xl hover:border-amber-500/50 transition-colors group"
 				>
 					<p class="text-amber-400 font-semibold group-hover:text-amber-300">Revelation 21</p>
@@ -113,7 +113,7 @@
 							<div class="flex flex-wrap gap-1">
 								{#each bookChirho.availableChaptersChirho as chapChirho}
 									<a
-										href="/read-chirho/{bookChirho.idChirho}/{chapChirho}"
+										href="/read-chirho/kjv/{bookChirho.idChirho}/{chapChirho}"
 										class="w-8 h-8 flex items-center justify-center bg-slate-800 hover:bg-amber-500 rounded text-slate-300 hover:text-white text-xs font-medium transition-colors"
 									>
 										{chapChirho}
@@ -141,7 +141,7 @@
 							<div class="flex flex-wrap gap-1">
 								{#each bookChirho.availableChaptersChirho as chapChirho}
 									<a
-										href="/read-chirho/{bookChirho.idChirho}/{chapChirho}"
+										href="/read-chirho/kjv/{bookChirho.idChirho}/{chapChirho}"
 										class="w-8 h-8 flex items-center justify-center bg-slate-800 hover:bg-amber-500 rounded text-slate-300 hover:text-white text-xs font-medium transition-colors"
 									>
 										{chapChirho}
@@ -174,7 +174,7 @@
 					</p>
 					<div class="bg-slate-950 rounded-lg p-3 font-mono text-sm">
 						<span class="text-slate-500">GET</span>
-						<span class="text-amber-400 ml-2">/api-chirho/bible-chirho/john/3</span>
+						<span class="text-amber-400 ml-2">/api-chirho/bible-chirho/kjv/jhn/3</span>
 					</div>
 				</div>
 			</div>

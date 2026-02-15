@@ -44,6 +44,13 @@
 			status: 'completed',
 			icon: '🗄️',
 			link: '/read-chirho'
+		},
+		{
+			title: 'Biblical Semantic Lexicon',
+			description: '14,884 Hebrew/Aramaic/Greek lemmas mapped to 20,143 senses across a 3-level domain hierarchy. Browse by concept, lemma, or scripture passage.',
+			status: 'completed',
+			icon: '🧠',
+			link: 'https://lexicon-chirho.bible.systems/'
 		}
 	];
 
@@ -68,12 +75,6 @@
 			description: 'Query like Logos: "genitive nouns within 3 words of this verb in Pauline epistles." Grammatical search across Hebrew and Greek.',
 			status: 'planned',
 			icon: '🔬'
-		},
-		{
-			title: 'Louw-Nida Semantic Domains',
-			description: 'Find words by meaning across 93 domains. Go beyond Strong\'s numbers to search by concept.',
-			status: 'planned',
-			icon: '🧠'
 		},
 		{
 			title: 'Publisher Portal',
