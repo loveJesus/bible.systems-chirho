@@ -91,6 +91,17 @@
 			detailUrlChirho: '/models-chirho/passage-difficulty-simplifier-chirho',
 			tagsChirho: ['Simplification', 'Accessibility', 'Readability'],
 		},
+		{
+			idChirho: 'evangelism-apologetics-chirho',
+			nameChirho: 'Evangelism & Apologetics',
+			descriptionChirho: 'Three-model RAG pipeline for answering apologetics questions with Scripture. Intent classifier routes questions through 5 categories, retriever fetches from 13K+ passages (Spurgeon, GotQuestions, church fathers, creation science, miracles), and Qwen3-14B LoRA generator produces grounded responses.',
+			statusChirho: 'live',
+			architectureChirho: 'RoBERTa-base + MiniLM-L12 + Qwen3-14B LoRA',
+			metricsChirho: 'Intent F1: 0.83 | Retriever Pearson: 0.90',
+			hfUrlChirho: 'https://huggingface.co/spaces/LoveJesus/evangelism-apologetics-chirho',
+			detailUrlChirho: '/models-chirho/evangelism-apologetics-chirho',
+			tagsChirho: ['Apologetics', 'Evangelism', 'RAG', 'Generation'],
+		},
 	];
 
 	const liveCountChirho = modelsChirho.filter(m => m.statusChirho === 'live').length;
