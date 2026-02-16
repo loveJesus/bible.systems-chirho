@@ -26,10 +26,10 @@
 		{
 			nameChirho: 'Generator',
 			modelIdChirho: 'LoveJesus/evangelism-generator-chirho',
-			architectureChirho: 'Qwen3-14B + LoRA (64M trainable)',
+			architectureChirho: 'Qwen3-14B + LoRA (r=16, alpha=32)',
 			taskChirho: 'Response generation',
-			metricChirho: 'Training on RunPod H200',
-			descriptionChirho: 'Generates contextual, Scripture-grounded responses using retrieved passages. Fine-tuned with LoRA on 15K+ instruction pairs covering evangelism, apologetics, and creation science.',
+			metricChirho: 'eval_loss: 1.406 | Perplexity: 4.08',
+			descriptionChirho: 'Generates contextual, Scripture-grounded responses using retrieved passages. Fine-tuned with LoRA on 10,622 instruction pairs covering evangelism, apologetics, and creation science.',
 			colorChirho: 'amber',
 		},
 	];
@@ -69,7 +69,7 @@
 
 	const corpusStatsChirho = [
 		{ labelChirho: 'Total Corpus Entries', valueChirho: '16,000+' },
-		{ labelChirho: 'Training Pairs (Generator)', valueChirho: '15,000+' },
+		{ labelChirho: 'Training Pairs (Generator)', valueChirho: '10,622' },
 		{ labelChirho: 'Intent Categories', valueChirho: '5' },
 		{ labelChirho: 'Source Types', valueChirho: '12' },
 	];

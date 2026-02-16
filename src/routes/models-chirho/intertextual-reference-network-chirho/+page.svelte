@@ -19,7 +19,7 @@
 			modelIdChirho: 'LoveJesus/intertextual-classifier-chirho',
 			architectureChirho: 'RoBERTa-base (125M params)',
 			taskChirho: 'Connection type classification',
-			metricChirho: 'Weighted F1: 0.72',
+			metricChirho: 'Macro F1: 0.761',
 			descriptionChirho: 'Classifies the type of connection between verse pairs into 7 categories: direct quote, allusion, thematic parallel, typological, prophecy fulfillment, parallel narrative, and contrast.',
 			colorChirho: 'emerald',
 		},
@@ -271,15 +271,15 @@
 					<div class="bg-slate-900/50 border border-slate-800 rounded-xl p-5">
 						<h4 class="text-white font-bold mb-3">Classifier</h4>
 						<div class="space-y-2 text-sm">
-							<div class="flex justify-between"><span class="text-slate-400">F1 macro</span><span class="text-emerald-400 font-medium">0.42</span></div>
-							<div class="flex justify-between"><span class="text-slate-400">Weighted F1</span><span class="text-emerald-400 font-medium">0.72</span></div>
-							<div class="flex justify-between"><span class="text-slate-400">Accuracy</span><span class="text-emerald-400 font-medium">70%</span></div>
-							<div class="flex justify-between"><span class="text-slate-400">Best class (thematic_parallel)</span><span class="text-emerald-400 font-medium">F1: 0.83</span></div>
+							<div class="flex justify-between"><span class="text-slate-400">Macro F1</span><span class="text-emerald-400 font-medium">0.761</span></div>
+							<div class="flex justify-between"><span class="text-slate-400">Micro F1</span><span class="text-emerald-400 font-medium">0.853</span></div>
+							<div class="flex justify-between"><span class="text-slate-400">Precision</span><span class="text-emerald-400 font-medium">0.665</span></div>
+							<div class="flex justify-between"><span class="text-slate-400">Recall</span><span class="text-emerald-400 font-medium">0.939</span></div>
 						</div>
 					</div>
 				</div>
 				<p class="text-slate-500 text-xs mt-3">
-					Classifier macro F1 reflects class imbalance (75.9% thematic_parallel). Weighted F1 of 0.72 better represents practical performance.
+					v2 classifier retrained with balanced data and inverse-frequency class weights. Macro F1 improved from 0.42 to 0.761 (+81%).
 				</p>
 			</div>
 

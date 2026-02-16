@@ -430,14 +430,14 @@
 			<span class="inline-block bg-sky-500/10 border border-sky-500/30 rounded-full px-4 py-1.5 text-sky-400 text-sm font-medium mb-4">
 				AI / ML
 			</span>
-			<h2 class="text-3xl md:text-4xl font-bold text-white mb-3">8 AI Models for Scripture</h2>
+			<h2 class="text-3xl md:text-4xl font-bold text-white mb-3">9 AI Models for Scripture</h2>
 			<p class="text-slate-400 max-w-2xl mx-auto">
 				Open-source machine learning models for biblical scholarship — all live on HuggingFace with interactive demos
 			</p>
 		</div>
 
-		<!-- 2 Rows x 4 Columns Grid -->
-		<div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+		<!-- 3x3 Grid -->
+		<div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-6">
 			<!-- 1. Theological Guardrails -->
 			<a
 				href="https://huggingface.co/spaces/LoveJesus/theological-guardrails-chirho"
@@ -638,8 +638,34 @@
 					</div>
 					<p class="text-slate-400 text-xs mb-3 line-clamp-2">Scores passage difficulty and generates plain-language simplifications.</p>
 					<div class="flex items-center justify-between">
-						<span class="text-orange-400/80 text-xs font-mono">Acc: 91.7%</span>
+						<span class="text-orange-400/80 text-xs font-mono">Acc: 93.8%</span>
 						<span class="text-orange-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">Demo →</span>
+					</div>
+				</div>
+			</a>
+
+			<!-- 9. Evangelism & Apologetics -->
+			<a
+				href="https://huggingface.co/LoveJesus/evangelism-generator-chirho"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="group relative block overflow-hidden rounded-2xl border border-fuchsia-500/20 hover:border-fuchsia-500/50 transition-all duration-300 hover:shadow-lg hover:shadow-fuchsia-500/10 hover:-translate-y-1"
+			>
+				<div class="absolute inset-0 bg-gradient-to-br from-fuchsia-950/80 via-slate-900 to-purple-950/60"></div>
+				<div class="absolute top-0 right-0 w-24 h-24 bg-fuchsia-500/5 rounded-full -translate-y-8 translate-x-8"></div>
+				<div class="relative p-5">
+					<div class="w-10 h-10 bg-fuchsia-500/20 rounded-lg flex items-center justify-center mb-3 group-hover:bg-fuchsia-500/30 transition-colors">
+						<svg class="w-5 h-5 text-fuchsia-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+						</svg>
+					</div>
+					<div class="flex items-center gap-2 mb-2">
+						<h3 class="text-sm font-bold text-white leading-tight">Evangelism & Apologetics</h3>
+					</div>
+					<p class="text-slate-400 text-xs mb-3 line-clamp-2">RAG-powered apologetics with Qwen3-14B. Evidence, dialogues, and Scripture defense.</p>
+					<div class="flex items-center justify-between">
+						<span class="text-fuchsia-400/80 text-xs font-mono">3 models</span>
+						<span class="text-fuchsia-400 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity">View →</span>
 					</div>
 				</div>
 			</a>
