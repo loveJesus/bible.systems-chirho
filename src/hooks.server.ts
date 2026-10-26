@@ -22,7 +22,16 @@ const securityHeadersChirho: Record<string, string> = {
 	].join('; ')
 };
 
+// www.bible.systems reaches this Worker through a zone route (wrangler.toml); send it to the apex.
+const CANONICAL_HOST_CHIRHO = 'bible.systems';
+
 export const handle: Handle = async ({ event, resolve }) => {
+	if (event.url.hostname === `www.${CANONICAL_HOST_CHIRHO}`) {
+		const canonicalUrlChirho = new URL(event.url);
+		canonicalUrlChirho.hostname = CANONICAL_HOST_CHIRHO;
+		return Response.redirect(canonicalUrlChirho.href, 301);
+	}
+
 	const responseChirho = await resolve(event);
 
 	// Add security headers to all responses

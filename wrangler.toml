@@ -7,8 +7,16 @@ compatibility_date = "2024-12-01"
 compatibility_flags = ["nodejs_compat"]
 account_id = "aecd5616f7ef88323e52b6406ba384bd"
 
-# Production route
-routes = [{ pattern = "bible.systems", custom_domain = true }]
+# Production routes. The apex is a custom domain. www.bible.systems is a proxied CNAME to the apex
+# that reaches this Worker through the zone route; src/hooks.server.ts redirects it to the apex.
+# `wrangler deploy` replaces the Worker's routes with this list, so keep both.
+routes = [
+  { pattern = "bible.systems", custom_domain = true },
+  { pattern = "www.bible.systems/*", zone_name = "bible.systems" }
+]
+# Serve only on those hosts: no *.workers.dev URL and no per-version preview URLs.
+workers_dev = false
+preview_urls = false
 
 # Static assets configuration
 [assets]
