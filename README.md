@@ -1,38 +1,37 @@
-# sv
+# Bible.Systems
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+> *"For God so loved the world, that he gave his only begotten Son, that whosoever believeth in him should not perish, but have everlasting life."* — John 3:16 (KJV)
 
-## Creating a project
+Source for [bible.systems](https://bible.systems): free, open-source Bible study tools. The site links the interlinear readers and PDF Bibles published at [global-tools.bible.systems](https://global-tools.bible.systems), and hosts a KJV reader, Treasury of Scripture Knowledge cross-references, pages for our AI models, and a feedback form.
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Stack
 
-```sh
-# create a new project in the current directory
-npx sv create
+SvelteKit 2 and Svelte 5 on Cloudflare Workers (`@sveltejs/adapter-cloudflare`), Tailwind CSS 4, and Cloudflare D1 for feedback, the catalog, sharded Bible resources and app data. Bun runs the scripts and manages packages.
 
-# create a new project in my-app
-npx sv create my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Develop
 
 ```sh
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+bun install
+cp .env.example .env   # add a Turnstile secret for the feedback form
+bun run dev
 ```
 
-## Building
-
-To create a production version of your app:
+## Check and test
 
 ```sh
-npm run build
+bun run check            # svelte-check
+bun run test-chirho      # unit tests (Vitest)
+bun run test-e2e-chirho  # end-to-end tests (Playwright)
 ```
 
-You can preview the production build with `npm run preview`.
+## Deploy
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+`bun run deploy-chirho` runs the unit tests, builds, and deploys with Wrangler (Cloudflare credentials required). Routes live in `wrangler.toml`: `bible.systems` is a custom domain, and `www.bible.systems` redirects to it.
+
+## Naming
+
+Identifiers we create carry a Chirho suffix (`userTotalChirho`, `READER_LANGUAGE_COUNT_CHIRHO`, `/read-chirho` routes). See `AGENTS.md`.
+
+## License
+
+MIT; see [LICENSE](LICENSE). Bible texts and data keep their own licenses: the KJV and the Treasury of Scripture Knowledge are public domain.
