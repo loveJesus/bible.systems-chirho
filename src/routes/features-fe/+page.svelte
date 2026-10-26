@@ -2,10 +2,15 @@
      that all who believe in Him should not perish but have everlasting life. — John 3:16 -->
 
 <script lang="ts">
+	import {
+		INTERLINEAR_PDF_COUNT_CHIRHO,
+		READER_LANGUAGE_COUNT_CHIRHO
+	} from '$lib/data_chirho/global-tools-catalog-chirho';
+
 	const completedFeaturesChirho = [
 		{
-			title: 'Interlinear Bible — 43 Languages',
-			description: 'Online readers with Hebrew/Greek text, Strong\'s numbers, and glosses. Plus 19 downloadable interlinear PDFs.',
+			title: `Interlinear Bible — ${READER_LANGUAGE_COUNT_CHIRHO} Languages`,
+			description: `Online readers with Hebrew/Greek text, Strong's numbers, and glosses. Plus ${INTERLINEAR_PDF_COUNT_CHIRHO} downloadable interlinear PDFs.`,
 			status: 'completed',
 			icon: '📜',
 			link: 'https://global-tools.bible.systems/read-chirho/eng'
@@ -52,7 +57,7 @@
 			icon: '🧠',
 			link: 'https://lexicon-chirho.bible.systems/'
 		}
-	];
+	] as const;
 
 	const inProgressFeaturesChirho = [
 		{
@@ -67,7 +72,7 @@
 			status: 'in-progress',
 			icon: '🔌'
 		}
-	];
+	] as const;
 
 	const plannedFeaturesChirho = [
 		{
@@ -94,7 +99,7 @@
 			status: 'planned',
 			icon: '📈'
 		}
-	];
+	] as const;
 
 	const completedCountChirho = completedFeaturesChirho.length;
 	const inProgressCountChirho = inProgressFeaturesChirho.length;
@@ -115,7 +120,7 @@
 
 <svelte:head>
 	<title>Features & Roadmap - Bible.Systems</title>
-	<meta name="description" content="Bible.Systems features: interlinear Bibles in 43 languages, Hebrew cantillation, SWORD modules, Codex Lux desktop app, and more. See what's shipped and what's next." />
+	<meta name="description" content="Bible.Systems features: interlinear Bibles in {READER_LANGUAGE_COUNT_CHIRHO} languages, Hebrew cantillation, SWORD modules, Codex Lux desktop app, and more. See what's shipped and what's next." />
 	<link rel="canonical" href="https://bible.systems/features-fe" />
 </svelte:head>
 

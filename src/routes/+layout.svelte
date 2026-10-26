@@ -4,6 +4,7 @@
 <script>
 	import '../app.css';
 	import FeedbackBubbleChirho from '$lib/components/FeedbackBubbleChirho.svelte';
+	import { SOURCE_REPO_URL_CHIRHO } from '$lib';
 	let { children } = $props();
 </script>
 
@@ -60,7 +61,7 @@
 					<ul class="space-y-2">
 						<li><a href="/models-chirho" class="text-slate-400 hover:text-amber-400 text-sm">AI Models</a></li>
 						<li><a href="/features-fe" class="text-slate-400 hover:text-amber-400 text-sm">Feature Requests</a></li>
-						<li><a href="https://github.com/loveJesus/bible.systems-chirho" class="text-slate-400 hover:text-amber-400 text-sm">GitHub</a></li>
+						<li><a href={SOURCE_REPO_URL_CHIRHO} class="text-slate-400 hover:text-amber-400 text-sm">GitHub</a></li>
 						<li><a href="https://stack.faith" class="text-slate-400 hover:text-amber-400 text-sm">FaithStack</a></li>
 					</ul>
 				</div>

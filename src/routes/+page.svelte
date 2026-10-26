@@ -1,6 +1,14 @@
 <!-- For God so loved the world, that He gave His only begotten Son,
      that all who believe in Him should not perish but have everlasting life. — John 3:16 -->
 
+<script lang="ts">
+	import { SOURCE_REPO_URL_CHIRHO } from '$lib';
+	import {
+		FEATURED_READER_LANGUAGES_CHIRHO,
+		READER_LANGUAGE_COUNT_CHIRHO
+	} from '$lib/data_chirho/global-tools-catalog-chirho';
+</script>
+
 <svelte:head>
 	<title>Bible.Systems - Open Source Bible Study Platform (In Development)</title>
 	<meta name="description" content="Free, open-source Bible study platform in active development. Building cross-references, Hebrew/Greek tools, and API access. Join us in creating accessible Bible study tools." />
@@ -42,7 +50,7 @@
 		</h1>
 
 		<p class="text-xl md:text-2xl text-slate-300 max-w-3xl mx-auto mb-6">
-			Free Bible study tools: interlinear readers in 43 languages, cantillated Hebrew Bible,
+			Free Bible study tools: interlinear readers in {READER_LANGUAGE_COUNT_CHIRHO} languages, cantillated Hebrew Bible,
 			SWORD modules, and more — all open source.
 		</p>
 
@@ -242,70 +250,22 @@
 					</svg>
 				</div>
 				<div>
-					<h3 class="text-xl font-bold text-white">Read Online in 43 Languages</h3>
+					<h3 class="text-xl font-bold text-white">Read Online in {READER_LANGUAGE_COUNT_CHIRHO} Languages</h3>
 					<p class="text-slate-400 text-sm">Interlinear readers with Hebrew/Greek and glosses</p>
 				</div>
 			</div>
 
 			<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
-				<a href="https://global-tools.bible.systems/read-chirho/eng" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇺🇸</span>
-					<span class="text-white text-sm font-medium">English</span>
-					<span class="block text-emerald-400 text-xs">66 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/spa" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇪🇸</span>
-					<span class="text-white text-sm font-medium">Español</span>
-					<span class="block text-emerald-400 text-xs">66 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/hin" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇮🇳</span>
-					<span class="text-white text-sm font-medium">हिंदी</span>
-					<span class="block text-emerald-400 text-xs">66 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/rus" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇷🇺</span>
-					<span class="text-white text-sm font-medium">Русский</span>
-					<span class="block text-amber-400 text-xs">6 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/ben" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇧🇩</span>
-					<span class="text-white text-sm font-medium">বাংলা</span>
-					<span class="block text-amber-400 text-xs">6 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/swa" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇰🇪</span>
-					<span class="text-white text-sm font-medium">Kiswahili</span>
-					<span class="block text-amber-400 text-xs">7 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/tur" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇹🇷</span>
-					<span class="text-white text-sm font-medium">Türkçe</span>
-					<span class="block text-amber-400 text-xs">7 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/arb" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇸🇦</span>
-					<span class="text-white text-sm font-medium">العربية</span>
-					<span class="block text-slate-400 text-xs">2 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/zho" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇨🇳</span>
-					<span class="text-white text-sm font-medium">中文</span>
-					<span class="block text-slate-400 text-xs">2 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/amh" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇪🇹</span>
-					<span class="text-white text-sm font-medium">አማርኛ</span>
-					<span class="block text-slate-400 text-xs">2 books</span>
-				</a>
-				<a href="https://global-tools.bible.systems/read-chirho/mya" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
-					<span class="block text-lg mb-1">🇲🇲</span>
-					<span class="text-white text-sm font-medium">မြန်မာ</span>
-					<span class="block text-slate-400 text-xs">2 books</span>
-				</a>
+				{#each FEATURED_READER_LANGUAGES_CHIRHO as languageChirho (languageChirho.codeChirho)}
+					<a href="https://global-tools.bible.systems/read-chirho/{languageChirho.codeChirho}" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-slate-800 hover:bg-amber-500/20 border border-slate-700 hover:border-amber-500/50 rounded-lg text-center transition-all">
+						<span class="block text-lg mb-1">{languageChirho.flagChirho}</span>
+						<span class="text-white text-sm font-medium">{languageChirho.nativeNameChirho}</span>
+						<span class="block text-emerald-400 text-xs">66 books</span>
+					</a>
+				{/each}
 				<a href="https://global-tools.bible.systems/read-chirho" target="_blank" rel="noopener noreferrer" class="px-4 py-3 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-500/50 rounded-lg text-center transition-all">
 					<span class="block text-lg mb-1">🌍</span>
-					<span class="text-amber-400 text-sm font-medium">All 43</span>
+					<span class="text-amber-400 text-sm font-medium">All {READER_LANGUAGE_COUNT_CHIRHO}</span>
 					<span class="block text-amber-400/70 text-xs">Languages →</span>
 				</a>
 			</div>
@@ -726,7 +686,7 @@
 				working toward features that rival professional software, completely free.
 			</p>
 			<p class="text-slate-400 mb-4">
-				We're building in the open. Check our <a href="https://github.com/loveJesus/gh_chirho" class="text-amber-400 hover:underline">GitHub</a> to see progress and contribute.
+				We're building in the open. Check our <a href={SOURCE_REPO_URL_CHIRHO} class="text-amber-400 hover:underline">GitHub</a> to see progress and contribute.
 			</p>
 			<p class="text-slate-500 text-sm">
 				Part of <a href="https://stack.faith" class="text-amber-400 hover:underline">FaithStack</a> —
@@ -753,7 +713,7 @@
 						God's Word should be freely accessible to all.
 					</p>
 					<a
-						href="https://github.com/loveJesus/gh_chirho"
+						href={SOURCE_REPO_URL_CHIRHO}
 						class="inline-flex items-center gap-2 text-amber-400 hover:text-amber-300 font-medium transition-colors"
 						target="_blank"
 						rel="noopener noreferrer"
