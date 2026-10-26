@@ -22,12 +22,14 @@ const securityHeadersChirho: Record<string, string> = {
 	].join('; ')
 };
 
-// www.bible.systems reaches this Worker through a zone route (wrangler.toml); send it to the apex.
+// www.bible.systems reaches this Worker through a zone route (wrangler.toml); send it to the
+// apex over HTTPS.
 const CANONICAL_HOST_CHIRHO = 'bible.systems';
 
 export const handle: Handle = async ({ event, resolve }) => {
 	if (event.url.hostname === `www.${CANONICAL_HOST_CHIRHO}`) {
 		const canonicalUrlChirho = new URL(event.url);
+		canonicalUrlChirho.protocol = 'https:';
 		canonicalUrlChirho.hostname = CANONICAL_HOST_CHIRHO;
 		return Response.redirect(canonicalUrlChirho.href, 301);
 	}

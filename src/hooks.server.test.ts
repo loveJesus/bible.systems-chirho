@@ -21,6 +21,14 @@ describe('handle', () => {
 		expect(resolveChirho).not.toHaveBeenCalled();
 	});
 
+	it('sends plain-HTTP www requests to the HTTPS apex', async () => {
+		const { responsePromiseChirho } = runHandleChirho('http://www.bible.systems/features-fe');
+		const responseChirho = await responsePromiseChirho;
+
+		expect(responseChirho.status).toBe(301);
+		expect(responseChirho.headers.get('location')).toBe('https://bible.systems/features-fe');
+	});
+
 	it('serves the apex with security headers', async () => {
 		const { resolveChirho, responsePromiseChirho } = runHandleChirho('https://bible.systems/');
 		const responseChirho = await responsePromiseChirho;
