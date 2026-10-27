@@ -5,7 +5,8 @@
 	import { SOURCE_REPO_URL_CHIRHO } from '$lib';
 	import {
 		FEATURED_READER_LANGUAGES_CHIRHO,
-		READER_LANGUAGE_COUNT_CHIRHO
+		READER_LANGUAGE_COUNT_CHIRHO,
+		SWORD_MODULE_LANGUAGE_COUNT_CHIRHO
 	} from '$lib/data_chirho/global-tools-catalog-chirho';
 </script>
 
@@ -335,7 +336,7 @@
 							<h3 class="text-2xl font-bold text-white">SWORD Module Repository</h3>
 						</div>
 						<p class="text-slate-300 md:text-lg mb-1">Interlinear Bible modules for SWORD-compatible apps.</p>
-						<p class="text-slate-400 text-sm">16 languages with AI-assisted glosses, Strong's numbers, and morphology data. Compatible with any SWORD project reader.</p>
+						<p class="text-slate-400 text-sm">{SWORD_MODULE_LANGUAGE_COUNT_CHIRHO} languages with AI-assisted glosses, Strong's numbers, and morphology data. Compatible with any SWORD project reader.</p>
 					</div>
 					<span class="text-violet-400 font-medium group-hover:text-violet-300 flex-shrink-0">Browse Modules →</span>
 				</div>

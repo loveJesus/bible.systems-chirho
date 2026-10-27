@@ -4,7 +4,8 @@
 <script lang="ts">
 	import {
 		INTERLINEAR_PDF_COUNT_CHIRHO,
-		READER_LANGUAGE_COUNT_CHIRHO
+		READER_LANGUAGE_COUNT_CHIRHO,
+		SWORD_MODULE_LANGUAGE_COUNT_CHIRHO
 	} from '$lib/data_chirho/global-tools-catalog-chirho';
 
 	const completedFeaturesChirho = [
@@ -24,7 +25,7 @@
 		},
 		{
 			title: 'SWORD Module Repository',
-			description: 'Interlinear Bible modules for SWORD-compatible apps. 16 languages with AI-assisted glosses, Strong\'s numbers, and morphology.',
+			description: `Interlinear Bible modules for SWORD-compatible apps. ${SWORD_MODULE_LANGUAGE_COUNT_CHIRHO} languages with AI-assisted glosses, Strong's numbers, and morphology.`,
 			status: 'completed',
 			icon: '⚔️',
 			link: 'https://sword-modules-chirho.bible.systems/'
