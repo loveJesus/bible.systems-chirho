@@ -22,7 +22,7 @@ export default defineConfig({
 		// MANDATORY: Always run headless
 		headless: true,
 		// Base URL for local dev server
-		baseURL: 'http://localhost:5173',
+		baseURL: 'http://localhost:5180',
 		// Fast navigation timeout
 		navigationTimeout: 5000,
 		// No screenshots (faster)
@@ -42,7 +42,7 @@ export default defineConfig({
 	// Start dev server before tests
 	webServer: {
 		command: 'bun run dev',
-		url: 'http://localhost:5173',
+		url: 'http://localhost:5180',
 		reuseExistingServer: !process.env.CI,
 		timeout: 30000
 	}
