@@ -22,12 +22,17 @@ const securityHeadersChirho: Record<string, string> = {
 	].join('; ')
 };
 
-// www.bible.systems reaches this Worker through a zone route (wrangler.toml); send it to the
-// apex over HTTPS.
+// Pages live at https://bible.systems. www.bible.systems reaches this Worker through a zone route
+// (wrangler.toml), and the apex also answers plain HTTP; both are sent to the HTTPS apex. Static
+// files are served before this hook runs, so they are not redirected.
 const CANONICAL_HOST_CHIRHO = 'bible.systems';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	if (event.url.hostname === `www.${CANONICAL_HOST_CHIRHO}`) {
+	const hostnameChirho = event.url.hostname;
+	const isWwwChirho = hostnameChirho === `www.${CANONICAL_HOST_CHIRHO}`;
+	const isPlainHttpApexChirho =
+		hostnameChirho === CANONICAL_HOST_CHIRHO && event.url.protocol === 'http:';
+	if (isWwwChirho || isPlainHttpApexChirho) {
 		const canonicalUrlChirho = new URL(event.url);
 		canonicalUrlChirho.protocol = 'https:';
 		canonicalUrlChirho.hostname = CANONICAL_HOST_CHIRHO;

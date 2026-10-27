@@ -29,6 +29,23 @@ describe('handle', () => {
 		expect(responseChirho.headers.get('location')).toBe('https://bible.systems/features-fe');
 	});
 
+	it('sends plain-HTTP apex requests to HTTPS, keeping path and query', async () => {
+		const { resolveChirho, responsePromiseChirho } = runHandleChirho('http://bible.systems/models-chirho?tab=2');
+		const responseChirho = await responsePromiseChirho;
+
+		expect(responseChirho.status).toBe(301);
+		expect(responseChirho.headers.get('location')).toBe('https://bible.systems/models-chirho?tab=2');
+		expect(resolveChirho).not.toHaveBeenCalled();
+	});
+
+	it('leaves plain-HTTP local development alone', async () => {
+		const { resolveChirho, responsePromiseChirho } = runHandleChirho('http://localhost:5180/');
+		const responseChirho = await responsePromiseChirho;
+
+		expect(responseChirho.status).toBe(200);
+		expect(resolveChirho).toHaveBeenCalledOnce();
+	});
+
 	it('serves the apex with security headers', async () => {
 		const { resolveChirho, responsePromiseChirho } = runHandleChirho('https://bible.systems/');
 		const responseChirho = await responsePromiseChirho;

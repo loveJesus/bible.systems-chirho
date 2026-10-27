@@ -36,6 +36,9 @@ command = "bun run build"
 [dev]
 port = 5180
 local_protocol = "http"
+# The Worker sees local requests as https://bible.systems/..., as in production, so the plain-HTTP
+# redirect in src/hooks.server.ts stays out of local development.
+upstream_protocol = "https"
 
 # D1 Databases
 [[d1_databases]]
