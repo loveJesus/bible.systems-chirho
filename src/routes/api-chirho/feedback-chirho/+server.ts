@@ -4,9 +4,10 @@
 import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 import { TURNSTILE_SECRET_KEY_CHIRHO } from '$env/static/private';
+import { FEEDBACK_TYPES_CHIRHO, type FeedbackTypeChirho } from '$lib/types_chirho/feedback-chirho';
 
 interface FeedbackPayloadChirho {
-	type_chirho: 'bug' | 'feature' | 'general';
+	type_chirho: FeedbackTypeChirho;
 	message_chirho: string;
 	email_chirho?: string | null;
 	rating_chirho?: number | null;
@@ -101,7 +102,7 @@ export const POST: RequestHandler = async ({ request, platform, getClientAddress
 			);
 		}
 
-		if (!['bug', 'feature', 'general'].includes(bodyChirho.type_chirho)) {
+		if (!FEEDBACK_TYPES_CHIRHO.includes(bodyChirho.type_chirho)) {
 			return json(
 				{
 					error_chirho: {

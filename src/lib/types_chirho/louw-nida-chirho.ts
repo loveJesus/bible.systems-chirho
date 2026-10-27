@@ -366,6 +366,11 @@ export function getDomainsForStrongsChirho(
 	return entryChirho?.domainsChirho ?? [];
 }
 
+// Narrow the leading part of a Louw-Nida number (e.g. "12" from "12.1") to a known domain id
+export function isLouwNidaDomainIdChirho(domainIdChirho: string): domainIdChirho is LouwNidaDomainIdChirho {
+	return Object.hasOwn(LOUW_NIDA_DOMAINS_CHIRHO, domainIdChirho);
+}
+
 // Helper to get domain info
 export function getDomainInfoChirho(domainIdChirho: LouwNidaDomainIdChirho) {
 	return LOUW_NIDA_DOMAINS_CHIRHO[domainIdChirho];

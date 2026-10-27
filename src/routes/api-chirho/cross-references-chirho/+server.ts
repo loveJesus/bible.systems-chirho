@@ -8,7 +8,8 @@ import {
 	getReferencingVersesChirho,
 	formatReferenceChirho,
 	getCrossReferenceStatsChirho,
-	bookAbbreviationsChirho
+	bookAbbreviationsChirho,
+	type VerseCrossReferencesChirho
 } from '$lib/data_chirho/cross_references_chirho';
 
 /**
@@ -106,6 +107,6 @@ export const GET: RequestHandler = async ({ url }) => {
 				0
 			),
 			total_topics_chirho: formattedGroupsChirho.filter((gChirho) => gChirho.topic_chirho).length
-		}
+		} satisfies VerseCrossReferencesChirho
 	});
 };

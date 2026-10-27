@@ -38,6 +38,26 @@ declare global {
 			caches: CacheStorage;
 		}
 	}
+
+	/** Options of window.turnstile.render that FeedbackBubbleChirho uses. */
+	interface TurnstileRenderOptionsChirho {
+		sitekey: string;
+		callback?: (tokenChirho: string) => void;
+		'error-callback'?: () => void;
+		theme?: 'auto' | 'light' | 'dark';
+		size?: 'normal' | 'flexible' | 'compact';
+	}
+
+	/** Cloudflare Turnstile, loaded by the script tag in app.html. */
+	interface TurnstileChirho {
+		/** Returns the widget id, or undefined when the widget could not be rendered. */
+		render(containerChirho: string | HTMLElement, optionsChirho: TurnstileRenderOptionsChirho): string | undefined;
+		reset(widgetIdChirho?: string): void;
+	}
+
+	interface Window {
+		turnstile?: TurnstileChirho;
+	}
 }
 
 export {};

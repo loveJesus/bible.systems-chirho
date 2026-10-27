@@ -1,9 +1,26 @@
 <!-- For God so loved the world, that He gave His only begotten Son,
      that all who believe in Him should not perish but have everlasting life. - John 3:16 -->
 
-<script>
+<script lang="ts">
 	import { getLouwNidaForStrongsChirho } from '$lib/data_chirho/strongs-louw-nida-mapping-chirho';
-	import { LOUW_NIDA_DOMAINS_CHIRHO } from '$lib/types_chirho/louw-nida-chirho';
+	import type { AlignedBlockChirho } from '$lib/types_chirho/interlinear-chirho';
+	import { LOUW_NIDA_DOMAINS_CHIRHO, isLouwNidaDomainIdChirho } from '$lib/types_chirho/louw-nida-chirho';
+
+	/** The parts of an AlignedBlockChirho this view renders. */
+	type InterlinearViewBlockChirho = Pick<
+		AlignedBlockChirho,
+		'originalChirho' | 'strongsChirho' | 'morphologyChirho' | 'transliterationChirho'
+	> & {
+		translationsChirho: Pick<AlignedBlockChirho['translationsChirho'][number], 'languageCodeChirho' | 'wordsChirho'>[];
+	};
+
+	interface InterlinearViewPropsChirho {
+		blocksChirho: InterlinearViewBlockChirho[];
+		originalLanguageChirho?: 'greek' | 'hebrew';
+		showMorphologyChirho?: boolean;
+		showLouwNidaChirho?: boolean;
+		primaryTranslationChirho?: string;
+	}
 
 	let {
 		blocksChirho,
@@ -11,24 +28,25 @@
 		showMorphologyChirho = true,
 		showLouwNidaChirho = true,
 		primaryTranslationChirho = 'en',
-	} = $props();
+	}: InterlinearViewPropsChirho = $props();
 
-	let hoveredIndexChirho = $state(null);
+	let hoveredIndexChirho = $state<number | null>(null);
 
-	function getTranslationWordsChirho(blockChirho) {
+	function getTranslationWordsChirho(blockChirho: InterlinearViewBlockChirho): string {
 		const translationChirho = blockChirho.translationsChirho.find(
 			(tChirho) => tChirho.languageCodeChirho === primaryTranslationChirho
 		);
 		return translationChirho?.wordsChirho.join(' ') ?? '-';
 	}
 
-	function getDomainInfoChirho(domainNumberChirho) {
+	function getDomainInfoChirho(domainNumberChirho: string): string {
 		const domainIdChirho = domainNumberChirho.split('.')[0];
-		const domainChirho = LOUW_NIDA_DOMAINS_CHIRHO[domainIdChirho];
-		return domainChirho?.nameChirho ?? 'Unknown domain';
+		return isLouwNidaDomainIdChirho(domainIdChirho)
+			? LOUW_NIDA_DOMAINS_CHIRHO[domainIdChirho].nameChirho
+			: 'Unknown domain';
 	}
 
-	function getStrongsDetailsChirho(strongsChirho) {
+	function getStrongsDetailsChirho(strongsChirho: string) {
 		return getLouwNidaForStrongsChirho(strongsChirho);
 	}
 </script>

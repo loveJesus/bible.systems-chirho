@@ -28,6 +28,24 @@ export interface VerseReferenceChirho {
 	text_preview_chirho?: string;
 }
 
+/** One reference as /api-chirho/cross-references-chirho returns it. */
+export interface FormattedReferenceChirho {
+	raw_chirho: string; // e.g., "Psa.33.6"
+	formatted_chirho: string; // e.g., "Psalms 33:6"
+}
+
+/** data_chirho of a verse lookup on /api-chirho/cross-references-chirho. */
+export interface VerseCrossReferencesChirho {
+	verse_chirho: string;
+	book_chirho: string;
+	chapter_chirho: number;
+	verse_number_chirho: number;
+	cross_references_chirho: { topic_chirho: string | null; references_chirho: FormattedReferenceChirho[] }[];
+	referenced_by_chirho: FormattedReferenceChirho[];
+	total_references_chirho: number;
+	total_topics_chirho: number;
+}
+
 /**
  * Sample cross-reference data for existing Bible chapters.
  * Key format: "BookAbbrev.Chapter.Verse" (e.g., "Gen.1.1")

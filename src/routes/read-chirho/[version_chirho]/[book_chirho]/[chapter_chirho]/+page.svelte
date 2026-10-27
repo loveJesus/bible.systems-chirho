@@ -1,19 +1,25 @@
 <!-- For God so loved the world, that He gave His only begotten Son,
      that all who believe in Him should not perish but have everlasting life. — John 3:16 -->
 
-<script>
-	let { data } = $props();
+<script lang="ts">
+	import type { VerseCrossReferencesChirho } from '$lib/data_chirho/cross_references_chirho';
+	import type { PageProps } from './$types';
+
+	type VerseItemChirho = PageProps['data']['versesChirho'][number];
+	type SharePlatformChirho = 'twitter' | 'facebook' | 'email';
+
+	let { data }: PageProps = $props();
 
 	let showBookSelectorChirho = $state(false);
 	let showChapterSelectorChirho = $state(false);
-	let copiedVerseChirho = $state(null);
-	let showShareMenuChirho = $state(null);
-	let selectedVerseChirho = $state(null);
-	let crossRefsChirho = $state(null);
+	let copiedVerseChirho = $state<number | 'chapter' | null>(null);
+	let showShareMenuChirho = $state<number | null>(null);
+	let selectedVerseChirho = $state<number | null>(null);
+	let crossRefsChirho = $state<VerseCrossReferencesChirho | null>(null);
 	let loadingRefsChirho = $state(false);
 
 	// Book abbreviation mapping for cross-reference lookup
-	const bookAbbrevMapChirho = {
+	const bookAbbrevMapChirho: Record<string, string> = {
 		genesis: 'Gen',
 		exodus: 'Exo',
 		leviticus: 'Lev',
@@ -41,7 +47,7 @@
 		showBookSelectorChirho = false;
 	}
 
-	function copyVerseChirho(verseChirho) {
+	function copyVerseChirho(verseChirho: VerseItemChirho) {
 		const textChirho = `"${verseChirho.textChirho}" — ${data.bookChirho.nameChirho} ${data.chapterChirho}:${verseChirho.verseChirho} (${data.versionChirho.abbrevChirho})`;
 		navigator.clipboard.writeText(textChirho);
 		copiedVerseChirho = verseChirho.verseChirho;
@@ -49,22 +55,22 @@
 	}
 
 	function copyChapterChirho() {
-		const versesTextChirho = data.versesChirho.map(v => `${v.verseChirho}. ${v.textChirho}`).join('\n');
+		const versesTextChirho = data.versesChirho.map((vChirho) => `${vChirho.verseChirho}. ${vChirho.textChirho}`).join('\n');
 		const textChirho = `${data.bookChirho.nameChirho} ${data.chapterChirho} (${data.versionChirho.abbrevChirho})\n\n${versesTextChirho}`;
 		navigator.clipboard.writeText(textChirho);
 		copiedVerseChirho = 'chapter';
 		setTimeout(() => copiedVerseChirho = null, 2000);
 	}
 
-	function toggleShareMenuChirho(verseNumChirho) {
+	function toggleShareMenuChirho(verseNumChirho: number) {
 		showShareMenuChirho = showShareMenuChirho === verseNumChirho ? null : verseNumChirho;
 	}
 
-	function shareVerseChirho(verseChirho, platformChirho) {
+	function shareVerseChirho(verseChirho: VerseItemChirho, platformChirho: SharePlatformChirho) {
 		const textChirho = `"${verseChirho.textChirho}" — ${data.bookChirho.nameChirho} ${data.chapterChirho}:${verseChirho.verseChirho}`;
 		const urlChirho = `https://bible.systems/read-chirho/${data.versionChirho.idChirho}/${data.bookChirho.idChirho}/${data.chapterChirho}#v${verseChirho.verseChirho}`;
 
-		const shareUrlsChirho = {
+		const shareUrlsChirho: Record<SharePlatformChirho, string> = {
 			twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(textChirho)}&url=${encodeURIComponent(urlChirho)}`,
 			facebook: `https://www.facebook.com/sharer/sharer.php?quote=${encodeURIComponent(textChirho)}&u=${encodeURIComponent(urlChirho)}`,
 			email: `mailto:?subject=${encodeURIComponent(`${data.bookChirho.nameChirho} ${data.chapterChirho}:${verseChirho.verseChirho}`)}&body=${encodeURIComponent(textChirho + '\n\n' + urlChirho)}`
@@ -74,7 +80,7 @@
 		showShareMenuChirho = null;
 	}
 
-	async function toggleCrossRefsChirho(verseNumChirho) {
+	async function toggleCrossRefsChirho(verseNumChirho: number) {
 		if (selectedVerseChirho === verseNumChirho) {
 			selectedVerseChirho = null;
 			crossRefsChirho = null;
@@ -102,20 +108,23 @@
 	}
 
 	// Close menus when clicking outside
-	function handleClickOutsideChirho(eventChirho) {
-		if (!eventChirho.target.closest('.share-menu-chirho') && !eventChirho.target.closest('.share-btn-chirho')) {
+	function handleClickOutsideChirho(eventChirho: MouseEvent) {
+		const targetChirho = eventChirho.target;
+		if (!(targetChirho instanceof Element)) return;
+		if (!targetChirho.closest('.share-menu-chirho') && !targetChirho.closest('.share-btn-chirho')) {
 			showShareMenuChirho = null;
 		}
-		if (!eventChirho.target.closest('.selector-chirho')) {
+		if (!targetChirho.closest('.selector-chirho')) {
 			showBookSelectorChirho = false;
 			showChapterSelectorChirho = false;
 		}
 	}
 
 	// Keyboard navigation
-	function handleKeydownChirho(eventChirho) {
+	function handleKeydownChirho(eventChirho: KeyboardEvent) {
 		// Don't navigate if typing in an input
-		if (eventChirho.target.tagName === 'INPUT' || eventChirho.target.tagName === 'TEXTAREA') return;
+		const targetChirho = eventChirho.target;
+		if (targetChirho instanceof HTMLElement && (targetChirho.tagName === 'INPUT' || targetChirho.tagName === 'TEXTAREA')) return;
 
 		if (eventChirho.key === 'ArrowLeft' && data.navigationChirho.prevChapterChirho) {
 			window.location.href = `/read-chirho/${data.versionChirho.idChirho}/${data.bookChirho.idChirho}/${data.navigationChirho.prevChapterChirho}`;

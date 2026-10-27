@@ -1,11 +1,11 @@
 <!-- For God so loved the world, that He gave His only begotten Son,
      that all who believe in Him should not perish but have everlasting life. - John 3:16 -->
 
-<script>
-	import { onMount } from 'svelte';
+<script lang="ts">
+	import type { FeedbackTypeChirho } from '$lib/types_chirho/feedback-chirho';
 
 	let isOpenChirho = $state(false);
-	let feedbackTypeChirho = $state('general');
+	let feedbackTypeChirho = $state<FeedbackTypeChirho>('general');
 	let messageChirho = $state('');
 	let emailChirho = $state('');
 	let ratingChirho = $state(0);
@@ -13,7 +13,7 @@
 	let submittedChirho = $state(false);
 	let errorChirho = $state('');
 	let turnstileTokenChirho = $state('');
-	let turnstileWidgetIdChirho = $state(null);
+	let turnstileWidgetIdChirho = $state<string | null>(null);
 
 	// Turnstile site key (public)
 	// Test key that always passes - replace with production key from Cloudflare Dashboard
@@ -47,15 +47,15 @@
 			if (containerChirho && !turnstileWidgetIdChirho) {
 				turnstileWidgetIdChirho = window.turnstile.render('#turnstile-container-chirho', {
 					sitekey: TURNSTILE_SITE_KEY_CHIRHO,
-					callback: function(tokenChirho) {
+					callback: (tokenChirho) => {
 						turnstileTokenChirho = tokenChirho;
 					},
-					'error-callback': function() {
+					'error-callback': () => {
 						errorChirho = 'Verification failed. Please try again.';
 					},
 					theme: 'dark',
 					size: 'flexible'
-				});
+				}) ?? null;
 			}
 		}
 	}
@@ -67,16 +67,16 @@
 		}
 	});
 
-	function setFeedbackTypeChirho(typeChirho) {
+	function setFeedbackTypeChirho(typeChirho: FeedbackTypeChirho) {
 		feedbackTypeChirho = typeChirho;
 	}
 
-	function setRatingChirho(valueChirho) {
+	function setRatingChirho(valueChirho: number) {
 		ratingChirho = valueChirho;
 	}
 
-	async function submitFeedbackChirho(e) {
-		e.preventDefault();
+	async function submitFeedbackChirho(eventChirho: SubmitEvent) {
+		eventChirho.preventDefault();
 		if (!messageChirho.trim()) {
 			errorChirho = 'Please enter your feedback';
 			return;

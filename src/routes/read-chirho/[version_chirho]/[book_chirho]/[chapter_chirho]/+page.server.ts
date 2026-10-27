@@ -2,7 +2,6 @@
 // that all who believe in Him should not perish but have everlasting life. — John 3:16
 
 import { error } from '@sveltejs/kit';
-import type { ServerLoad } from '@sveltejs/kit';
 import {
 	getBookMetadataChirho,
 	getAllBooksChirho,
@@ -11,13 +10,14 @@ import {
 	getBibleDbChirho
 } from '$lib/db_chirho/bible-queries-chirho';
 import type { EnvBindingsChirho } from '$lib/db_chirho/router-chirho';
+import type { PageServerLoad } from './$types';
 
 // Supported versions
 const VERSIONS_CHIRHO: Record<string, { nameChirho: string; abbrevChirho: string }> = {
 	kjv: { nameChirho: 'King James Version', abbrevChirho: 'KJV' }
 };
 
-export const load: ServerLoad = async ({ params, platform }) => {
+export const load: PageServerLoad = async ({ params, platform }) => {
 	const { version_chirho, book_chirho, chapter_chirho } = params;
 	const versionIdChirho = (version_chirho || 'kjv').toLowerCase();
 	const chapterNumChirho = parseInt(chapter_chirho || '1', 10);
