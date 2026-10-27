@@ -9,10 +9,6 @@ const config = {
 	preprocess: vitePreprocess(),
 	kit: {
 		adapter: adapter({
-			routes: {
-				include: ['/*'],
-				exclude: ['<build>', '<files>']
-			},
 			platformProxy: {
 				configPath: 'wrangler.toml',
 				persist: { path: '.wrangler/state/v3' }

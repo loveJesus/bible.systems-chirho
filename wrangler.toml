@@ -18,8 +18,10 @@ routes = [
 workers_dev = false
 preview_urls = false
 
-# Static assets configuration
+# Static assets: the client build. @sveltejs/adapter-cloudflare writes main (_worker.js) here and an
+# .assetsignore that keeps it from being served; wrangler bundles main at deploy.
 [assets]
+binding = "ASSETS_CHIRHO"
 directory = ".svelte-kit/cloudflare"
 
 [vars]
